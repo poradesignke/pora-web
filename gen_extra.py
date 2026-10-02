@@ -320,8 +320,8 @@ open(OUT + '/llms.txt', 'w').write(llms)
 faq_en = faq_pairs(open(OUT + '/en/index.html').read(), 'en')
 faq_sk = faq_pairs(open(OUT + '/index.html').read(), 'sk')
 full = llms.replace('## Optional', '## Projekty (slovensky)\n' + proj_lines_sk + '\n\n## FAQ (English)\n' +
-                    '\n'.join(f"### {html.unescape(q)}\n{html.unescape(a)}\n" for q, a in faq_en) + '\n## Časté otázky (slovensky)\n' +
-                    '\n'.join(f"### {html.unescape(q)}\n{html.unescape(a)}\n" for q, a in faq_sk) + '\n## Optional')
+                    '\n'.join(f"### {html.unescape(q)}\n{html.unescape(re.sub('<[^>]+>', '', a))}\n" for q, a in faq_en) + '\n## Časté otázky (slovensky)\n' +
+                    '\n'.join(f"### {html.unescape(q)}\n{html.unescape(re.sub('<[^>]+>', '', a))}\n" for q, a in faq_sk) + '\n## Optional')
 open(OUT + '/llms-full.txt', 'w').write(full)
 
 # ---------- IndexNow key (Bing, Seznam, Yandex…) ----------
