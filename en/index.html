@@ -126,9 +126,11 @@ body.menu-open .burger span:nth-child(3){transform:translateY(-7px) rotate(-45de
 .hero .cx.b{--c:var(--orange);right:30%;top:-90px;width:180px;height:180px;animation:drift 18s ease-in-out infinite reverse}
 .hero .cx.c{--c:var(--lime);left:50%;bottom:-110px;width:140px;height:140px;opacity:.55;animation:drift 11s ease-in-out infinite}
 @keyframes drift{0%,100%{transform:translate(0,0) rotate(0)}50%{transform:translate(30px,-40px) rotate(25deg)}}
-.hero .grid{position:relative;z-index:1;display:grid;grid-template-columns:1.25fr .75fr;gap:40px;align-items:end;width:100%}
+.hero .grid{position:relative;z-index:1;display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,.6fr);gap:40px;align-items:end;width:100%}
+.hero .grid>div:first-child{container-type:inline-size;min-width:0}
 .hero h1{font-size:clamp(44px,11.5vw,184px);line-height:.86}
-.hero h1 .l{display:block;overflow:hidden;white-space:nowrap;padding:.06em .3em .06em 0;margin:-.06em -.3em -.06em 0}
+@supports (font-size:1cqw){.hero h1{font-size:min(clamp(44px,11.5vw,184px),18cqw)}}
+.hero h1 .l{display:block;overflow:hidden;padding:.06em .3em .06em 0;margin:-.06em -.3em -.06em 0}
 .hero h1.done .l{overflow:visible}
 .hero h1 .l span{display:inline-block;transform:translateY(110%);transition:transform 1.1s cubic-bezier(.16,1,.3,1)}
 .hero h1 .l:nth-child(2) span{transition-delay:.12s}.hero h1 .l:nth-child(3) span{transition-delay:.24s}
@@ -140,6 +142,7 @@ body.menu-open .burger span:nth-child(3){transform:translateY(-7px) rotate(-45de
 @keyframes neonb{0%,100%{opacity:.5;filter:blur(.2em)}50%{opacity:.8;filter:blur(.3em)}}
 @keyframes neon{0%,100%{text-shadow:0 0 1px #fff,0 0 2px #fff,0 0 10px #D1FF05,0 0 22px #D1FF05,0 0 48px rgba(209,255,5,.75),0 0 90px rgba(209,255,5,.45)}50%{text-shadow:0 0 1px #fff,0 0 3px #fff,0 0 14px #D1FF05,0 0 30px #D1FF05,0 0 64px rgba(209,255,5,.9),0 0 120px rgba(209,255,5,.55)}92%{text-shadow:0 0 1px #fff,0 0 6px #D1FF05,0 0 14px rgba(209,255,5,.5)}}
 .hero h1 .dot{color:var(--coral)}
+.hero h1 .l:last-child span{white-space:nowrap}
 .hero .sub{display:flex;gap:28px;align-items:flex-end;flex-wrap:wrap;margin-top:34px}
 .hero .sub p{margin:0;max-width:440px;font-size:19px;color:#DDDAE0;text-shadow:0 1px 14px rgba(14,14,16,.9),0 0 2px rgba(14,14,16,.9)}
 .hero .mwrap{position:relative;justify-self:end;width:min(100%,380px);z-index:3}
@@ -415,9 +418,6 @@ footer .bot{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;m
   .hero h1{font-size:clamp(44px,8.6vw,96px)}
   .hero .sub p{font-size:17px}
   .ppl{grid-template-columns:repeat(3,minmax(0,1fr))}
-}
-@media (min-width:901px) and (max-width:1200px){
-  .hero h1{font-size:clamp(44px,9.6vw,184px)}
 }
 @media (max-width:900px){
   .badge{width:96px;height:96px}.badge b{font-size:24px}
