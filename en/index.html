@@ -664,9 +664,10 @@ body.chat-open .fab{display:none}
           <div><label for="f-budget" data-t="l_budget">Orientačný rozpočet</label><select class="field" id="f-budget" name="budget" data-t="o_budget"><option>50 – 100 000 €</option><option>100 – 150 000 €</option><option>150 – 200 000 €</option><option>nad 200 000 €</option><option>ešte neviem</option></select></div>
         </div>
         <div><label for="f-msg" data-t="l_msg">O čo ide</label><textarea class="field" id="f-msg" name="msg" placeholder="Lokalita, výmera, termín, čo vás trápi…" data-tp="ph_msg"></textarea></div>
+        <input type="text" name="_honey" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;opacity:0" aria-hidden="true">
         <label class="consent"><input type="checkbox" id="f-gdpr" name="gdpr" required><span data-t="consent">Súhlasím so spracovaním osobných údajov na účel vybavenia môjho dopytu podľa <a href="#gdpr" data-doc="gdpr">zásad ochrany osobných údajov</a>.</span></label>
         <div style="display:flex;gap:14px;align-items:center;flex-wrap:wrap"><button type="submit" class="btn lime" data-t="send">Odoslať dopyt →</button><span style="font-size:13px;color:var(--muted)" data-t="send_n">Ozveme sa do 2 pracovných dní.</span></div>
-        <div class="ok" id="ok" data-t="ok">Ďakujeme, správu máme. Text dopytu je skopírovaný v schránke. Ak sa chcete poistiť, pošlite ho aj na <b>info@pora.sk</b>. Vaše údaje použijeme len na vybavenie dopytu.</div>
+        <div class="ok" id="ok" data-t="ok">Ďakujeme, dopyt máme. Ozveme sa do 2 pracovných dní. Ak by ste nás chceli zastihnúť skôr, napíšte na <b>info@pora.sk</b>. Vaše údaje použijeme len na vybavenie dopytu.</div>
       </form>
       <div class="cinfo">
         <div><div class="lbl">E-mail</div><div class="big"><span>info@pora.sk</span><button class="copy" data-copy="info@pora.sk" data-t="copy">Kopírovať</button></div></div>
@@ -732,7 +733,7 @@ body.chat-open .fab{display:none}
     <h3>3. Automatizovaný asistent (chat)</h3>
     <p>Chat na tomto webe odpovedá automaticky na základe informácií zverejnených na stránke. Správy, ktoré do chatu napíšete, sa spracúvajú na účel odpovede a nie sú používané na profilovanie ani na rozhodovanie s právnymi účinkami. Do chatu prosím nezadávajte citlivé údaje (napr. údaje o zdraví) ani čísla dokladov. Ak chcete konkrétnu ponuku, použite kontaktný formulár.</p>
     <h3>4. Komu údaje poskytujeme</h3>
-    <p>Údaje sprístupňujeme len sprostredkovateľom, ktorí ich spracúvajú pre nás a podľa našich pokynov: poskytovateľ webhostingu a webového systému (Wix.com Ltd.), poskytovateľ e-mailu a cloudového úložiska (Google Ireland Ltd.), poskytovateľ technológie automatizovaného asistenta, účtovná kancelária a v rozsahu konkrétnej zákazky remeselníci a dodávatelia (iba kontakt a adresa realizácie). Pri niektorých poskytovateľoch môže dochádzať k prenosu do USA; prebieha na základe rozhodnutia o primeranosti (EU-US Data Privacy Framework) alebo štandardných zmluvných doložiek. Orgánom verejnej moci údaje poskytneme len, ak nám to ukladá zákon.</p>
+    <p>Údaje sprístupňujeme len sprostredkovateľom, ktorí ich spracúvajú pre nás a podľa našich pokynov: poskytovateľ webhostingu (GitHub, Inc. – GitHub Pages), poskytovateľ doručovania správ z kontaktného formulára (FormSubmit), poskytovateľ e-mailu a cloudového úložiska (Google Ireland Ltd.), poskytovateľ technológie automatizovaného asistenta, účtovná kancelária a v rozsahu konkrétnej zákazky remeselníci a dodávatelia (iba kontakt a adresa realizácie). Pri niektorých poskytovateľoch môže dochádzať k prenosu do USA; prebieha na základe rozhodnutia o primeranosti (EU-US Data Privacy Framework) alebo štandardných zmluvných doložiek. Orgánom verejnej moci údaje poskytneme len, ak nám to ukladá zákon.</p>
     <h3>5. Sociálne siete</h3>
     <p>Na Instagrame (@pora_atelier) a Facebooku (poradizajn) vystupujeme ako spoločný prevádzkovateľ so spoločnosťou Meta Platforms Ireland Ltd. v rozsahu štatistík stránky. Informácie o spracúvaní zo strany Meta nájdete v jej zásadách ochrany súkromia.</p>
     <h3>6. Vaše práva</h3>
@@ -768,7 +769,7 @@ body.chat-open .fab{display:none}
     <h3>3. Automated assistant (chat)</h3>
     <p>The chat on this site answers automatically based on information published here. Messages are processed only to generate a reply and are not used for profiling or decisions with legal effects. Please do not enter sensitive data (e.g. health data) or ID numbers. For a quote, use the contact form.</p>
     <h3>4. Recipients</h3>
-    <p>Data is shared only with processors acting on our instructions: web hosting and site platform (Wix.com Ltd.), e-mail and cloud storage (Google Ireland Ltd.), the provider of the automated assistant technology, our accountant and, within a specific project, craftsmen and suppliers (contact and site address only). Some providers may transfer data to the USA under an adequacy decision (EU-US Data Privacy Framework) or standard contractual clauses. Public authorities receive data only where the law requires it.</p>
+    <p>Data is shared only with processors acting on our instructions: web hosting and site platform (GitHub, Inc. – GitHub Pages), the contact-form delivery provider (FormSubmit), e-mail and cloud storage (Google Ireland Ltd.), the provider of the automated assistant technology, our accountant and, within a specific project, craftsmen and suppliers (contact and site address only). Some providers may transfer data to the USA under an adequacy decision (EU-US Data Privacy Framework) or standard contractual clauses. Public authorities receive data only where the law requires it.</p>
     <h3>5. Social media</h3>
     <p>On Instagram (@pora_atelier) and Facebook (poradizajn) we act as joint controller with Meta Platforms Ireland Ltd. for page insights. See Meta's privacy policy for its processing.</p>
     <h3>6. Your rights</h3>
@@ -922,9 +923,12 @@ document.addEventListener('pointerover',e=>{cur_.classList.toggle('big',!!e.targ
 
 /* form + copy */
 $('#form').addEventListener('submit',e=>{e.preventDefault();const f=e.target;if(!f.name.value||!f.email.value.includes('@')||!f.gdpr.checked){f.name.reportValidity();f.email.reportValidity();f.gdpr.reportValidity();return;}
- const txt=`Dopyt z pora.sk\nMeno: ${f.name.value}\nE-mail: ${f.email.value}\nTyp: ${f.type.value}\nRozpočet: ${f.budget.value}\n\n${f.msg.value}`;
- try{navigator.clipboard.writeText(txt).catch(()=>{});}catch(_){}
- f.classList.add('sent');$('#ok').scrollIntoView({behavior:'smooth',block:'nearest'});});
+ if(f._honey&&f._honey.value)return;const btn=f.querySelector('button[type=submit]');if(btn.disabled)return;const lab=btn.textContent;btn.disabled=true;btn.textContent=(window.__LANG||localStorage.getItem('pora_lang'))==='en'?'Sending…':'Odosielam…';
+ const sub='Dopyt z pora.sk – '+f.name.value,body=`Meno: ${f.name.value}\nE-mail: ${f.email.value}\nTyp: ${f.type.value}\nRozpočet: ${f.budget.value}\n\n${f.msg.value}`;
+ const done=()=>{btn.disabled=false;btn.textContent=lab;f.classList.add('sent');$('#ok').scrollIntoView({behavior:'smooth',block:'nearest'});};
+ const fb=()=>{try{navigator.clipboard.writeText(body).catch(()=>{});}catch(_){}location.href='mailto:info@pora.sk?subject='+encodeURIComponent(sub)+'&body='+encodeURIComponent(body);done();};
+ fetch('https://formsubmit.co/ajax/info@pora.sk',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify({name:f.name.value,email:f.email.value,typ:f.type.value,rozpocet:f.budget.value,sprava:f.msg.value,_subject:sub,_replyto:f.email.value,_template:'table',_captcha:'false'})})
+  .then(r=>r.json()).then(j=>{if(j&&(j.success===true||j.success==='true'))done();else fb();}).catch(fb);});
 $$('.copy').forEach(b=>b.addEventListener('click',()=>{const v=b.dataset.copy;const done=()=>{b.textContent='Skopírované';setTimeout(()=>b.textContent='Kopírovať',1600);};const sel=()=>{const r=document.createRange();r.selectNodeContents(b.previousElementSibling);const s=getSelection();s.removeAllRanges();s.addRange(r);};try{navigator.clipboard.writeText(v).then(done,sel);}catch(_){sel();}}));
 
 /* reveal */
@@ -1076,7 +1080,7 @@ const EN={
  o_budget:'<option>€50 – 100k</option><option>€100 – 150k</option><option>€150 – 200k</option><option>over €200k</option><option>not sure yet</option>',
  consent:'I agree to the processing of my personal data for the purpose of handling my enquiry as described in the <a href="#gdpr" data-doc="gdpr">privacy notice</a>.',
  send:'Send enquiry →',send_n:'We reply within 2 business days.',
- ok:'Thank you, we have your message. The text is copied to your clipboard – to be safe, send it to <b>info@pora.sk</b> too. Your data is used only to handle this enquiry.',
+ ok:'Thank you, we have your enquiry. We will get back to you within 2 working days. Need us sooner? Write to <b>info@pora.sk</b>. Your data is used only to handle this enquiry.',
  copy:'Copy',l_tel:'Phone',l_studio:'Studio',studio_sub:'DUETT 1 building · 040 01 Košice · Slovakia (EU)',
  f_bill:'Billing details',f_legal:'Legal',f_gdpr:'Privacy notice',f_reg:'Company ID 53834691 · registered in Košice, Slovakia',f_follow:'Follow us',f_photo:'Photo: Vladis Photography',
  viz:'Visualisation',ov_cta:'I want something like this →',cta_card:'Your project<br>could be<br><i>next</i> →',
