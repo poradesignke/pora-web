@@ -1,0 +1,530 @@
+{
+ "P": [
+  {
+   "key": "HAVANSKA",
+   "code": "PROJEKT 01",
+   "cat": "byt",
+   "type": "Byt",
+   "year": "2025",
+   "viz": false,
+   "gal": [
+    "/img/HAVANSKA_1.jpg",
+    "/img/HAVANSKA_2.jpg",
+    "/img/HAVANSKA_3.jpg",
+    "/img/HAVANSKA_4.jpg",
+    "/img/HAVANSKA_5.jpg",
+    "/img/HAVANSKA_6.jpg",
+    "/img/HAVANSKA_7.jpg",
+    "/img/HAVANSKA_8.jpg"
+   ],
+   "img": "/img/HAVANSKA_1.jpg",
+   "video": "/vid/havanska.mp4",
+   "desc": "Teplé svetlo, mramor, mosadz a neón „Hi beauties“. Súkromný byt, Košice."
+  },
+  {
+   "key": "TATRANSKA",
+   "code": "PROJEKT 02",
+   "cat": "byt",
+   "type": "Byt",
+   "year": "2025",
+   "viz": false,
+   "gal": [
+    "/img/TATRANSKA_1.jpg",
+    "/img/TATRANSKA_2.jpg",
+    "/img/TATRANSKA_3.jpg",
+    "/img/TATRANSKA_4.jpg",
+    "/img/TATRANSKA_5.jpg",
+    "/img/TATRANSKA_6.jpg",
+    "/img/TATRANSKA_7.jpg",
+    "/img/TATRANSKA_8.jpg",
+    "/img/TATRANSKA_9.jpg"
+   ],
+   "img": "/img/TATRANSKA_2.jpg",
+   "video": "/vid/tatranska.mp4",
+   "desc": "Svetlý rodinný byt. Neón „pause / danse“, sklobetón a detská izba s domčekom."
+  },
+  {
+   "key": "FREYM",
+   "code": "FREYM",
+   "cat": "biz",
+   "type": "Bistro",
+   "year": "2024",
+   "viz": false,
+   "gal": [
+    "/img/FREYM_1.jpg",
+    "/img/FREYM_2.jpg",
+    "/img/FREYM_3.jpg",
+    "/img/FREYM_4.jpg",
+    "/img/FREYM_5.jpg",
+    "/img/FREYM_6.jpg",
+    "/img/FREYM_7.jpg",
+    "/img/FREYM_8.jpg"
+   ],
+   "img": "/img/FREYM_1.jpg",
+   "video": null,
+   "desc": "Bistro s neónmi, graffiti, zeleňou a odvážnou farebnosťou."
+  },
+  {
+   "key": "GALDI",
+   "code": "GALDI CAFÉ",
+   "cat": "biz",
+   "type": "Kaviareň",
+   "year": "2025",
+   "viz": false,
+   "gal": [
+    "/img/GALDI_1.jpg",
+    "/img/GALDI_2.jpg",
+    "/img/GALDI_3.jpg",
+    "/img/GALDI_4.jpg",
+    "/img/GALDI_5.jpg",
+    "/img/GALDI_6.jpg",
+    "/img/GALDI_7.jpg"
+   ],
+   "img": "/img/GALDI_4.jpg",
+   "video": null,
+   "desc": "Kaviareň. Fialový strop s neónovou krivkou, vzorované steny a oranžové pufy."
+  },
+  {
+   "key": "GREAT",
+   "code": "THE GREAT",
+   "cat": "biz",
+   "type": "Nechtové štúdio",
+   "year": "2025",
+   "viz": false,
+   "gal": [
+    "/img/GREAT_0.jpg",
+    "/img/GREAT_1.jpg",
+    "/img/GREAT_2.jpg",
+    "/img/GREAT_3.jpg",
+    "/img/GREAT_4.jpg",
+    "/img/GREAT_5.jpg",
+    "/img/GREAT_6.jpg",
+    "/img/GREAT_7.jpg"
+   ],
+   "img": "/img/GREAT_7.jpg",
+   "video": null,
+   "desc": "Nechtové štúdio v krémovej a zlatej. Oblé pulty a jemné svetlo."
+  },
+  {
+   "key": "CROWN",
+   "code": "CROWN HOUSE",
+   "cat": "biz",
+   "type": "Reštaurácia a bar",
+   "year": "2024",
+   "viz": false,
+   "gal": [
+    "/img/CROWN_0.jpg",
+    "/img/CROWN_1.jpg",
+    "/img/CROWN_5.jpg",
+    "/img/CROWN_6.jpg",
+    "/img/CROWN_7.jpg"
+   ],
+   "img": "/img/CROWN_0.jpg",
+   "video": null,
+   "desc": "Reštaurácia a bar. Drevo, zeleň, ornamentálna dlažba a korunový neón."
+  },
+  {
+   "key": "CARSKEHO",
+   "code": "PROJEKT 03",
+   "cat": "byt",
+   "type": "Byt",
+   "year": "2023",
+   "viz": false,
+   "gal": [
+    "/img/CARSKEHO_1.jpg",
+    "/img/CARSKEHO_2.jpg",
+    "/img/CARSKEHO_3.jpg",
+    "/img/CARSKEHO_4.jpg",
+    "/img/CARSKEHO_5.jpg",
+    "/img/CARSKEHO_6.jpg",
+    "/img/CARSKEHO_7.jpg",
+    "/img/CARSKEHO_8.jpg"
+   ],
+   "img": "/img/CARSKEHO_1.jpg",
+   "video": null,
+   "desc": "Byt s dichroickým farebným sklom, typografickou grafikou a tmavou skriňou."
+  },
+  {
+   "key": "SCHRHR",
+   "code": "PROJEKT 04",
+   "cat": "byt",
+   "type": "Byt",
+   "year": "2025",
+   "viz": false,
+   "gal": [
+    "/img/SCHRHR_1.jpg",
+    "/img/SCHRHR_2.jpg",
+    "/img/SCHRHR_3.jpg",
+    "/img/SCHRHR_4.jpg",
+    "/img/SCHRHR_5.jpg",
+    "/img/SCHRHR_6.jpg"
+   ],
+   "img": "/img/SCHRHR_3.jpg",
+   "video": null,
+   "desc": "Svetlý byt s terrazzo podlahou, sklenenou priečkou a oválnym zrkadlom."
+  },
+  {
+   "key": "LAB",
+   "code": "L.A.B.",
+   "cat": "biz",
+   "type": "Burger bar",
+   "year": "2025",
+   "viz": true,
+   "gal": [
+    "/img/LAB_0.jpg",
+    "/img/LAB_1.jpg",
+    "/img/LAB_2.jpg",
+    "/img/LAB_3.jpg",
+    "/img/LAB_4.jpg",
+    "/img/LAB_5.jpg",
+    "/img/LAB_6.jpg",
+    "/img/LAB_7.jpg"
+   ],
+   "img": "/img/LAB_0.jpg",
+   "video": null,
+   "desc": "Burger bar. Tmavý priestor, červené svetlo a pouličné umenie."
+  },
+  {
+   "key": "HRHRV",
+   "code": "PROJEKT 05",
+   "cat": "byt",
+   "type": "Byt",
+   "year": "2023",
+   "viz": false,
+   "gal": [
+    "/img/HRHRV_1.jpg",
+    "/img/HRHRV_2.jpg",
+    "/img/HRHRV_3.jpg",
+    "/img/HRHRV_4.jpg",
+    "/img/HRHRV_5.jpg",
+    "/img/HRHRV_6.jpg"
+   ],
+   "img": "/img/HRHRV_4.jpg",
+   "video": null,
+   "desc": "Byt s kamennou stenou, tmavým drevom a podsvietenou kuchyňou."
+  },
+  {
+   "key": "STEAM",
+   "code": "STEAM FACTORY",
+   "cat": "biz",
+   "type": "Reštaurácia",
+   "year": "2026",
+   "viz": true,
+   "gal": [
+    "/img/STEAM_0.jpg",
+    "/img/STEAM_1.jpg",
+    "/img/STEAM_2.jpg",
+    "/img/STEAM_3.jpg",
+    "/img/STEAM_4.jpg"
+   ],
+   "img": "/img/STEAM_0.jpg",
+   "video": null,
+   "desc": "Reštaurácia v industriálnom duchu s neónovým nápisom."
+  },
+  {
+   "key": "NVK",
+   "code": "PROJEKT 06",
+   "cat": "byt",
+   "type": "Byt",
+   "year": "2023",
+   "viz": false,
+   "gal": [
+    "/img/NVK_1.jpg",
+    "/img/NVK_2.jpg",
+    "/img/NVK_3.jpg",
+    "/img/NVK_4.jpg",
+    "/img/NVK_5.jpg",
+    "/img/NVK_6.jpg"
+   ],
+   "img": "/img/NVK_1.jpg",
+   "video": null,
+   "desc": "Biely byt s fialovým podsvietením, lesklou podlahou a výhľadom na mesto."
+  },
+  {
+   "key": "SMILE",
+   "code": "SMILE DESIGN",
+   "cat": "biz",
+   "type": "Zubná ambulancia",
+   "year": "2026",
+   "viz": true,
+   "gal": [
+    "/img/SMILE_0.jpg",
+    "/img/SMILE_1.jpg",
+    "/img/SMILE_2.jpg",
+    "/img/SMILE_3.jpg",
+    "/img/SMILE_4.jpg"
+   ],
+   "img": "/img/SMILE_0.jpg",
+   "video": null,
+   "desc": "Zubná klinika. Svetlá, pokojná, bez nemocničného chladu."
+  },
+  {
+   "key": "PLK",
+   "code": "PROJEKT 07",
+   "cat": "byt",
+   "type": "Byt",
+   "year": "2023",
+   "viz": false,
+   "gal": [
+    "/img/PLK_1.jpg",
+    "/img/PLK_2.jpg",
+    "/img/PLK_3.jpg",
+    "/img/PLK_4.jpg",
+    "/img/PLK_5.jpg",
+    "/img/PLK_6.jpg"
+   ],
+   "img": "/img/PLK_6.jpg",
+   "video": null,
+   "desc": "Byt v tónoch hnedej a čiernej, s oválnym zrkadlom a TV stenou."
+  },
+  {
+   "key": "LETNA",
+   "code": "PROJEKT 08",
+   "cat": "byt",
+   "type": "Podkrovný byt",
+   "year": "2025",
+   "viz": false,
+   "gal": [
+    "/img/LETNA_0.jpg",
+    "/img/LETNA_1.jpg",
+    "/img/LETNA_2.jpg",
+    "/img/LETNA_3.jpg",
+    "/img/LETNA_4.jpg",
+    "/img/LETNA_5.jpg",
+    "/img/LETNA_6.jpg",
+    "/img/LETNA_7.jpg"
+   ],
+   "img": "/img/LETNA_0.jpg",
+   "video": null,
+   "desc": "Podkrovie s priznanými trámami, neónom a rastlinami."
+  },
+  {
+   "key": "NOGOVA",
+   "code": "NOGOVA",
+   "cat": "biz",
+   "type": "Cukráreň",
+   "year": "2026",
+   "viz": true,
+   "gal": [
+    "/img/NOGOVA_1.jpg",
+    "/img/NOGOVA_2.jpg",
+    "/img/NOGOVA_3.jpg"
+   ],
+   "img": "/img/NOGOVA_1.jpg",
+   "video": null,
+   "desc": "Cukráreň. Guľové svietidlá a vlnený strop."
+  },
+  {
+   "key": "HUTNICKA",
+   "code": "PROJEKT 09",
+   "cat": "byt",
+   "type": "Byt",
+   "year": "2023",
+   "viz": false,
+   "gal": [
+    "/img/HUTNICKA_1.jpg",
+    "/img/HUTNICKA_2.jpg",
+    "/img/HUTNICKA_3.jpg",
+    "/img/HUTNICKA_4.jpg",
+    "/img/HUTNICKA_5.jpg",
+    "/img/HUTNICKA_6.jpg"
+   ],
+   "img": "/img/HUTNICKA_6.jpg",
+   "video": null,
+   "desc": "Byt s teplým drevom, oranžovou pohovkou a bielou kuchyňou."
+  },
+  {
+   "key": "ADV",
+   "code": "ADVOKÁTSKA KANCELÁRIA",
+   "cat": "biz",
+   "type": "Kancelária",
+   "year": "2026",
+   "viz": true,
+   "gal": [
+    "/img/ADV_0.jpg",
+    "/img/ADV_1.jpg",
+    "/img/ADV_2.jpg"
+   ],
+   "img": "/img/ADV_0.jpg",
+   "video": null,
+   "desc": "Kancelária v podkroví s klenbou a modrým akcentom."
+  },
+  {
+   "key": "ZIZKOVA",
+   "code": "PROJEKT 10",
+   "cat": "byt",
+   "type": "Byt",
+   "year": "2024",
+   "viz": false,
+   "gal": [
+    "/img/ZIZKOVA_1.jpg",
+    "/img/ZIZKOVA_2.jpg",
+    "/img/ZIZKOVA_3.jpg",
+    "/img/ZIZKOVA_4.jpg",
+    "/img/ZIZKOVA_5.jpg",
+    "/img/ZIZKOVA_6.jpg"
+   ],
+   "img": "/img/ZIZKOVA_1.jpg",
+   "video": null,
+   "desc": "Byt so zrkadlovou stenou, terrazzo kúpeľňou a zelenými stoličkami."
+  },
+  {
+   "key": "NARODNA",
+   "code": "PROJEKT 11",
+   "cat": "byt",
+   "type": "Byt",
+   "year": "2023",
+   "viz": false,
+   "gal": [
+    "/img/NARODNA_1.jpg",
+    "/img/NARODNA_2.jpg",
+    "/img/NARODNA_3.jpg",
+    "/img/NARODNA_4.jpg",
+    "/img/NARODNA_5.jpg",
+    "/img/NARODNA_6.jpg",
+    "/img/NARODNA_7.jpg",
+    "/img/NARODNA_8.jpg"
+   ],
+   "img": "/img/NARODNA_1.jpg",
+   "video": null,
+   "desc": "Byt s perforovanou drevenou stenou, tmavou kuchyňou a oblým nábytkom."
+  },
+  {
+   "key": "CRNK",
+   "code": "PROJEKT 12",
+   "cat": "byt",
+   "type": "Byt",
+   "year": "2022",
+   "viz": false,
+   "gal": [
+    "/img/CRNK_1.jpg",
+    "/img/CRNK_2.jpg",
+    "/img/CRNK_3.jpg",
+    "/img/CRNK_4.jpg",
+    "/img/CRNK_5.jpg",
+    "/img/CRNK_6.jpg"
+   ],
+   "img": "/img/CRNK_5.jpg",
+   "video": null,
+   "desc": "Byt so zelenou pohovkou, ružovou kuchyňou a sklenenou priečkou v spálni."
+  },
+  {
+   "key": "POVAZSKA",
+   "code": "PROJEKT 13",
+   "cat": "byt",
+   "type": "Byt",
+   "year": "2023",
+   "viz": false,
+   "gal": [
+    "/img/POVAZSKA_1.jpg",
+    "/img/POVAZSKA_2.jpg",
+    "/img/POVAZSKA_3.jpg",
+    "/img/POVAZSKA_4.jpg",
+    "/img/POVAZSKA_5.jpg",
+    "/img/POVAZSKA_6.jpg"
+   ],
+   "img": "/img/POVAZSKA_2.jpg",
+   "video": null,
+   "desc": "Byt s modrou kuchyňou, zlatými úchytkami a zelenou pohovkou."
+  },
+  {
+   "key": "TAJOVSKEHO",
+   "code": "PROJEKT 14",
+   "cat": "byt",
+   "type": "Byt",
+   "year": "2023",
+   "viz": false,
+   "gal": [
+    "/img/TAJOVSKEHO_1.jpg",
+    "/img/TAJOVSKEHO_2.jpg",
+    "/img/TAJOVSKEHO_3.jpg",
+    "/img/TAJOVSKEHO_4.jpg",
+    "/img/TAJOVSKEHO_5.jpg",
+    "/img/TAJOVSKEHO_6.jpg"
+   ],
+   "img": "/img/TAJOVSKEHO_2.jpg",
+   "video": null,
+   "desc": "Svetlý byt so sivou kuchyňou, sklenenou priečkou a oblými zrkadlami."
+  },
+  {
+   "key": "STUDENTSKA",
+   "code": "PROJEKT 15",
+   "cat": "byt",
+   "type": "Byt",
+   "year": "2023",
+   "viz": false,
+   "gal": [
+    "/img/STUDENTSKA_1.jpg",
+    "/img/STUDENTSKA_2.jpg",
+    "/img/STUDENTSKA_3.jpg",
+    "/img/STUDENTSKA_4.jpg",
+    "/img/STUDENTSKA_5.jpg",
+    "/img/STUDENTSKA_6.jpg"
+   ],
+   "img": "/img/STUDENTSKA_5.jpg",
+   "video": null,
+   "desc": "Byt so žltou pohovkou, grafickým kobercom a žltou vstupnou chodbou."
+  },
+  {
+   "key": "VODNA",
+   "code": "PROJEKT 16",
+   "cat": "byt",
+   "type": "Byt",
+   "year": "2023",
+   "viz": false,
+   "gal": [
+    "/img/VODNA_1.jpg",
+    "/img/VODNA_2.jpg",
+    "/img/VODNA_3.jpg",
+    "/img/VODNA_4.jpg",
+    "/img/VODNA_5.jpg",
+    "/img/VODNA_6.jpg",
+    "/img/VODNA_7.jpg",
+    "/img/VODNA_8.jpg"
+   ],
+   "img": "/img/VODNA_1.jpg",
+   "video": null,
+   "desc": "Byt v meštianskom dome. Rybinová podlaha, biela pohovka a tmavý mramor v kúpeľni."
+  }
+ ],
+ "TYPE_EN": {
+  "Byt": "Apartment",
+  "Podkrovný byt": "Attic apartment",
+  "Bistro": "Bistro",
+  "Kaviareň": "Café",
+  "Nechtové štúdio": "Nail studio",
+  "Reštaurácia a bar": "Restaurant & bar",
+  "Burger bar": "Burger bar",
+  "Reštaurácia": "Restaurant",
+  "Zubná ambulancia": "Dental clinic",
+  "Cukráreň": "Patisserie",
+  "Kancelária": "Office"
+ },
+ "DESC_EN": {
+  "HAVANSKA": "Warm light, marble, brass and a \"Hi beauties\" neon. Private apartment, Košice.",
+  "TATRANSKA": "Bright family apartment. \"pause / danse\" neon, glass blocks and a kids' room with a house bed.",
+  "FREYM": "Bistro with neons, graffiti, greenery and bold colour.",
+  "GALDI": "Café. Violet ceiling with a neon curve, patterned walls and orange poufs.",
+  "GREAT": "Nail studio in cream and gold. Curved counters and soft light.",
+  "CROWN": "Restaurant and bar. Wood, greenery, patterned tiles and a crown neon.",
+  "CARSKEHO": "Apartment with dichroic coloured glass, typographic art and a dark wardrobe.",
+  "SCHRHR": "Bright apartment with terrazzo floor, glass partition and an oval mirror.",
+  "LAB": "Burger bar. Dark space, red light and street art.",
+  "HRHRV": "Apartment with a stone wall, dark wood and a backlit kitchen.",
+  "STEAM": "Industrial-style restaurant with a neon sign.",
+  "NVK": "White apartment with violet backlighting, glossy floor and a city view.",
+  "SMILE": "Dental clinic. Bright, calm, without the hospital chill.",
+  "PLK": "Apartment in browns and blacks with an oval mirror and a TV wall.",
+  "LETNA": "Attic with exposed beams, neon and plants.",
+  "NOGOVA": "Patisserie. Globe lights and a wavy ceiling.",
+  "HUTNICKA": "Apartment with warm wood, an orange sofa and a white kitchen.",
+  "ADV": "Attic office with a vault and a blue accent.",
+  "ZIZKOVA": "Apartment with a mirror wall, terrazzo bathroom and green chairs.",
+  "NARODNA": "Apartment with a perforated wood wall, dark kitchen and rounded furniture.",
+  "CRNK": "Apartment with a green sofa, pink kitchen and a glass partition in the bedroom.",
+  "POVAZSKA": "Apartment with a blue kitchen, gold handles and a green sofa.",
+  "TAJOVSKEHO": "Bright apartment with a grey kitchen, glass partition and round mirrors.",
+  "STUDENTSKA": "Apartment with a yellow sofa, graphic rug and a yellow entrance hall.",
+  "VODNA": "Apartment in a townhouse. Herringbone floor, white sofa and dark marble bathroom."
+ }
+}
