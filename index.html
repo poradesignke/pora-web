@@ -189,7 +189,9 @@ html:not(.js) .state p.big .w{opacity:1}
 .works{position:relative;padding-top:60px}
 .works .head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;margin-bottom:34px}
 .works h2,.sec h2,.reels h2{font-size:clamp(34px,8vw,128px)}
-h2,h3,h4,.state b{overflow-wrap:anywhere;min-width:0}
+h2,h3,h4,.state b{min-width:0}
+@media (max-width:600px){h2,h3,h4,.state b{overflow-wrap:anywhere}}
+.works h2{font-size:clamp(34px,7vw,110px)}.serv .top h2{font-size:clamp(34px,5.2vw,86px)}.team .lead h2{font-size:clamp(34px,6vw,96px)}
 .works h2 i{font-style:normal;color:var(--coral)}
 @media (min-width:901px){.works .sticky{position:sticky;top:0;height:100vh;display:flex;flex-direction:column;justify-content:center;overflow:hidden}}
 .strip{position:relative;display:flex;align-items:center;gap:0;padding:70px var(--gutter) 70px;will-change:transform}
@@ -322,7 +324,8 @@ h2,h3,h4,.state b{overflow-wrap:anywhere;min-width:0}
 .step{background:var(--orange);padding:34px 28px 40px;min-height:340px;display:flex;flex-direction:column;gap:18px;transition:background .3s,color .3s}
 .step:hover{background:var(--ink);color:var(--cream)}
 .step b{font:800 64px/1 var(--display);letter-spacing:-.04em}
-.step h3{font-size:26px;text-transform:none;letter-spacing:-.01em;line-height:1.05}
+.step h3{font-size:clamp(20px,1.8vw,26px);text-transform:none;letter-spacing:-.01em;line-height:1.05;hyphens:auto}
+@media (min-width:901px) and (max-width:1200px){.steps{grid-template-columns:1fr 1fr}}
 .step p{margin:0;flex:1;opacity:.85}
 .step small{font-size:12px;letter-spacing:.14em;text-transform:uppercase;opacity:.7}
 @media (max-width:900px){.steps{grid-template-columns:1fr 1fr}}
@@ -425,6 +428,25 @@ footer .bot{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;m
   .hero .cx{opacity:.3}.hero .cx.c{opacity:.25}
   .state .row{grid-template-columns:1fr}.state .row div{border-right:0;border-bottom:1px solid var(--line);padding-right:0}
 }
+/* folds (expandable sections) */
+.folds{padding:clamp(70px,10vh,130px) 0 0}
+.fold{border-top:1px solid var(--line)}
+.fold:last-child{border-bottom:1px solid var(--line)}
+.fh{all:unset;box-sizing:border-box;display:grid;grid-template-columns:52px minmax(0,1fr) 48px;align-items:center;gap:20px;width:100%;padding:clamp(22px,3vw,38px) 0;cursor:pointer;color:inherit;transition:padding-left .4s cubic-bezier(.2,.8,.2,1)}
+.fh:focus-visible{outline:2px solid var(--lime);outline-offset:6px;border-radius:6px}
+.fh .k{font:800 13px/1 var(--display);letter-spacing:.14em;color:var(--muted)}
+.fh b{display:block;font:800 clamp(26px,5vw,74px)/1 var(--display);letter-spacing:-.03em;text-transform:uppercase;transition:color .3s}
+.fh small{display:block;margin-top:10px;font:400 15px/1.45 var(--body);color:var(--muted);max-width:620px}
+.fh .pl{position:relative;width:44px;height:44px;justify-self:end;transition:transform .55s cubic-bezier(.2,.8,.2,1);filter:drop-shadow(0 0 10px rgba(209,255,5,.6))}
+.fh .pl::before,.fh .pl::after{content:"";position:absolute;background:var(--lime);border-radius:3px}
+.fh .pl::before{inset:0 40%}.fh .pl::after{inset:40% 0}
+.fold.open .fh .pl{transform:rotate(45deg)}
+.fh:hover{padding-left:14px}.fh:hover b,.fold.open .fh b{color:var(--lime)}
+.fc{display:grid;grid-template-rows:0fr;transition:grid-template-rows .75s cubic-bezier(.2,.8,.2,1)}
+.fold.open .fc{grid-template-rows:1fr}
+.fci{overflow:hidden;min-height:0}
+.fci>.sec,.fci>.reels{padding-top:clamp(50px,7vh,90px)}.fci>.reels{padding-bottom:clamp(50px,7vh,90px)}
+@media (max-width:900px){.fh{grid-template-columns:40px minmax(0,1fr) 36px;gap:14px}.fh .pl{width:34px;height:34px}.fh small{font-size:14px}}
 /* chat bot */
 .fab{position:fixed;right:22px;bottom:calc(22px + env(safe-area-inset-bottom,0px));z-index:120;display:flex;align-items:center;gap:12px;background:var(--lime);color:var(--ink);border-radius:999px;padding:12px 18px 12px 12px;font:800 13px/1 var(--display);letter-spacing:.08em;text-transform:uppercase;box-shadow:0 0 0 0 rgba(209,255,5,.5),0 14px 40px rgba(0,0,0,.5);animation:fabglow 2.8s ease-in-out infinite;transition:transform .3s}
 .fab:hover{transform:translateY(-3px)}
@@ -575,17 +597,20 @@ body.chat-open .fab{display:none}
 <div class="prev" id="prev" aria-hidden="true"></div>
 
 <!-- REELS -->
-<section class="reels" id="reels">
-  <div class="wrap head">
-    <h2 class="rv" data-t="re_h">Zo stavby<br>na <i>Instagram</i></h2>
-    <a href="https://www.instagram.com/pora_atelier/" target="_blank" rel="noopener" class="btn ghost rv">@pora_atelier ↗</a>
-  </div>
-  <div class="rail" id="rail"></div>
-</section>
 
 <div class="mq violet" aria-hidden="true"><div class="t"><span data-t="mq2">Koncept <i>✦</i> Vizualizácie <i>✦</i> Podklady k realizácii <i>✦</i> Nábytok na mieru <i>✦</i> Autorský dozor <i>✦</i> Odovzdanie kľúčov <i>✦</i></span><span data-t="mq2">Koncept <i>✦</i> Vizualizácie <i>✦</i> Podklady k realizácii <i>✦</i> Nábytok na mieru <i>✦</i> Autorský dozor <i>✦</i> Odovzdanie kľúčov <i>✦</i></span></div></div>
 
 <!-- SERVICES -->
+
+<!-- PROCESS -->
+
+<!-- TEAM -->
+
+<!-- CROSS / MERCH -->
+<section class="folds" id="viac" aria-label="Viac o PORA">
+<div class="fold" id="fold-sluzby">
+  <div class="wrap"><button class="fh" type="button" aria-expanded="false" aria-controls="fc-sluzby"><span class="k">01</span><span class="tt"><b data-t="f_sluzby">Služby &amp; cenník</b><small data-t="f_sluzby_s">Čo pre vás urobíme, balíky a ceny bez DPH, ako prebieha spolupráca</small></span><span class="pl" aria-hidden="true"></span></button></div>
+  <div class="fc" id="fc-sluzby"><div class="fci">
 <section class="sec serv" id="sluzby">
   <div class="wrap">
     <div class="top">
@@ -600,8 +625,6 @@ body.chat-open .fab{display:none}
     </div>
   </div>
 </section>
-
-<!-- PROCESS -->
 <section class="sec proc" id="proces">
   <div class="wrap">
     <span class="eyebrow" style="color:var(--ink)" data-t="p_eye">Ako pracujeme</span>
@@ -614,8 +637,11 @@ body.chat-open .fab{display:none}
     </div>
   </div>
 </section>
-
-<!-- TEAM -->
+</div></div>
+</div>
+<div class="fold" id="fold-studio">
+  <div class="wrap"><button class="fh" type="button" aria-expanded="false" aria-controls="fc-studio"><span class="k">02</span><span class="tt"><b data-t="f_studio">Ľudia za PORA</b><small data-t="f_studio_s">Kto navrhuje, kreslí a dohliada na vaše interiéry</small></span><span class="pl" aria-hidden="true"></span></button></div>
+  <div class="fc" id="fc-studio"><div class="fci">
 <section class="sec team" id="studio">
   <div class="wrap">
     <div class="lead">
@@ -629,8 +655,21 @@ body.chat-open .fab{display:none}
     </div>
   </div>
 </section>
-
-<!-- CROSS / MERCH -->
+</div></div>
+</div>
+<div class="fold" id="fold-reels">
+  <div class="wrap"><button class="fh" type="button" aria-expanded="false" aria-controls="fc-reels"><span class="k">03</span><span class="tt"><b data-t="f_reels">Reels zo stavby</b><small data-t="f_reels_s">Krátke videá z realizácií – zo stavby rovno na Instagram</small></span><span class="pl" aria-hidden="true"></span></button></div>
+  <div class="fc" id="fc-reels"><div class="fci">
+<section class="reels" id="reels">
+  <div class="wrap head">
+    <h2 class="rv" data-t="re_h">Zo stavby<br>na <i>Instagram</i></h2>
+    <a href="https://www.instagram.com/pora_atelier/" target="_blank" rel="noopener" class="btn ghost rv">@pora_atelier ↗</a>
+  </div>
+  <div class="rail" id="rail"></div>
+</section>
+</div></div>
+</div>
+</section>
 <section class="sec cross">
   <div class="wrap g">
     <div>
@@ -886,7 +925,7 @@ reels.forEach(r=>{const d=document.createElement('div');d.className='reel';d.inn
  s.addEventListener('click',e=>{e.stopPropagation();v.muted=!v.muted;s.innerHTML=v.muted?ICO_OFF:ICO_ON;s.setAttribute('aria-label',v.muted?'Zapnúť zvuk':'Vypnúť zvuk');if(!v.muted)v.play().catch(()=>{});});
  d.addEventListener('click',()=>{v.paused?v.play().catch(()=>{}):v.pause();});});
 const ig=document.createElement('a');ig.className='reel ig';ig.href='https://www.instagram.com/pora_atelier/';ig.target='_blank';ig.rel='noopener';ig.innerHTML='<div><b>Viac<br>na IG →</b><small>@pora_atelier · f***ing & cool interior & design studio</small></div>';rail.appendChild(ig);
-const vio=new IntersectionObserver(es=>es.forEach(e=>{const v=$('video',e.target);if(!v)return;if(e.isIntersecting){v.play().catch(()=>{});}else{v.pause();}}),{threshold:.4});
+const vio=new IntersectionObserver(es=>es.forEach(e=>{const v=$('video',e.target);if(!v)return;if(e.isIntersecting&&e.target.offsetHeight>0){v.play().catch(()=>{});}else{v.pause();}}),{threshold:.4});
 $$('.reel').forEach(r=>vio.observe(r));
 
 /* overlay */
@@ -960,7 +999,12 @@ addEventListener('scroll',()=>{if(!ticking){ticking=true;requestAnimationFrame(f
 const cio=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;cio.unobserve(e.target);const el=e.target,to=+el.dataset.count,t0=performance.now();(function step(t){const k=Math.min(1,(t-t0)/1400);el.textContent=Math.round(to*(1-Math.pow(1-k,3)));if(k<1)requestAnimationFrame(step);})(t0);}),{threshold:.6});
 $$('[data-count]').forEach(b=>cio.observe(b));
 /* anchors */
-$$('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{const id=a.getAttribute('href');if(id.length<2)return;const t=document.querySelector(id);if(!t)return;e.preventDefault();t.scrollIntoView({behavior:reduce?'auto':'smooth',block:'start'});}));
+/* folds */
+function setFold(f,open){f.classList.toggle('open',open);const b=f.querySelector('.fh');b.setAttribute('aria-expanded',open?'true':'false');if(open){setTimeout(()=>{$$('.rv',f).forEach(el=>el.classList.add('in'));$$('.reel',f).forEach(r=>{vio.unobserve(r);vio.observe(r);});},800);}else{$$('video',f).forEach(v=>v.pause());}}
+$$('.fold .fh').forEach(b=>b.addEventListener('click',()=>{const f=b.closest('.fold');const open=!f.classList.contains('open');setFold(f,open);if(open)setTimeout(()=>f.scrollIntoView({behavior:reduce?'auto':'smooth',block:'start'}),80);}));
+function revealTarget(t){const f=t.closest('.fold');if(f&&!f.classList.contains('open')){setFold(f,true);return true;}return false;}
+$$('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{const id=a.getAttribute('href');if(id.length<2)return;const t=document.querySelector(id);if(!t)return;e.preventDefault();const opened=revealTarget(t);const go=()=>{(t.closest('.fold')||t).scrollIntoView({behavior:reduce?'auto':'smooth',block:'start'});};if(opened)setTimeout(go,120);else go();}));
+if(location.hash&&location.hash.length>1){try{const t=document.querySelector(location.hash);if(t&&t.closest('.fold')){setFold(t.closest('.fold'),true);setTimeout(()=>t.closest('.fold').scrollIntoView({block:'start'}),900);}}catch(_){}}
 
 /* docs (gdpr, cookies) */
 function openDoc(id){const d=$('#doc-'+id);if(!d)return;d.classList.add('open');document.body.style.overflow='hidden';d.scrollTop=0;$('.x',d).focus();}
@@ -1045,7 +1089,7 @@ const EN={
  hero_eyebrow:'Interior design studio · Košice → worldwide',seo_p:'PORA is an interior design studio from Košice, Slovakia: interior design of apartments and family houses, design of cafés, bistros, restaurants, salons, clinics and offices. Photorealistic visualisations, construction documents and author\'s supervision. We work in Košice, across Slovakia and online for clients anywhere in the world.',more:'Show all projects',
  hm1:'Apartments · Houses · Hospitality · Offices · Salons',hm2:'Košice · Slovakia · online anywhere in the world',hm3:'Scroll ↓',
  hero_p:'Apartments, houses, hospitality and commercial spaces that are not just pretty. They are distinctive, bold and unforgettable. Designed in Košice and online for clients anywhere in the world.',
- hero_btn:'See our work ↓',hero_tag:'Project 01 · completed 2025',
+ hero_btn:'See our work ↓',f_sluzby:'Services &amp; pricing',f_sluzby_s:'What we do for you, packages and prices excl. VAT, how we work together',f_studio:'People behind PORA',f_studio_s:'Who designs, draws and supervises your interiors',f_reels:'Reels from the site',f_reels_s:'Short videos from our projects – straight from the building site to Instagram',hero_tag:'Project 01 · completed 2025',
  n1:'Work',n3:'Services',n4:'Process',n5:'Studio',n6:'Contact',n_cta:'Consultation →',
  mq1:'We are bold <i>✦</i> We play <i>✦</i> We create atmosphere <i>✦</i> We are distinctive <i>✦</i> We are extravagant <i>✦</i>',
  mq2:'Concept <i>✦</i> Visualisations <i>✦</i> Construction documents <i>✦</i> Bespoke furniture <i>✦</i> Author\'s supervision <i>✦</i> Key handover <i>✦</i>',
