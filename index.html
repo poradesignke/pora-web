@@ -116,7 +116,7 @@ body.menu-open .burger span:nth-child(2){opacity:0}
 body.menu-open .burger span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
 
 /* hero */
-.hero{position:relative;padding:clamp(120px,16vh,180px) 0 40px;min-height:92vh;display:flex;align-items:flex-end}
+.hero{position:relative;padding:clamp(120px,16vh,180px) 0 56px;min-height:88vh;display:flex;align-items:flex-end}
 .hero .bgx{position:absolute;inset:0;pointer-events:none;overflow:hidden}
 .hero .cx{position:absolute;width:260px;height:260px;opacity:.9}
 .hero .cx::before,.hero .cx::after{content:"";position:absolute;inset:0 38%;background:var(--c);border-radius:4px}
@@ -125,19 +125,11 @@ body.menu-open .burger span:nth-child(3){transform:translateY(-7px) rotate(-45de
 .hero .cx.b{--c:var(--orange);right:30%;top:-90px;width:180px;height:180px;animation:drift 18s ease-in-out infinite reverse}
 .hero .cx.c{--c:var(--lime);left:50%;bottom:-110px;width:140px;height:140px;opacity:.55;animation:drift 11s ease-in-out infinite}
 @keyframes drift{0%,100%{transform:translate(0,0) rotate(0)}50%{transform:translate(30px,-40px) rotate(25deg)}}
-.hero .grid{position:relative;z-index:1;display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,.75fr);gap:40px;align-items:end;width:100%}
+.hero .grid{position:relative;z-index:1;display:grid;grid-template-columns:minmax(0,1fr);gap:40px;align-items:end;width:100%}
 .hero .grid{container-type:inline-size}
 .hero h1{font-size:clamp(44px,11.5vw,184px);line-height:.86}
 /* "INTERIORS." in Syne 800 is ~9.3em wide: never let the headline exceed its container */
 @supports (font-size:1cqw){.hero h1{font-size:min(clamp(44px,11.5vw,184px),10.6cqw)}}
-@media (min-width:681px){
- .hero .grid{grid-template-columns:minmax(0,1fr) auto;align-items:end}
- .hero .grid>div:first-child{display:contents}
- .hero .eyebrow{grid-column:1/-1}
- .hero h1{grid-column:1/-1}
- .hero .sub{grid-column:1;align-self:start}
- .hero .mwrap{grid-column:2;grid-row:3;width:auto;height:min(54vh,520px);aspect-ratio:9/16;justify-self:end;margin-top:34px}
- .hero .media{height:100%;aspect-ratio:auto}
 }
 .hero h1 .l{display:block;overflow:hidden;padding:.06em .3em .06em 0;margin:-.06em -.3em -.06em 0}
 .hero h1.done .l{overflow:visible}
@@ -422,12 +414,9 @@ footer .bot{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;m
   .ppl{gap:16px}.p .cap{padding:16px}
 }
 @media (max-width:680px){
-  .hero .grid{grid-template-columns:1fr}
-  .hero .mwrap{justify-self:start;width:min(100%,300px);margin-top:20px}
   .hero h1{font-size:min(clamp(40px,13vw,110px),10.6cqw)}
 }
 @media (min-width:681px) and (max-width:900px){
-  .hero .mwrap{height:min(52vh,440px)}
   .hero .sub p{font-size:17px}
   .ppl{grid-template-columns:repeat(3,minmax(0,1fr))}
 }
@@ -541,12 +530,6 @@ body.chat-open .fab{display:none}
         <a href="#realizacie" class="btn ghost" data-t="hero_btn">Pozrieť realizácie ↓</a>
       </div>
     </div>
-    <div class="mwrap rv">
-
-      <div class="media">
-        <video src="/vid/havanska.mp4" poster="/img/POSTER_havanska.jpg" autoplay muted loop playsinline aria-label="Video z realizácie – Projekt 01"></video>
-        <span class="tag" data-t="hero_tag">Projekt 01 · realizácia 2025</span>
-      </div>
     </div>
   </div>
 </section>
@@ -1190,11 +1173,11 @@ $$('.neon').forEach(e=>e.dataset.txt=e.textContent);
 })();
 
 /* floating consultation badge */
-(function(){const bd=$('#badge'),anchor=$('.hero .mwrap'),svg=$('svg',bd);if(!bd||!anchor)return;
+(function(){const bd=$('#badge'),anchor=$('.hero h1'),svg=$('svg',bd);if(!bd||!anchor)return;
  let bx=innerWidth-220,by=140,tx=bx,ty=by,rot=0,lastY=scrollY,vel=0,first=true;
  function target(){const sz=bd.offsetWidth;const r=anchor.getBoundingClientRect();const inHero=r.bottom>sz+40&&r.top<innerHeight;
-  if(inHero&&innerWidth>900){return [r.right-sz+14,Math.max(84,r.top-70)];}
-  if(inHero){return [r.right-sz+4,Math.max(84,r.top-50)];}
+  if(inHero&&innerWidth>900){return [r.right-sz-8,Math.max(84,r.top-sz*.15)];}
+  if(inHero){return [r.right-sz,Math.max(78,r.top-sz*.35)];}
   if(innerWidth<=900||matchMedia('(hover:none)').matches){return [innerWidth<=900?14:24,innerHeight-sz-(innerWidth<=900?18:28)];}
   return [innerWidth-sz-24,Math.max(90,innerHeight*.26)];}
  function tick(){const y=scrollY;vel=vel*.85+(y-lastY)*.15;lastY=y;const [x,yy]=target();tx=x;ty=yy+vel*-.35;
