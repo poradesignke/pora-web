@@ -506,21 +506,21 @@ html.light footer{--bg:#0E0E10;--fg:#F0EEE9;--muted:#A7A4AC;--line:#2A2A30;backg
 html.lt-anim body,html.lt-anim section,html.lt-anim .nav,html.lt-anim footer,html.lt-anim h1,html.lt-anim h2,html.lt-anim p,html.lt-anim .field,html.lt-anim .btn,html.lt-anim .lang{transition:background-color .7s ease,color .7s ease,border-color .7s ease!important}
 .bulb{position:absolute;top:-90px;right:26%;z-index:4;display:flex;flex-direction:column;align-items:center;background:none;border:0;padding:0;cursor:pointer;color:var(--fg);transform-origin:50% 0;animation:sway 6s ease-in-out infinite}
 .bulb .cord{width:3px;height:clamp(10px,3vh,40px);background:currentColor}
-.bulb .halo{position:absolute;left:50%;top:72%;width:420px;height:420px;transform:translate(-50%,-50%) scale(.4);border-radius:50%;background:radial-gradient(circle,rgba(255,220,60,.5),rgba(255,200,40,.16) 40%,transparent 68%);opacity:0;pointer-events:none;transition:opacity .6s,transform .6s}
+.bulb .halo{position:absolute;left:50%;top:72%;width:420px;height:420px;transform:translate(-50%,-50%) scale(.4);border-radius:50%;background:radial-gradient(circle,rgba(209,255,5,.45),rgba(209,255,5,.14) 40%,transparent 68%);opacity:0;pointer-events:none;transition:opacity .6s,transform .6s}
 .bulb .lbl{margin-top:4px;font:700 10px/1 var(--display);letter-spacing:.18em;text-transform:uppercase;color:var(--muted);white-space:nowrap;transition:color .3s}
 .bulb:hover .lbl{color:var(--fg)}
 html.light .bulb .halo{opacity:1;transform:translate(-50%,-50%) scale(1)}
 .bulb .art{position:relative;display:block;width:190px;aspect-ratio:380/658}
-.bulb .art i{position:absolute;inset:0;background:currentColor;-webkit-mask:url(img/bulb-socket.png) center/100% 100% no-repeat;mask:url(img/bulb-socket.png) center/100% 100% no-repeat}
-.bulb .art .rays{-webkit-mask-image:url(img/bulb-rays.png);mask-image:url(img/bulb-rays.png);opacity:0;transform:scale(.8);transform-origin:50% 72%;transition:opacity .45s .1s,transform .55s cubic-bezier(.2,1.6,.4,1) .1s}
+.bulb .art i{position:absolute;inset:0;background:currentColor;-webkit-mask:url(img/pora-bulb-socket.png) center/100% 100% no-repeat;mask:url(img/pora-bulb-socket.png) center/100% 100% no-repeat}
+.bulb .art .rays{-webkit-mask-image:url(img/pora-bulb-rays.png);mask-image:url(img/pora-bulb-rays.png);opacity:0;transform:scale(.8);transform-origin:50% 72%;transition:opacity .45s .1s,transform .55s cubic-bezier(.2,1.6,.4,1) .1s}
 .bulb .art img{position:absolute;inset:0;width:100%;height:100%;filter:grayscale(.6) brightness(.4);transition:filter .5s}
 .bulb:hover .art img{filter:grayscale(.3) brightness(.6)}
-html.light .bulb .art img{filter:brightness(1.06) saturate(1.1) drop-shadow(0 0 16px rgba(255,214,40,.75)) drop-shadow(0 10px 18px rgba(0,0,0,.12))}
+html.light .bulb .art img{filter:brightness(1.06) saturate(1.1) drop-shadow(0 0 18px rgba(209,255,5,.7)) drop-shadow(0 10px 18px rgba(0,0,0,.12))}
 html.light .bulb .art .rays{opacity:1;transform:none}
 @keyframes sway{0%,100%{transform:rotate(1.2deg)}50%{transform:rotate(-1.2deg)}}
 .bulb.pull{animation:pull .5s ease}
 @keyframes pull{0%{transform:translateY(0)}35%{transform:translateY(10px)}70%{transform:translateY(-3px)}100%{transform:translateY(0)}}
-.lflash{position:fixed;inset:0;z-index:250;pointer-events:none;opacity:0;background:radial-gradient(circle at var(--fx,74%) var(--fy,14%),rgba(255,230,120,.95),rgba(255,240,190,.55) 30%,rgba(250,249,246,0) 70%)}
+.lflash{position:fixed;inset:0;z-index:250;pointer-events:none;opacity:0;background:radial-gradient(circle at var(--fx,74%) var(--fy,14%),rgba(225,255,110,.9),rgba(240,255,200,.5) 30%,rgba(250,249,246,0) 70%)}
 .lflash.go{animation:lflash .9s ease-out}
 @keyframes lflash{0%{opacity:0}18%{opacity:1}100%{opacity:0}}
 .lbtn{display:inline-grid;place-items:center;width:44px;height:44px;border-radius:50%;border:1.5px solid var(--line);color:var(--fg);background:none;cursor:pointer;transition:border-color .2s}
@@ -563,7 +563,7 @@ html.light .lbtn .g{fill:rgba(255,200,110,.45)}
 <main id="top">
 <!-- HERO -->
 <section class="hero">
-  <button class="bulb" id="bulb" type="button" aria-pressed="false" aria-label="Rozsvietiť – svetlá verzia webu"><span class="cord"></span><span class="halo"></span><span class="art" aria-hidden="true"><i class="sock"></i><i class="rays"></i><img src="img/bulb-paper.png" alt="" width="380" height="658"></span><span class="lbl" id="bulbLbl">Zapni svetlo</span></button>
+  <button class="bulb" id="bulb" type="button" aria-pressed="false" aria-label="Rozsvietiť – svetlá verzia webu"><span class="cord"></span><span class="halo"></span><span class="art" aria-hidden="true"><i class="sock"></i><i class="rays"></i><img src="img/pora-bulb-paper.png" alt="" width="380" height="658"></span><span class="lbl" id="bulbLbl">Zapni svetlo</span></button>
   <div class="bgx" aria-hidden="true"><div class="cx a"></div><div class="cx b"></div><div class="cx c"></div></div>
   <div class="wrap grid">
     <div>
