@@ -545,7 +545,7 @@ body.chat-open .fab{display:none}
   </div>
 </header>
 <a href="#kontakt" class="badge" id="badge" aria-label="Dohodnúť nezáväznú konzultáciu">
-        <svg viewBox="0 0 140 140" aria-hidden="true"><defs><path id="c1" d="M70,70 m-53,0 a53,53 0 1,1 106,0 a53,53 0 1,1 -106,0"></path></defs><text fill="#111113" style="font:800 12.6px 'Syne',sans-serif;letter-spacing:2.6px"><textPath href="#c1" id="badgeTxt">NEZÁVÄZNÁ KONZULTÁCIA • NAPÍŠTE NÁM • </textPath></text></svg>
+        <svg viewBox="0 0 140 140" aria-hidden="true"><defs><path id="c1" d="M70,70 m-53,0 a53,53 0 1,1 106,0 a53,53 0 1,1 -106,0"></path></defs><text fill="#111113" style="font:800 11.4px 'Syne',sans-serif"><textPath href="#c1" id="badgeTxt" textLength="328" lengthAdjust="spacing">NEZÁVÄZNÁ KONZULTÁCIA • NAPÍŠTE NÁM •</textPath></text></svg>
         <b>↗</b>
       </a>
 <div class="menu" id="menu" aria-hidden="true">
@@ -1165,7 +1165,7 @@ let LANG='sk';
 function setLang(l){LANG=l;window.LANG=l;const D=l==='en'?EN:SK;document.documentElement.lang=l;setTimeout(()=>{try{$$('.rowp[data-open]').forEach(r=>{const p=P.find(x=>x.key===r.dataset.open);if(p)r.href=pHref(p);});}catch(_){}},0);
  $$('[data-t]').forEach(el=>{const k=el.dataset.t;if(D[k]!=null){if(el.tagName==='SELECT'){const v=el.selectedIndex;el.innerHTML=D[k];el.selectedIndex=v;}else el.innerHTML=D[k];}});
  $$('[data-tp]').forEach(el=>{if(D[el.dataset.tp]!=null)el.placeholder=D[el.dataset.tp];});
- $('#badgeTxt').textContent=l==='en'?'FREE CONSULTATION • GET IN TOUCH • ':'NEZÁVÄZNÁ KONZULTÁCIA • NAPÍŠTE NÁM • ';
+ $('#badgeTxt').textContent=l==='en'?'FREE CONSULTATION • GET IN TOUCH •':'NEZÁVÄZNÁ KONZULTÁCIA • NAPÍŠTE NÁM •';
  $('#lang .sk').classList.toggle('on',l==='sk');$('#lang .en').classList.toggle('on',l==='en');
  P.forEach(p=>{p.type=l==='en'?(TYPE_EN[p.type_sk]||p.type_sk):p.type_sk;p.desc=l==='en'?(DESC_EN[p.key]||p.desc_sk):p.desc_sk;p.code=l==='en'?p.code_sk.replace('PROJEKT','PROJECT'):p.code_sk;});
  $$('.rowp').forEach(r=>{const p=P[+r.dataset.i];$('.nm',r).childNodes[0].nodeValue=p.code;$('.ty',r).textContent=p.type;const v=$('.viz',r);if(v)v.textContent=l==='en'?'Visualisation':'Vizualizácia';});
