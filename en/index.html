@@ -237,6 +237,7 @@ h2,h3,h4,.state b{min-width:0}
 .chip{border:1.5px solid var(--line);border-radius:999px;padding:12px 18px;font-size:13px;letter-spacing:.08em;text-transform:uppercase;transition:all .25s;min-height:44px}
 .chip:hover{border-color:var(--fg)}
 .chip.on{background:var(--fg);color:var(--ink);border-color:var(--fg)}
+html.light .chip.on{color:var(--bg)}
 .list{margin-top:40px;border-top:1px solid var(--line)}
 .listwrap{position:relative}
 .listwrap .fade{position:absolute;left:0;right:0;bottom:0;height:140px;background:linear-gradient(rgba(14,14,16,0),var(--bg));pointer-events:none;opacity:0;transition:opacity .3s}
@@ -534,6 +535,7 @@ html.light .nav.scrolled{background:rgba(250,249,246,.82)}
 html.light .hero .sub p{color:#2A2A2E;text-shadow:none}
 html.light .neon,html.light h2 i{color:var(--fg);text-shadow:none;animation:none;background:linear-gradient(transparent 60%,var(--lime) 60%,var(--lime) 90%,transparent 90%)}
 html.light .neon::after{display:none}
+html.light .cross h2 i{color:var(--cream);background:linear-gradient(transparent 86%,var(--lime) 86%,var(--lime) 96%,transparent 96%)}
 html.light .hero h1 .lime{color:var(--fg)}
 html.light .state .row b{color:var(--violet)}
 html.light .lang span.on,html.light .menu a:hover,html.light footer a:hover,html.light .rowp:hover .nm,html.light .fh:hover b,html.light .fold.open .fh b,html.light .qa summary:hover,html.light .p .cap span{color:var(--violet)}
