@@ -974,7 +974,7 @@ let pnum=0;P.forEach(p=>{if(!p.code){pnum++;p.code='PROJEKT '+String(pnum).padSt
 $$('[data-sub]').forEach(b=>{b.textContent=b.dataset.sub==='all'?P.length:P.filter(p=>p.cat==='biz').length;});
 
 /* works strip */
-const featured=['CARSKEHO','FREYM','GREAT','TATRANSKA','GALDI','HAVANSKA','SCHRHR','LETNA'];
+const featured=['CARSKEHO','FREYM','GREAT','TATRANSKA','GALDI','HAVANSKA','HRHRV','LETNA'];
 const stripEl=$('#strip');
 const SHAPES=['','w','s','','w','s','','w'];
 featured.forEach((c,i)=>{const p=P.find(x=>x.key===c);const d=document.createElement('button');d.className='card '+SHAPES[i%SHAPES.length];d.dataset.open=p.key;d.setAttribute('aria-label','Otvoriť galériu '+p.code);
