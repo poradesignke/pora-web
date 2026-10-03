@@ -485,7 +485,53 @@ body.chat-open .fab{display:none}
   *,*::before,*::after{animation-duration:.001s!important;animation-iteration-count:1!important;transition-duration:.001s!important}
   .js .rv{opacity:1;transform:none}
 }
+
+/* ---- Svetlý režim: vypínač so žiarovkou ---- */
+html.light{color-scheme:light;--bg:#FAF9F6;--bg2:#F1EFEA;--panel:#ECE9E3;--line:rgba(17,17,19,.14);--fg:#111113;--muted:#66636B}
+html.light body{background:var(--bg)}
+html.light .nav.scrolled{background:rgba(250,249,246,.82)}
+html.light .hero .sub p{color:#2A2A2E;text-shadow:none}
+html.light .neon,html.light h2 i{color:var(--fg);text-shadow:none;animation:none;background:linear-gradient(transparent 60%,var(--lime) 60%,var(--lime) 90%,transparent 90%)}
+html.light .neon::after{display:none}
+html.light .hero h1 .lime{color:var(--fg)}
+html.light .state .row b{color:var(--violet)}
+html.light .lang span.on,html.light .menu a:hover,html.light footer a:hover,html.light .rowp:hover .nm,html.light .fh:hover b,html.light .fold.open .fh b,html.light .qa summary:hover,html.light .p .cap span{color:var(--violet)}
+html.light .eyebrow::before{background:var(--coral)}
+html.light .links a::after,html.light .fh .pl::before,html.light .fh .pl::after,html.light .qa summary i::before,html.light .qa summary i::after{background:var(--fg)}
+html.light .btn.ghost:hover,html.light .copy:hover,html.light .lang:hover,html.light .field:focus{border-color:var(--fg);color:var(--fg)}
+html.light .clink:hover,html.light .clink:focus-visible{color:var(--violet);border-bottom-color:var(--violet)}
+html.light :focus-visible{outline-color:var(--violet)}
+html.light .strip .path path{stroke:var(--violet);filter:none}
+html.light footer{--bg:#0E0E10;--fg:#F0EEE9;--muted:#A7A4AC;--line:#2A2A30;background:#0E0E10;color:#F0EEE9}
+html.lt-anim body,html.lt-anim section,html.lt-anim .nav,html.lt-anim footer,html.lt-anim h1,html.lt-anim h2,html.lt-anim p,html.lt-anim .field,html.lt-anim .btn,html.lt-anim .lang{transition:background-color .7s ease,color .7s ease,border-color .7s ease!important}
+.bulb{position:absolute;top:0;right:26%;z-index:4;display:flex;flex-direction:column;align-items:center;background:none;border:0;padding:0;cursor:pointer;color:var(--fg);transform-origin:50% 0;animation:sway 6s ease-in-out infinite}
+.bulb .cord{width:2px;height:clamp(80px,12vh,130px);background:currentColor;opacity:.7}
+.bulb svg{width:86px;height:auto;overflow:visible;display:block}
+.bulb .glass{fill:rgba(240,238,233,.05);stroke:currentColor;stroke-opacity:.6;stroke-width:1.4;transition:fill .5s}
+.bulb .fil{fill:none;stroke:#8A7457;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;transition:stroke .3s,filter .5s}
+.bulb .halo{position:absolute;left:50%;bottom:6px;width:360px;height:360px;transform:translate(-50%,30%) scale(.4);border-radius:50%;background:radial-gradient(circle,rgba(255,190,90,.55),rgba(255,170,60,.18) 40%,transparent 68%);opacity:0;pointer-events:none;transition:opacity .6s,transform .6s}
+.bulb .lbl{margin-top:12px;font:700 10px/1 var(--display);letter-spacing:.18em;text-transform:uppercase;color:var(--muted);white-space:nowrap;transition:color .3s}
+.bulb:hover .lbl{color:var(--fg)}
+.bulb:hover .fil{stroke:#C9944F}
+html.light .bulb .glass{fill:rgba(255,214,150,.35);stroke-opacity:.6}
+html.light .bulb .fil{stroke:#FFB547;stroke-width:2.2;filter:drop-shadow(0 0 3px #FFC46B) drop-shadow(0 0 10px #FFAA3B) drop-shadow(0 0 22px rgba(255,160,50,.8))}
+html.light .bulb .halo{opacity:1;transform:translate(-50%,30%) scale(1)}
+@keyframes sway{0%,100%{transform:rotate(1.2deg)}50%{transform:rotate(-1.2deg)}}
+.bulb.pull{animation:pull .5s ease}
+@keyframes pull{0%{transform:translateY(0)}35%{transform:translateY(10px)}70%{transform:translateY(-3px)}100%{transform:translateY(0)}}
+.lflash{position:fixed;inset:0;z-index:250;pointer-events:none;opacity:0;background:radial-gradient(circle at var(--fx,74%) var(--fy,14%),rgba(255,214,150,.95),rgba(255,236,200,.55) 30%,rgba(250,249,246,0) 70%)}
+.lflash.go{animation:lflash .9s ease-out}
+@keyframes lflash{0%{opacity:0}18%{opacity:1}100%{opacity:0}}
+.lbtn{display:inline-grid;place-items:center;width:44px;height:44px;border-radius:50%;border:1.5px solid var(--line);color:var(--fg);background:none;cursor:pointer;transition:border-color .2s}
+.lbtn:hover{border-color:var(--fg)}
+.lbtn svg{width:18px;height:18px}
+.lbtn .f{stroke:currentColor;opacity:.55}
+html.light .lbtn .f{stroke:#F2A030;opacity:1}
+html.light .lbtn .g{fill:rgba(255,200,110,.45)}
+@media (max-width:900px){.lbtn{display:none}.bulb{right:auto;left:44%}.bulb .cord{height:62px}.bulb svg{width:50px}.bulb .lbl{font-size:8.5px;margin-top:8px}.bulb .halo{width:180px;height:180px}.hero{padding-top:190px}}
+@media (prefers-reduced-motion:reduce){.bulb{animation:none}}
 </style>
+<script>try{if(localStorage.getItem('pora_light')==='1')document.documentElement.classList.add('light')}catch(e){}</script>
 
 <div class="cur" id="cur" aria-hidden="true"><div class="ring"></div><div class="dot"></div><div class="lbl">OTVORIŤ</div></div>
 <div class="pre" id="pre" aria-hidden="true"><div class="cross"></div><div class="num" id="prenum">000</div></div>
@@ -497,6 +543,7 @@ body.chat-open .fab{display:none}
       <a href="#realizacie" data-t="n1">Realizácie</a><a href="#reels">Reels</a><a href="#sluzby" data-t="n3">Služby</a><a href="#proces" data-t="n4">Proces</a><a href="#studio" data-t="n5">Štúdio</a><a href="#kontakt" data-t="n6">Kontakt</a>
     </nav>
     <div style="display:flex;gap:12px;align-items:center">
+      <button class="lbtn" id="lbtn" type="button" aria-pressed="false" aria-label="Prepnúť svetlú / tmavú verziu"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="g" d="M12 2.5a6.5 6.5 0 0 0-3.6 11.9c.7.5 1.1 1.2 1.1 2V17h5v-.6c0-.8.4-1.5 1.1-2A6.5 6.5 0 0 0 12 2.5Z" fill="none" stroke="currentColor" stroke-width="1.5"/><path class="f" d="M10.5 13.5 11 9l1 2 1-2 .5 4.5" fill="none" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/><path d="M9.5 19.5h5M10.5 21.5h3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
       <button class="lang" id="lang" aria-label="Switch language"><span class="sk on">SK</span><span class="sep">/</span><span class="en">EN</span></button>
       <a href="#kontakt" class="btn lime" data-t="n_cta">Konzultácia →</a>
       <button class="burger" id="burger" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
@@ -515,6 +562,7 @@ body.chat-open .fab{display:none}
 <main id="top">
 <!-- HERO -->
 <section class="hero">
+  <button class="bulb" id="bulb" type="button" aria-pressed="false" aria-label="Rozsvietiť – svetlá verzia webu"><span class="cord"></span><span class="halo"></span><svg viewBox="0 0 80 150" aria-hidden="true"><rect x="28" y="0" width="24" height="24" rx="3" fill="#8C7651"/><path d="M28 6h24M28 11h24M28 16h24" stroke="#5E4E35" stroke-width="1.4"/><path class="glass" d="M30 24 C30 40 10 52 10 84 C10 116 25 138 40 138 C55 138 70 116 70 84 C70 52 50 40 50 24 Z"/><path class="fil" d="M35 26 L33 80 M45 26 L47 80 M33 80 l3-6 3 6 3-6 3 6 2-6"/></svg><span class="lbl" id="bulbLbl">Zapni svetlo</span></button>
   <div class="bgx" aria-hidden="true"><div class="cx a"></div><div class="cx b"></div><div class="cx c"></div></div>
   <div class="wrap grid">
     <div>
@@ -1120,7 +1168,7 @@ const DESC_EN={HAVANSKA:'Warm light, marble, brass and a "Hi beauties" neon. Pri
 P.forEach(p=>{p.desc_sk=p.desc;p.type_sk=p.type;p.code_sk=p.code;});
 const SK={};$$('[data-t]').forEach(el=>{const k=el.dataset.t;if(!(k in SK))SK[k]=el.innerHTML;});$$('[data-tp]').forEach(el=>{SK[el.dataset.tp]=el.placeholder;});SK.st_big=ST_SK;
 let LANG='sk';
-function setLang(l){LANG=l;window.LANG=l;const D=l==='en'?EN:SK;document.documentElement.lang=l;setTimeout(()=>{try{$$('.rowp[data-open]').forEach(r=>{const p=P.find(x=>x.key===r.dataset.open);if(p)r.href=pHref(p);});}catch(_){}},0);
+function setLang(l){LANG=l;window.LANG=l;setTimeout(()=>window.__lightTxt&&window.__lightTxt(),0);const D=l==='en'?EN:SK;document.documentElement.lang=l;setTimeout(()=>{try{$$('.rowp[data-open]').forEach(r=>{const p=P.find(x=>x.key===r.dataset.open);if(p)r.href=pHref(p);});}catch(_){}},0);
  $$('[data-t]').forEach(el=>{const k=el.dataset.t;if(D[k]!=null){if(el.tagName==='SELECT'){const v=el.selectedIndex;el.innerHTML=D[k];el.selectedIndex=v;}else el.innerHTML=D[k];}});
  $$('[data-tp]').forEach(el=>{if(D[el.dataset.tp]!=null)el.placeholder=D[el.dataset.tp];});
  $('#badgeTxt').textContent=l==='en'?'FREE CONSULTATION • GET IN TOUCH •':'NEZÁVÄZNÁ KONZULTÁCIA • NAPÍŠTE NÁM •';
@@ -1226,4 +1274,19 @@ const pre=$('#pre'),pn=$('#prenum');let c=0;
 function done(){if(!document.body.contains(pre))return;pre.style.transition='transform .9s cubic-bezier(.76,0,.24,1)';pre.style.transform='translateY(-100%)';setTimeout(()=>pre.remove(),950);$('#h1').classList.add('go');setTimeout(()=>$('#h1').classList.add('done'),1500);}
 const tick=setInterval(()=>{c=Math.min(100,c+Math.ceil(Math.random()*14));pn.textContent=String(c).padStart(3,'0');if(c>=100){clearInterval(tick);setTimeout(done,150);}},reduce?1:60);
 setTimeout(done,3500);
+
+/* ---- vypínač svetla ---- */
+(function(){const H=document.documentElement,bulb=$('#bulb'),lb=$('#lbtn'),lbl=$('#bulbLbl');
+ const fl=document.createElement('div');fl.className='lflash';document.body.appendChild(fl);
+ const meta=document.querySelector('meta[name=theme-color]');
+ function txt(){const on=H.classList.contains('light'),en=(window.LANG||'sk')==='en';if(lbl)lbl.textContent=on?(en?'Lights off':'Zhasni'):(en?'Lights on':'Zapni svetlo');[bulb,lb].forEach(b=>b&&b.setAttribute('aria-pressed',on));}
+ function set(on,anim){if(anim){H.classList.add('lt-anim');setTimeout(()=>H.classList.remove('lt-anim'),900);}
+  H.classList.toggle('light',on);if(meta)meta.content=on?'#FAF9F6':'#0E0E10';try{localStorage.setItem('pora_light',on?'1':'0');}catch(_){}txt();}
+ function toggle(e){const on=!H.classList.contains('light');
+  if(on){const r=(bulb&&bulb.getBoundingClientRect().bottom>0?bulb:e.currentTarget).getBoundingClientRect();fl.style.setProperty('--fx',(r.left+r.width/2)+'px');fl.style.setProperty('--fy',(r.bottom-40)+'px');fl.classList.remove('go');void fl.offsetWidth;fl.classList.add('go');}
+  if(bulb){bulb.classList.remove('pull');void bulb.offsetWidth;bulb.classList.add('pull');}
+  set(on,true);}
+ bulb&&bulb.addEventListener('click',toggle);lb&&lb.addEventListener('click',toggle);
+ let saved=null;try{saved=localStorage.getItem('pora_light');}catch(_){}
+ set(saved==='1',false);window.__lightTxt=txt;})();
 </script>
