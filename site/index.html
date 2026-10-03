@@ -70,9 +70,9 @@ footer .big img{height:auto}
 .burger span{width:18px;height:2px;background:var(--fg);transition:transform .3s,opacity .3s}
 .menu{position:fixed;inset:0;z-index:90;background:var(--violet);color:var(--cream);display:flex;flex-direction:column;justify-content:center;padding:100px var(--gutter) 40px;transform:translateY(-100%);transition:transform .6s cubic-bezier(.7,0,.2,1),visibility 0s .6s;visibility:hidden;overflow:hidden auto}
 .menu.open{transform:none;visibility:visible;transition:transform .6s cubic-bezier(.7,0,.2,1)}
-.menu a{font:800 clamp(36px,10vw,96px)/1 var(--display);text-transform:uppercase;letter-spacing:-.03em;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.18)}
+.menu>a{font:800 clamp(26px,8.2vw,96px)/1.05 var(--display);text-transform:uppercase;letter-spacing:-.03em;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.18)}
 .menu a:hover{color:var(--lime)}
-.menu small{margin-top:28px;font-size:14px;color:rgba(255,255,255,.7)}
+.menu small{margin-top:28px;font:400 15px/1.7 var(--body,inherit);color:rgba(255,255,255,.75);text-transform:none;letter-spacing:0}.menu small a{font:inherit;padding:0;border:0;display:inline;text-transform:none;letter-spacing:0;white-space:nowrap}.menu small a:hover{color:var(--lime)}
 body.menu-open .badge,body.chat-open .badge,body.ov-open .badge,.badge.off{opacity:0;pointer-events:none}
 .badge{transition:opacity .3s,box-shadow .3s}
 body.menu-open .burger span:nth-child(1){transform:translateY(7px) rotate(45deg)}
@@ -302,9 +302,9 @@ html.light .chip.on{color:var(--bg)}
 .p{position:relative;border-radius:var(--r);overflow:hidden;background:var(--panel);aspect-ratio:4/5;transition:transform .5s cubic-bezier(.2,.8,.2,1)}
 .p:hover{transform:translateY(-10px) rotate(-1deg)}
 .p img{width:100%;height:112%;margin-top:-6%;object-fit:cover}
-.p .cap{position:absolute;left:0;right:0;bottom:0;padding:22px;padding-top:70px;background:linear-gradient(rgba(0,0,0,0),rgba(0,0,0,.55) 40%,rgba(0,0,0,.92))}
-.p .cap b{display:block;font:800 clamp(20px,2vw,28px)/1.05 var(--display);letter-spacing:-.02em;text-transform:uppercase}
-.p .cap span{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--lime)}
+.p .cap{position:absolute;left:0;right:0;bottom:0;padding:22px;padding-top:80px;color:#F0EEE9;background:linear-gradient(rgba(10,10,12,0),rgba(10,10,12,.9) 32%,rgba(10,10,12,.97))}
+.p .cap b{display:block;color:#F0EEE9;font:800 clamp(20px,2vw,28px)/1.05 var(--display);letter-spacing:-.02em;text-transform:uppercase;text-shadow:0 2px 14px rgba(0,0,0,.6);overflow-wrap:anywhere}
+.p .cap span{display:block;margin-bottom:6px;font-size:12px;color:var(--lime)!important;letter-spacing:.14em;text-transform:uppercase;color:var(--lime)}
 .p .cap p{margin:10px 0 0;font-size:14px;color:rgba(240,238,233,.85);max-height:0;overflow:hidden;transition:max-height .5s}
 .p:hover .cap p,.p:focus-within .cap p,.p:focus .cap p{max-height:140px}
 @media (hover:none){.p .cap p{max-height:140px}}
@@ -498,7 +498,7 @@ html.light .cross h2 i.neon{color:#F7FFC2;background:none;text-shadow:0 0 1px #f
 html.light .cross .neon::after{display:block}
 html.light .hero h1 .lime{color:var(--fg)}
 html.light .state .row b{color:var(--violet)}
-html.light .lang span.on,html.light .menu a:hover,html.light footer a:hover,html.light .rowp:hover .nm,html.light .fh:hover b,html.light .fold.open .fh b,html.light .qa summary:hover,html.light .p .cap span{color:var(--violet)}
+html.light .lang span.on,html.light footer a:hover,html.light .rowp:hover .nm,html.light .fh:hover b,html.light .fold.open .fh b,html.light .qa summary:hover{color:var(--violet)}
 html.light .eyebrow::before{background:var(--coral)}
 html.light .links a::after,html.light .fh .pl::before,html.light .fh .pl::after,html.light .qa summary i::before,html.light .qa summary i::after{background:var(--fg)}
 html.light .btn.ghost:hover,html.light .copy:hover,html.light .lang:hover,html.light .field:focus{border-color:var(--fg);color:var(--fg)}
