@@ -1,4 +1,4 @@
-// AUTO-GENERATED from pricing.js + offer.js + worker/main.js – 2026-10-05T18:43:41.254Z
+// AUTO-GENERATED from pricing.js + offer.js + worker/main.js – 2026-10-05T19:01:19.116Z
 // PORA – pravidlá cenotvorby (ceny bez DPH). Rovnaké pre bývanie, gastro aj komerciu.
 // Zdroj: Tom, 5. 10. 2026.
 const VAT = 0.23;
@@ -146,7 +146,8 @@ function offerHTML(d, A) {
   pages.push(`<section class="pg"><h2>ROZSAH SLUŽBY A CENOVÉ PODMIENKY</h2><div class="cond">
   <p>Uvedená cena sa vzťahuje výhradne na poskytované služby, ktoré sú detailne špecifikované v jednotlivých variantných riešeniach.</p>
   <p>Nejedná sa o projekt pre účely stavebného povolenia ani o realizačný projekt. V prípade záujmu je možné tieto služby zabezpečiť samostatne prostredníctvom vybranej projekčnej spoločnosti.</p>
-  ${struct ? `<p class="hl">Pri zásahu do nosných konštrukcií alebo pri stavbe v pamiatkovo chránenom území či budove je potrebné počítať s projektom ASR a vyjadrením statika. Tieto služby nacení individuálne naše partnerské projekčné štúdio a nie sú súčasťou tejto ponuky.</p>` : ''}
+  ${d.flags?.newBuild ? `<p class="hl">Pri novostavbe je potrebný projekt stavby (vrátane statiky a profesných projektov) a inžinierska činnosť, t. j. vybavenie stavebného povolenia. Tieto služby zabezpečí a nacení samostatne naše partnerské projekčné štúdio a nie sú súčasťou tejto ponuky.</p>` : ''}
+  ${struct && !d.flags?.newBuild ? `<p class="hl">Pri zásahu do nosných konštrukcií alebo pri stavbe v pamiatkovo chránenom území či budove je potrebné počítať s projektom ASR a vyjadrením statika. Tieto služby nacení individuálne naše partnerské projekčné štúdio a nie sú súčasťou tejto ponuky.</p>` : ''}
   <p>Autorský dozor predstavuje dohľad nad súladom realizácie so schváleným návrhom. Nejde o stavebný dozor ani o technický dozor stavebníka.</p>
   <p>V cene nie sú zahrnuté stavebné práce ani jednotlivé profesné projekty (napr. architektúra, elektro, plyn, statika, zdravotechnika), búracie práce, dovoz, odvoz a materiál. Tieto položky sa oceňujú individuálne na základe obhliadky priestoru a aktuálnych trhových cien, ktoré sa môžu v čase meniť.</p>
   <p>Uvedené termíny sú orientačné a závisia od včasnej súčinnosti klienta a od dodacích lehôt tretích strán (dodávatelia, výrobcovia, remeselníci).</p>
@@ -223,12 +224,13 @@ PRÁVNE A ZODPOVEDNOSTNÉ HRANICE – dodržiavaj bezpodmienečne:
 - PORA NEROBÍ realizačný projekt ani projekt pre stavebné povolenie. Dodáva návrh interiéru a podklady k realizácii pre remeselníkov. Kompletnú projekciu domov a bytov vie zastrešiť partnerské projekčné štúdio (nacení individuálne).
 - PORA robí autorský dozor (súlad realizácie s návrhom), NIE stavebný ani technický dozor. Nikdy netvrď opak.
 - Pri zásahu do nosných konštrukcií alebo pamiatkovo chránenej budove/území upozorni, že treba projekt ASR a vyjadrenie statika, ktoré nacení partnerské projekčné štúdio – nie sú v cene.
+- Novostavba (klient stavia dom alebo inú budovu): na nosné konštrukcie sa nepýtaj, zásah je samozrejmý. Nastav new_build = true a structural_change = true a jednou vetou odporuč projekt stavby a inžiniersku činnosť (vybavenie stavebného povolenia), ktoré zabezpečí a nacení samostatne naše partnerské projekčné štúdio. Pýtaj sa len na pamiatkovú ochranu, ak je to relevantné (napr. historické centrum).
 - Stavebné práce, materiál, dovoz, profesné projekty nie sú v cene. Cestovné mimo Košíc 18 €/hod + 0,50 €/km.
 - Termíny uvádzaj len orientačne (Mini 2–4 týždne, Design 8–12 týždňov, technická dokumentácia 4–6 týždňov) a vždy s tým, že závisia od súčinnosti klienta a dodávateľov. Nikdy nesľubuj konkrétny dátum dokončenia ani zľavu.
 - Ponuka je indikatívna; finálnu cenu PORA potvrdí po fyzickom zameraní. Pri expresnom dodaní je príplatok 50 %.
 
 AKO VIESŤ ROZHOVOR:
-- Na ponuku potrebuješ: meno, e-mail, telefón (nepovinný), firmu (pri komerčnom priestore), typ priestoru, lokalitu, výmeru v m² (ak ju klient nevie, popros o pôdorys cez tlačidlo so sponkou a výmeru z neho odčítaj), čo potrebuje (konzultácia / návrh / návrh a realizácia), či ide o zásah do nosných konštrukcií alebo pamiatkovo chránenú budovu, kedy chce začať a či potrebuje expresné dodanie, voliteľne rozpočet a poznámku.
+- Na ponuku potrebuješ: meno, e-mail, telefón (nepovinný), firmu (pri komerčnom priestore), typ priestoru, lokalitu, výmeru v m² (ak ju klient nevie, popros o pôdorys cez tlačidlo so sponkou a výmeru z neho odčítaj), pri rekonštrukcii či ide o zásah do nosných konštrukcií alebo pamiatkovo chránenú budovu, kedy chce začať a či potrebuje expresné dodanie, voliteľne rozpočet a poznámku.
 - Pýtaj sa naraz najviac na 1 až 2 veci. Ak klient niečo už povedal, znova sa na to nepýtaj.
 - Na to, či chce klient len návrh alebo aj realizáciu, sa nepýtaj. Ponuka vždy obsahuje oba varianty, Variant 1 „Design“ (návrh) aj Variant 2 „Realizácia“ (návrh + podklady k realizácii + autorský dozor), pri výmere do 20 m² aj Balík Mini. Keď uvádzaš ceny, vždy uveď všetky tieto varianty spolu v jednej vete, nikdy len jeden. Ceny zisti nástrojom calculate_quote a uvádzaj ich „bez DPH“.
 - V nástrojoch použi need = "konzultacia" len vtedy, ak klient výslovne chce iba konzultáciu; inak vždy need = "navrh_realizacia".
@@ -256,7 +258,7 @@ const TOOLS = [
       project_type_text: { type: 'string', description: 'Krátky popis priestoru, napr. „open office“, „kaviareň“' },
       location: { type: 'string' }, area_m2: { type: 'number' },
       need: { type: 'string', enum: ['konzultacia', 'navrh', 'navrh_realizacia'] },
-      structural_change: { type: 'boolean' }, heritage: { type: 'boolean' },
+      structural_change: { type: 'boolean' }, heritage: { type: 'boolean' }, new_build: { type: 'boolean', description: 'Novostavba (klient stavia nový dom/budovu)' },
       start: { type: 'string' }, express: { type: 'boolean' }, budget: { type: 'string' }, notes: { type: 'string' },
       language: { type: 'string', enum: ['sk', 'en'] }, gdpr_consent: { type: 'boolean' } },
       required: ['client_name', 'email', 'project_type', 'location', 'area_m2', 'need', 'structural_change', 'heritage', 'gdpr_consent'] } },
@@ -290,7 +292,7 @@ function buildOffer(o) {
   const area = roundArea(o.area_m2);
   const what = o.project_type_text ? o.project_type_text : TYPE_LABEL[o.project_type] || 'interiéru';
   const who = o.company || o.client_name;
-  return { number: o.number, date: o.date, projectName: `Návrh ${what} ${area} m² – ${who}`, quote: quote({ need: o.need, m2: area }), flags: { structural: !!o.structural_change, heritage: !!o.heritage } };
+  return { number: o.number, date: o.date, projectName: `Návrh ${what} ${area} m² – ${who}`, quote: quote({ need: o.need, m2: area }), flags: { structural: !!o.structural_change || !!o.new_build, heritage: !!o.heritage, newBuild: !!o.new_build } };
 }
 
 async function renderPdf(env, offer) {
@@ -323,7 +325,7 @@ function clientEmail(o) {
 function ownerSummary(o, offer) {
   const rows = offer.quote.rows.map((r) => `<tr><td>${r.key}</td><td>${r.m2 ?? '-'}</td><td>${fmt(r.net)}</td><td>${fmt(r.gross)}</td></tr>`).join('');
   const f = (k, v) => v ? `<tr><td style="color:#666;padding-right:14px">${k}</td><td>${escH(v)}</td></tr>` : '';
-  return `<table style="font:14px sans-serif">${f('Meno', o.client_name)}${f('E-mail', o.email)}${f('Telefón', o.phone)}${f('Firma', o.company)}${f('Priestor', (TYPE_LABEL[o.project_type] || '') + (o.project_type_text ? ' – ' + o.project_type_text : ''))}${f('Lokalita', o.location)}${f('Výmera', o.area_m2 + ' m² (v ponuke ' + roundArea(o.area_m2) + ' m²)')}${f('Potreba', NEED_LABEL[o.need])}${f('Nosné konštrukcie', o.structural_change ? 'ÁNO' : 'nie')}${f('Pamiatková ochrana', o.heritage ? 'ÁNO' : 'nie')}${f('Začiatok', o.start)}${f('Expres (+50 %)', o.express ? 'ÁNO' : '')}${f('Rozpočet', o.budget)}${f('Poznámka', o.notes)}${f('Jazyk', o.language)}</table>
+  return `<table style="font:14px sans-serif">${f('Meno', o.client_name)}${f('E-mail', o.email)}${f('Telefón', o.phone)}${f('Firma', o.company)}${f('Priestor', (TYPE_LABEL[o.project_type] || '') + (o.project_type_text ? ' – ' + o.project_type_text : ''))}${f('Lokalita', o.location)}${f('Výmera', o.area_m2 + ' m² (v ponuke ' + roundArea(o.area_m2) + ' m²)')}${f('Potreba', NEED_LABEL[o.need])}${f('Novostavba', o.new_build ? 'ÁNO – odporučiť projekt stavby + inžiniersku činnosť (partner)' : '')}${f('Nosné konštrukcie', o.structural_change ? 'ÁNO' : 'nie')}${f('Pamiatková ochrana', o.heritage ? 'ÁNO' : 'nie')}${f('Začiatok', o.start)}${f('Expres (+50 %)', o.express ? 'ÁNO' : '')}${f('Rozpočet', o.budget)}${f('Poznámka', o.notes)}${f('Jazyk', o.language)}</table>
   <table style="font:14px sans-serif;border-collapse:collapse;margin-top:12px" border="1" cellpadding="6"><tr><th>Variant</th><th>m²</th><th>bez DPH</th><th>s DPH</th></tr>${rows}</table>`;
 }
 

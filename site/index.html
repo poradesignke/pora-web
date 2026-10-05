@@ -544,6 +544,33 @@ html.light .lbtn .f{stroke:#F2A030;opacity:1}
 html.light .lbtn .g{fill:rgba(255,200,110,.45)}
 @media (max-width:900px){.lbtn{display:none}.bulb{right:auto;left:42%;top:0}.bulb .cord{height:4px}.bulb .art{width:100px}.bulb .lbl{font-size:9px;margin-top:8px;padding:6px 9px 5px}.bulb .halo{width:180px;height:180px}.hero{padding-top:215px}}
 @media (prefers-reduced-motion:reduce){.bulb,.bulb .lbl,.bulb .halo{animation:none}}
+
+/* CP asistent – zvýraznenie */
+.cpc{position:relative;display:block;width:min(380px,100%);text-align:left;background:#121214;color:#F4F2EE;border:1.5px solid var(--lime);border-radius:22px;padding:16px 18px 16px;cursor:pointer;box-shadow:0 18px 50px rgba(0,0,0,.45),0 0 0 0 rgba(209,255,5,.4);animation:cpglow 3.2s ease-in-out infinite;transition:transform .3s}
+.cpc:hover{transform:translateY(-3px)}
+@keyframes cpglow{0%,100%{box-shadow:0 18px 50px rgba(0,0,0,.45),0 0 0 0 rgba(209,255,5,.35)}50%{box-shadow:0 18px 50px rgba(0,0,0,.45),0 0 26px 2px rgba(209,255,5,.35)}}
+.cpc .tg{display:inline-flex;align-items:center;gap:8px;font:700 10.5px/1 var(--mono,monospace);letter-spacing:.14em;text-transform:uppercase;color:var(--lime)}
+.cpc .tg b{width:7px;height:7px;border-radius:50%;background:var(--lime);animation:lblink 1.4s infinite}
+.cpc .hd2{display:block;font:800 clamp(22px,2.4vw,28px)/1.05 var(--display);letter-spacing:-.01em;margin:10px 0 12px;text-transform:uppercase}
+.cpc .hd2 i{font-style:normal;color:var(--lime)}
+.cpc .mini{display:flex;flex-direction:column;gap:6px;min-height:76px}
+.cpc .mini span{max-width:88%;font-size:13px;line-height:1.35;padding:7px 11px;border-radius:14px;opacity:0;transform:translateY(6px);transition:opacity .4s,transform .4s}
+.cpc .mini span.on{opacity:1;transform:none}
+.cpc .mini .u{align-self:flex-end;background:var(--lime);color:#111;border-bottom-right-radius:4px}
+.cpc .mini .a{align-self:flex-start;background:#26262A;border-bottom-left-radius:4px}
+.cpc .go{display:flex;justify-content:space-between;align-items:center;margin-top:12px;font:800 12px/1 var(--display);letter-spacing:.08em;text-transform:uppercase}
+.cpc .go>span{white-space:nowrap;margin-left:12px}.cpc .go em{font-style:normal;color:#9A98A0;font:500 12px/1.3 var(--body,inherit);letter-spacing:0;text-transform:none}
+.cpstrip{display:flex;gap:16px;align-items:center;justify-content:space-between;flex-wrap:wrap;border:1.5px solid var(--lime);border-radius:20px;padding:16px 20px;margin:26px 0 6px}
+.cpstrip p{margin:0;max-width:560px}
+.cpstrip p b{color:var(--lime)}
+html.light .cpstrip p b{color:inherit;background:var(--lime);padding:0 4px}
+.teaser{position:fixed;right:22px;bottom:calc(92px + env(safe-area-inset-bottom,0px));z-index:121;max-width:270px;background:#F4F2EE;color:#111;border-radius:18px 18px 4px 18px;padding:14px 34px 14px 16px;font-size:14px;line-height:1.4;box-shadow:0 14px 40px rgba(0,0,0,.35);opacity:0;transform:translateY(10px);pointer-events:none;transition:opacity .4s,transform .4s;cursor:pointer}
+.teaser.on{opacity:1;transform:none;pointer-events:auto}
+.teaser b{display:block;font:800 13px/1.2 var(--display);text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px}
+.teaser .tx{position:absolute;top:6px;right:8px;width:24px;height:24px;border-radius:50%;font-size:16px;line-height:1;color:#666;background:none;border:0;cursor:pointer}
+body.chat-open .teaser{display:none}
+@media (max-width:560px){.teaser{right:12px;bottom:calc(70px + env(safe-area-inset-bottom,0px));max-width:230px}}
+@media (prefers-reduced-motion:reduce){.cpc,.cpc .tg b{animation:none}}
 </style>
 <script>try{if(localStorage.getItem('pora_light')==='1')document.documentElement.classList.add('light')}catch(e){}</script>
 
@@ -559,7 +586,7 @@ html.light .lbtn .g{fill:rgba(255,200,110,.45)}
     <div style="display:flex;gap:12px;align-items:center">
       <button class="lbtn" id="lbtn" type="button" aria-pressed="false" aria-label="Prepnúť svetlú / tmavú verziu"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="g" d="M12 2.5a6.5 6.5 0 0 0-3.6 11.9c.7.5 1.1 1.2 1.1 2V17h5v-.6c0-.8.4-1.5 1.1-2A6.5 6.5 0 0 0 12 2.5Z" fill="none" stroke="currentColor" stroke-width="1.5"/><path class="f" d="M10.5 13.5 11 9l1 2 1-2 .5 4.5" fill="none" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/><path d="M9.5 19.5h5M10.5 21.5h3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
       <button class="lang" id="lang" aria-label="Switch language"><span class="sk on">SK</span><span class="sep">/</span><span class="en">EN</span></button>
-      <a href="#kontakt" class="btn lime" data-t="n_cta">Konzultácia →</a>
+      <a href="#kontakt" class="btn lime" id="navCta" data-t="n_cta">Konzultácia →</a>
       <button class="burger" id="burger" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
     </div>
   </div>
@@ -585,6 +612,12 @@ html.light .lbtn .g{fill:rgba(255,200,110,.45)}
       <div class="sub">
         <p data-t="hero_p">Byty, domy, gastro a komerčné priestory, ktoré nie sú len pekné. Sú osobité, odvážne a nezabudnuteľné. Navrhujeme v Košiciach a online pre klientov kdekoľvek na svete.</p>
         <a href="#realizacie" class="btn ghost" data-t="hero_btn">Pozrieť realizácie ↓</a>
+        <button type="button" class="cpc" id="cpCard" data-cp hidden aria-label="Získať cenovú ponuku od asistenta PORA">
+          <span class="tg"><b></b><span data-t="cp_tag">AI asistent PORA · 24/7</span></span>
+          <span class="hd2" data-t="cp_h">Cenová ponuka <i>za 3 minúty.</i></span>
+          <span class="mini" aria-hidden="true"><span class="u" data-t="cp_m1">Byt 72 m², chcem návrh aj realizáciu.</span><span class="a" data-t="cp_m2">Výborne. Ponuku v PDF vám pošlem na e-mail.</span></span>
+          <span class="go"><em data-t="cp_s">Pár otázok v chate, ponuka príde e-mailom.</em><span data-t="cp_go">Začať →</span></span>
+        </button>
       </div>
     </div>
     </div>
@@ -737,6 +770,7 @@ html.light .lbtn .g{fill:rgba(255,200,110,.45)}
   <div class="wrap">
     <span class="eyebrow" data-t="c_eye">Nezáväzná konzultácia · osobne alebo online</span>
     <h2 class="rv" style="margin-top:20px" data-t="c_h">Poďme<br>na <i class="neon">to.</i></h2>
+    <div class="cpstrip" id="cpStrip" hidden><p data-t="cp_strip"><b>Rýchlejšie ako formulár:</b> asistent PORA sa vás v chate spýta na pár vecí a indikatívnu cenovú ponuku vám pošle e-mailom v PDF.</p><button type="button" class="btn lime" data-cp data-t="cp_strip_b">Získať cenovú ponuku →</button></div>
     <div class="g">
       <form class="form" id="form" novalidate>
         <div class="two">
@@ -779,7 +813,8 @@ html.light .lbtn .g{fill:rgba(255,200,110,.45)}
 
 
 <!-- CHAT BOT -->
-<button class="fab" id="fab" aria-label="Otvoriť chat s asistentom PORA"><span class="ic"></span><span class="t" data-t="fab">Spýtajte sa PORA</span></button>
+<div class="teaser" id="teaser" role="button" tabindex="0"><button class="tx" id="teaserX" type="button" aria-label="Zavrieť">×</button><b data-t="tz_h">Chcete poznať cenu?</b><span data-t="tz_p">Pripravím vám cenovú ponuku a pošlem ju e-mailom. Stačí pár otázok.</span></div>
+<button class="fab" id="fab" aria-label="Otvoriť chat s asistentom PORA"><span class="ic"></span><span class="t" data-t="fab">Cenová ponuka</span></button>
 <section class="chat" id="chat" role="dialog" aria-label="Asistent PORA" aria-hidden="true">
   <div class="hd"><span class="av" aria-hidden="true"></span><div><b data-t="ch_t">Asistent PORA</b><small data-t="ch_s">Odpovedá hneď · 24/7</small></div><button class="x" id="chatX" aria-label="Zavrieť chat">×</button></div>
   <div class="log" id="log" aria-live="polite"></div>
@@ -1103,7 +1138,7 @@ const FAQ=[
 const log=$('#log'),chat=$('#chat'),fab=$('#fab'),chatIn=$('#chatIn');let turns=[],sampleFn=null,sampleChecked=false,busy=false;
 function addMsg(t,who){const d=document.createElement('div');d.className='msg '+who;d.textContent=t;log.appendChild(d);log.scrollTop=log.scrollHeight;return d;}
 function linkify(el){el.innerHTML=el.textContent.replace(/(info@pora\.sk)/g,'<a href="mailto:$1">$1</a>').replace(/\+421 903 494 977/g,'<a href="tel:+421903494977">$&</a>').replace(/sekci[ia] Kontakt|Contact section/g,'<a href="#kontakt" data-go>$&</a>');}
-function openChat(){chat.classList.add('open');chat.setAttribute('aria-hidden','false');document.body.classList.add('chat-open');if(!log.children.length){addMsg(LANG==='en'?'Hi! I am the PORA assistant. I can help with prices, how we work, timelines and what we do. What would you like to know?':'Ahoj! Som asistent PORA. Pomôžem s cenami, priebehom spolupráce, termínmi aj s tým, čo všetko robíme. Na čo sa chcete opýtať?','bot');}setTimeout(()=>chatIn.focus(),50);}
+function openChat(){chat.classList.add('open');chat.setAttribute('aria-hidden','false');document.body.classList.add('chat-open');if(!log.children.length){addMsg(LANG==='en'?(window.PORA_API?'Hello, I am the PORA assistant. I can prepare an indicative price quote and email it to you as a PDF, just answer a few questions. Happy to answer anything about our work, too.':'Hi! I am the PORA assistant. I can help with prices, how we work, timelines and what we do. What would you like to know?'):(window.PORA_API?'Dobrý deň, som asistent PORA. Pripravím vám indikatívnu cenovú ponuku a pošlem ju e-mailom v PDF, stačí odpovedať na pár otázok. Rád zodpoviem aj čokoľvek o našej práci.':'Ahoj! Som asistent PORA. Pomôžem s cenami, priebehom spolupráce, termínmi aj s tým, čo všetko robíme. Na čo sa chcete opýtať?'),'bot');}setTimeout(()=>chatIn.focus(),50);}
 function closeChat(){chat.classList.remove('open');chat.setAttribute('aria-hidden','true');document.body.classList.remove('chat-open');}
 fab.addEventListener('click',openChat);$('#chatX').addEventListener('click',closeChat);
 const QUICK=window.PORA_API?['Chcem cenovú ponuku','Koľko stojí návrh?','Ako prebieha spolupráca?','Robíte aj gastro?']:['Koľko stojí návrh?','Ako prebieha spolupráca?','Robíte aj gastro?','Chcem konzultáciu'];
@@ -1190,7 +1225,7 @@ const EN={
  copy:'Copy',l_tel:'Phone',l_studio:'Studio',studio_sub:'DUETT 1 building · 040 01 Košice · Slovakia (EU)',
  f_bill:'Billing details',f_legal:'Legal',f_gdpr:'Privacy notice',f_reg:'Company ID 53834691 · registered in Košice, Slovakia',f_follow:'Follow us',f_photo:'Photo: Vladis Photography',
  viz:'Visualisation',ov_cta:'I want something like this →',cta_card:'Your project<br>could be<br><i>next</i> →',
- fab:'Ask PORA',ch_t:'PORA assistant',ch_s:'Replies instantly · 24/7',ph_chat:'Type a question…',ch_n:'The assistant can prepare an indicative price offer by email. Your data is used only for that (<a href="#gdpr" data-doc="gdpr">privacy</a>). Do not enter sensitive data.',
+ fab:'Get a quote',cp_tag:'PORA AI assistant · 24/7',cp_h:'Price quote <i>in 3 minutes.</i>',cp_m1:'Flat, 72 m², I need design and realisation.',cp_m2:'Great. I will email you the quote as a PDF.',cp_s:'A few questions in the chat, the quote arrives by email.',cp_go:'Start →',cp_strip:'<b>Faster than the form:</b> the PORA assistant asks you a few questions in the chat and emails you an indicative price quote as a PDF.',cp_strip_b:'Get a price quote →',tz_h:'Want to know the price?',tz_p:'I will prepare a price quote and email it to you. Just a few questions.',n_cta_cp:'Price quote →',ch_t:'PORA assistant',ch_s:'Replies instantly · 24/7',ph_chat:'Type a question…',ch_n:'The assistant can prepare an indicative price offer by email. Your data is used only for that (<a href="#gdpr" data-doc="gdpr">privacy</a>). Do not enter sensitive data.',
  ck_p:'This site uses only necessary cookies. Analytics and marketing cookies are enabled only with your consent. More in the <a href="#cookies" data-doc="cookies">cookie notice</a>.',ck_a:'Accept all',ck_b:'Necessary only',
 };
 const TYPE_EN={'Byt':'Apartment','Podkrovný byt':'Attic apartment','Bistro':'Bistro','Kaviareň':'Café','Nechtové štúdio':'Nail studio','Reštaurácia a bar':'Restaurant & bar','Burger bar':'Burger bar','Reštaurácia':'Restaurant','Zubná ambulancia':'Dental clinic','Cukráreň':'Patisserie','Kancelária':'Office'};
@@ -1321,4 +1356,20 @@ setTimeout(done,3500);
  bulb&&bulb.addEventListener('click',toggle);lb&&lb.addEventListener('click',toggle);
  let saved=null;try{saved=localStorage.getItem('pora_light');}catch(_){}
  set(saved==='1',false);window.__lightTxt=txt;})();
+
+// ---- CP asistent: zvýraznenie ----
+(function(){if(!window.PORA_API)return;
+ const startCP=()=>{openChat();setTimeout(()=>{if(!log.querySelector('.msg.me'))ask(LANG==='en'?'I would like a price quote':'Chcem cenovú ponuku');},350);hideT(true);};
+ document.querySelectorAll('[data-cp]').forEach(b=>{b.hidden=false;b.addEventListener('click',e=>{e.preventDefault();startCP();});});
+ const strip=document.getElementById('cpStrip');if(strip)strip.hidden=false;
+ const nav=document.getElementById('navCta');if(nav){nav.dataset.t='n_cta_cp';nav.innerHTML=LANG==='en'?'Price quote →':'Cenová ponuka →';SK.n_cta_cp='Cenová ponuka →';nav.addEventListener('click',e=>{e.preventDefault();startCP();});}
+ const card=document.getElementById('cpCard');if(card){const m=card.querySelectorAll('.mini span');let k=0;const tick=()=>{k=(k+1)%4;m[0].classList.toggle('on',k>=1);m[1].classList.toggle('on',k>=2);};tick();setInterval(tick,1600);}
+ const t=document.getElementById('teaser');let seen=false;try{seen=sessionStorage.getItem('poraTz')==='1';}catch(_){}
+ function hideT(store){t.classList.remove('on');if(store){try{sessionStorage.setItem('poraTz','1');}catch(_){}}}
+ const cardVisible=()=>{if(!card)return false;const r=card.getBoundingClientRect();return r.top<innerHeight&&r.bottom>0;};
+ const tryShow=()=>{if(seen||chat.classList.contains('open')||cardVisible())return false;t.classList.add('on');seen=true;return true;};
+ if(!seen)setTimeout(()=>{if(!tryShow()){const on=()=>{if(tryShow())removeEventListener('scroll',on);};addEventListener('scroll',on,{passive:true});}},6000);
+ t.addEventListener('click',e=>{if(e.target.id==='teaserX'){e.stopPropagation();hideT(true);return;}startCP();});
+ t.addEventListener('keydown',e=>{if(e.key==='Enter')startCP();});
+})();
 </script>

@@ -94,7 +94,8 @@ export function offerHTML(d, A) {
   pages.push(`<section class="pg"><h2>ROZSAH SLUŽBY A CENOVÉ PODMIENKY</h2><div class="cond">
   <p>Uvedená cena sa vzťahuje výhradne na poskytované služby, ktoré sú detailne špecifikované v jednotlivých variantných riešeniach.</p>
   <p>Nejedná sa o projekt pre účely stavebného povolenia ani o realizačný projekt. V prípade záujmu je možné tieto služby zabezpečiť samostatne prostredníctvom vybranej projekčnej spoločnosti.</p>
-  ${struct ? `<p class="hl">Pri zásahu do nosných konštrukcií alebo pri stavbe v pamiatkovo chránenom území či budove je potrebné počítať s projektom ASR a vyjadrením statika. Tieto služby nacení individuálne naše partnerské projekčné štúdio a nie sú súčasťou tejto ponuky.</p>` : ''}
+  ${d.flags?.newBuild ? `<p class="hl">Pri novostavbe je potrebný projekt stavby (vrátane statiky a profesných projektov) a inžinierska činnosť, t. j. vybavenie stavebného povolenia. Tieto služby zabezpečí a nacení samostatne naše partnerské projekčné štúdio a nie sú súčasťou tejto ponuky.</p>` : ''}
+  ${struct && !d.flags?.newBuild ? `<p class="hl">Pri zásahu do nosných konštrukcií alebo pri stavbe v pamiatkovo chránenom území či budove je potrebné počítať s projektom ASR a vyjadrením statika. Tieto služby nacení individuálne naše partnerské projekčné štúdio a nie sú súčasťou tejto ponuky.</p>` : ''}
   <p>Autorský dozor predstavuje dohľad nad súladom realizácie so schváleným návrhom. Nejde o stavebný dozor ani o technický dozor stavebníka.</p>
   <p>V cene nie sú zahrnuté stavebné práce ani jednotlivé profesné projekty (napr. architektúra, elektro, plyn, statika, zdravotechnika), búracie práce, dovoz, odvoz a materiál. Tieto položky sa oceňujú individuálne na základe obhliadky priestoru a aktuálnych trhových cien, ktoré sa môžu v čase meniť.</p>
   <p>Uvedené termíny sú orientačné a závisia od včasnej súčinnosti klienta a od dodacích lehôt tretích strán (dodávatelia, výrobcovia, remeselníci).</p>
