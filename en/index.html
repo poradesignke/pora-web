@@ -462,6 +462,11 @@ footer .bot{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;m
 .qa[open] summary i{transform:rotate(45deg)}
 .qa summary:hover{color:var(--lime)}
 .qa p{margin:0 0 26px;color:#CFCCD3;max-width:760px;font-size:17px}
+/* chat attach */
+#chatForm .att{flex:0 0 auto;width:40px;height:40px;border-radius:50%;border:1.5px solid var(--line);background:none;color:var(--fg);display:grid;place-items:center;cursor:pointer;margin-right:6px}
+#chatForm .att:hover{border-color:var(--lime);color:var(--lime)}
+.chat .file{margin:0 14px 6px;font-size:12px;color:var(--muted);display:flex;gap:8px;align-items:center}
+.chat .file button{background:none;border:0;color:var(--muted);cursor:pointer;font-size:14px}
 /* chat bot */
 .fab{position:fixed;right:22px;bottom:calc(22px + env(safe-area-inset-bottom,0px));z-index:120;display:flex;align-items:center;gap:12px;background:var(--lime);color:var(--ink);border-radius:999px;padding:12px 18px 12px 12px;font:800 13px/1 var(--display);letter-spacing:.08em;text-transform:uppercase;box-shadow:0 0 0 0 rgba(209,255,5,.5),0 14px 40px rgba(0,0,0,.5);animation:fabglow 2.8s ease-in-out infinite;transition:transform .3s}
 .fab:hover{transform:translateY(-3px)}
@@ -821,8 +826,9 @@ html.light .lbtn .g{fill:rgba(255,200,110,.45)}
   <div class="hd"><span class="av" aria-hidden="true"></span><div><b data-t="ch_t">Asistent PORA</b><small data-t="ch_s">Odpovedá hneď · 24/7</small></div><button class="x" id="chatX" aria-label="Zavrieť chat">×</button></div>
   <div class="log" id="log" aria-live="polite"></div>
   <div class="quick" id="quick"></div>
-  <form id="chatForm"><label for="chatIn" class="sr-only" style="position:absolute;left:-9999px">Vaša otázka</label><input id="chatIn" placeholder="Napíšte otázku…" autocomplete="off" maxlength="600" data-tp="ph_chat"><button type="submit" aria-label="Odoslať">↑</button></form>
-  <div class="note" id="chatNote" data-t="ch_n">Asistent odpovedá automaticky z informácií na tomto webe. Nezadávajte citlivé údaje – na konkrétnu ponuku použite formulár.</div>
+  <form id="chatForm"><button type="button" class="att" id="chatAtt" aria-label="Priložiť pôdorys (PDF alebo obrázok)" title="Priložiť pôdorys (PDF alebo obrázok)"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12.5l-8.5 8.5a6 6 0 01-8.5-8.5l9-9a4 4 0 015.7 5.7l-9 9a2 2 0 01-2.8-2.8l8.3-8.3"/></svg></button><input type="file" id="chatFile" accept="application/pdf,image/png,image/jpeg,image/webp" hidden><label for="chatIn" class="sr-only" style="position:absolute;left:-9999px">Vaša otázka</label><input id="chatIn" placeholder="Napíšte otázku…" autocomplete="off" maxlength="600" data-tp="ph_chat"><button type="submit" aria-label="Odoslať">↑</button></form>
+  <div class="file" id="chatFileTag" hidden></div>
+  <div class="note" id="chatNote" data-t="ch_n">Asistent vám pripraví indikatívnu cenovú ponuku e-mailom. Údaje použijeme len na jej vypracovanie (<a href="#gdpr" data-doc="gdpr">zásady</a>). Nezadávajte citlivé údaje.</div>
 </section>
 
 <!-- COOKIES -->
@@ -1142,7 +1148,7 @@ function linkify(el){el.innerHTML=el.textContent.replace(/(info@pora\.sk)/g,'<a 
 function openChat(){chat.classList.add('open');chat.setAttribute('aria-hidden','false');document.body.classList.add('chat-open');if(!log.children.length){addMsg(LANG==='en'?'Hi! I am the PORA assistant. I can help with prices, how we work, timelines and what we do. What would you like to know?':'Ahoj! Som asistent PORA. Pomôžem s cenami, priebehom spolupráce, termínmi aj s tým, čo všetko robíme. Na čo sa chcete opýtať?','bot');}setTimeout(()=>chatIn.focus(),50);}
 function closeChat(){chat.classList.remove('open');chat.setAttribute('aria-hidden','true');document.body.classList.remove('chat-open');}
 fab.addEventListener('click',openChat);$('#chatX').addEventListener('click',closeChat);
-const QUICK=['Koľko stojí návrh?','Ako prebieha spolupráca?','Robíte aj gastro?','Chcem konzultáciu'];
+const QUICK=window.PORA_API?['Chcem cenovú ponuku','Koľko stojí návrh?','Ako prebieha spolupráca?','Robíte aj gastro?']:['Koľko stojí návrh?','Ako prebieha spolupráca?','Robíte aj gastro?','Chcem konzultáciu'];
 QUICK.forEach(q=>{const b=document.createElement('button');b.type='button';b.textContent=q;b.addEventListener('click',()=>ask(q));$('#quick').appendChild(b);});
 log.addEventListener('click',e=>{const a=e.target.closest('[data-go]');if(a){e.preventDefault();closeChat();$('#kontakt').scrollIntoView({behavior:'smooth'});}});
 function norm(t){return t.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');}
@@ -1162,8 +1168,19 @@ const FAQ_EN=[
 ];
 function ruleAnswer(q){const n=norm(q);let best=null,score=0;(LANG==='en'?FAQ_EN:FAQ).forEach(f=>{const sc=f.k.reduce((a,k)=>a+(n.includes(norm(k))?1:0),0);if(sc>score){score=sc;best=f;}});return best||{a:LANG==='en'?'I can\'t answer that from the information on this site. Please write to us via the form in the Contact section or at info@pora.sk – we reply within 2 business days.':'Na toto neviem odpovedať z informácií na webe. Napíšte nám prosím do formulára v sekcii Kontakt alebo na info@pora.sk – ozveme sa do 2 pracovných dní.'};}
 async function getSample(){if(sampleChecked)return sampleFn;sampleChecked=true;try{if(window.claude&&typeof claude.use==='function'){sampleFn=await Promise.race([claude.use('sample'),new Promise(r=>setTimeout(()=>r(null),4000))]);}}catch(_){sampleFn=null;}return sampleFn;}
-async function ask(q){if(busy||!q.trim())return;busy=true;addMsg(q,'me');chatIn.value='';const typing=addMsg('','bot typing');typing.innerHTML='<span></span><span></span><span></span>';
- const s=await getSample();let answered=false;
+const PORA_API=window.PORA_API||'';let att=null;let apiTurns=[];
+const fileIn=document.getElementById('chatFile'),fileTag=document.getElementById('chatFileTag');
+if(!PORA_API)document.getElementById('chatAtt').style.display='none';document.getElementById('chatAtt').addEventListener('click',()=>fileIn.click());
+fileIn.addEventListener('change',()=>{const f=fileIn.files[0];fileIn.value='';if(!f)return;if(f.size>8*1024*1024){addMsg(LANG==='en'?'The file is too large (max 8 MB).':'Súbor je príliš veľký (max. 8 MB).','bot');return;}
+ const r=new FileReader();r.onload=()=>{att={name:f.name,type:f.type,data:String(r.result).split(',')[1]};fileTag.hidden=false;fileTag.innerHTML='';const s=document.createElement('span');s.textContent='📎 '+f.name;const x=document.createElement('button');x.type='button';x.textContent='×';x.onclick=()=>{att=null;fileTag.hidden=true;};fileTag.append(s,x);chatIn.focus();};r.readAsDataURL(f);});
+async function askApi(q,bubble){const sendAtt=att;att=null;fileTag.hidden=true;apiTurns.push({role:'user',content:q||(LANG==='en'?'Attached floor plan.':'Prikladám pôdorys.')});
+ const ctl=new AbortController();const to=setTimeout(()=>ctl.abort(),90000);
+ try{const r=await fetch(PORA_API+'/chat',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({messages:apiTurns.slice(-40),attachment:sendAtt,lang:LANG}),signal:ctl.signal});clearTimeout(to);
+  const j=await r.json();if(!r.ok||!j.reply)throw new Error(j.error||'x');apiTurns.push({role:'assistant',content:j.reply});bubble.className='msg bot';bubble.textContent=j.reply;linkify(bubble);return true;}
+ catch(e){clearTimeout(to);apiTurns.pop();return false;}}
+async function ask(q){if(busy||(!q.trim()&&!att))return;busy=true;addMsg((att?'📎 '+att.name+(q.trim()?'\n':''):'')+q,'me');chatIn.value='';const typing=addMsg('','bot typing');typing.innerHTML='<span></span><span></span><span></span>';
+ let answered=false;if(PORA_API){answered=await askApi(q,typing);if(answered){log.scrollTop=log.scrollHeight;busy=false;return;}}
+ const s=await getSample();
  if(s){try{const bubble=typing;let first=true;turns.push({role:'user',content:q});const hist=turns.slice(-8);
    const {text}=await s([{role:'user',content:LANG==='en'?KB_EN:KB_SK},...hist],{cache:false,modelTier:'quick',onText:({text})=>{if(first){bubble.className='msg bot';first=false;}bubble.textContent=text;log.scrollTop=log.scrollHeight;}});
    bubble.className='msg bot';bubble.textContent=text;linkify(bubble);turns.push({role:'assistant',content:text});answered=true;}
@@ -1211,7 +1228,7 @@ const EN={
  copy:'Copy',l_tel:'Phone',l_studio:'Studio',studio_sub:'DUETT 1 building · 040 01 Košice · Slovakia (EU)',
  f_bill:'Billing details',f_legal:'Legal',f_gdpr:'Privacy notice',f_reg:'Company ID 53834691 · registered in Košice, Slovakia',f_follow:'Follow us',f_photo:'Photo: Vladis Photography',
  viz:'Visualisation',ov_cta:'I want something like this →',cta_card:'Your project<br>could be<br><i>next</i> →',
- fab:'Ask PORA',ch_t:'PORA assistant',ch_s:'Replies instantly · 24/7',ph_chat:'Type a question…',ch_n:'The assistant answers automatically from the information on this site. Do not enter sensitive data – for a quote, use the form.',
+ fab:'Ask PORA',ch_t:'PORA assistant',ch_s:'Replies instantly · 24/7',ph_chat:'Type a question…',ch_n:'The assistant can prepare an indicative price offer by email. Your data is used only for that (<a href="#gdpr" data-doc="gdpr">privacy</a>). Do not enter sensitive data.',
  ck_p:'This site uses only necessary cookies. Analytics and marketing cookies are enabled only with your consent. More in the <a href="#cookies" data-doc="cookies">cookie notice</a>.',ck_a:'Accept all',ck_b:'Necessary only',
 };
 const TYPE_EN={'Byt':'Apartment','Podkrovný byt':'Attic apartment','Bistro':'Bistro','Kaviareň':'Café','Nechtové štúdio':'Nail studio','Reštaurácia a bar':'Restaurant & bar','Burger bar':'Burger bar','Reštaurácia':'Restaurant','Zubná ambulancia':'Dental clinic','Cukráreň':'Patisserie','Kancelária':'Office'};
