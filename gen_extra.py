@@ -56,7 +56,7 @@ h2{font:800 clamp(28px,4vw,56px)/1 var(--display);letter-spacing:-.03em;text-tra
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:18px}
 .tile{display:block;text-decoration:none;border-radius:18px;overflow:hidden;background:var(--panel);transition:transform .35s}
 .tile:hover{transform:translateY(-4px)}.tile:hover b{color:var(--lime)}
-.tile img{width:100%;aspect-ratio:4/3;object-fit:cover}
+.tile img{width:100%;height:auto;aspect-ratio:4/3;object-fit:cover}
 .tile div{padding:14px 16px 18px}.tile b{display:block;font:800 20px/1.1 var(--display);text-transform:uppercase;letter-spacing:-.02em}
 .tile span{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
 .intro{max-width:820px;color:#DDDAE0;font-size:19px;margin:24px 0 0}

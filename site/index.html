@@ -1362,6 +1362,7 @@ setTimeout(done,3500);
  const startCP=()=>{openChat();setTimeout(()=>{if(!log.querySelector('.msg.me'))ask(LANG==='en'?'I would like a price quote':'Chcem cenovú ponuku');},350);hideT(true);};
  document.querySelectorAll('[data-cp]').forEach(b=>{b.hidden=false;b.addEventListener('click',e=>{e.preventDefault();startCP();});});
  const strip=document.getElementById('cpStrip');if(strip)strip.hidden=false;
+ if(location.hash==='#ponuka'){setTimeout(startCP,700);}
  const nav=document.getElementById('navCta');if(nav){nav.dataset.t='n_cta_cp';nav.innerHTML=LANG==='en'?'Price quote →':'Cenová ponuka →';SK.n_cta_cp='Cenová ponuka →';nav.addEventListener('click',e=>{e.preventDefault();startCP();});}
  const card=document.getElementById('cpCard');if(card){const m=card.querySelectorAll('.mini span');let k=0;const tick=()=>{k=(k+1)%4;m[0].classList.toggle('on',k>=1);m[1].classList.toggle('on',k>=2);};tick();setInterval(tick,1600);}
  const t=document.getElementById('teaser');let seen=false;try{seen=sessionStorage.getItem('poraTz')==='1';}catch(_){}
