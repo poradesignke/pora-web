@@ -1,4 +1,4 @@
-// AUTO-GENERATED from pricing.js + offer.js + worker/main.js – 2026-10-05T18:20:14.297Z
+// AUTO-GENERATED from pricing.js + offer.js + worker/main.js – 2026-10-05T18:43:41.254Z
 // PORA – pravidlá cenotvorby (ceny bez DPH). Rovnaké pre bývanie, gastro aj komerciu.
 // Zdroj: Tom, 5. 10. 2026.
 const VAT = 0.23;
@@ -230,7 +230,8 @@ PRÁVNE A ZODPOVEDNOSTNÉ HRANICE – dodržiavaj bezpodmienečne:
 AKO VIESŤ ROZHOVOR:
 - Na ponuku potrebuješ: meno, e-mail, telefón (nepovinný), firmu (pri komerčnom priestore), typ priestoru, lokalitu, výmeru v m² (ak ju klient nevie, popros o pôdorys cez tlačidlo so sponkou a výmeru z neho odčítaj), čo potrebuje (konzultácia / návrh / návrh a realizácia), či ide o zásah do nosných konštrukcií alebo pamiatkovo chránenú budovu, kedy chce začať a či potrebuje expresné dodanie, voliteľne rozpočet a poznámku.
 - Pýtaj sa naraz najviac na 1 až 2 veci. Ak klient niečo už povedal, znova sa na to nepýtaj.
-- Ceny vždy zisti nástrojom calculate_quote a uvádzaj ich „bez DPH“.
+- Na to, či chce klient len návrh alebo aj realizáciu, sa nepýtaj. Ponuka vždy obsahuje oba varianty, Variant 1 „Design“ (návrh) aj Variant 2 „Realizácia“ (návrh + podklady k realizácii + autorský dozor), pri výmere do 20 m² aj Balík Mini. Keď uvádzaš ceny, vždy uveď všetky tieto varianty spolu v jednej vete, nikdy len jeden. Ceny zisti nástrojom calculate_quote a uvádzaj ich „bez DPH“.
+- V nástrojoch použi need = "konzultacia" len vtedy, ak klient výslovne chce iba konzultáciu; inak vždy need = "navrh_realizacia".
 - Súbory, ktoré klient priložil (pôdorys PDF alebo obrázok), sú súčasťou rozhovoru a máš ich k dispozícii počas celého rozhovoru. Nikdy netvrď, že si súbor nevidel, ak je v rozhovore.
 - Pred odoslaním jednou vetou zhrň len kľúčové údaje (priestor, výmera, služba, e-mail) a požiadaj o potvrdenie a súhlas so spracovaním osobných údajov na účel vypracovania ponuky (zásady sú v pätičke webu). Až po výslovnom súhlase zavolaj submit_offer, a to iba raz.
 - Po prijatí odpovedz jednou až dvoma vetami: poďakuj, potvrď, že indikatívna cenová ponuka príde na uvedený e-mail spravidla do jedného pracovného dňa a že ju PORA upresní po zameraní. Nič ďalšie nepridávaj.
@@ -387,7 +388,7 @@ async function chat(req, env, url, ectx) {
   const messages = hist; let text = '';
   try {
     for (let i = 0; i < 5; i++) {
-      const res = await anthropic(env, { model: MODEL, max_tokens: 900, system: [{ type: 'text', text: SYSTEM_SK, cache_control: { type: 'ephemeral' } }], tools: TOOLS, messages });
+      const res = await anthropic(env, { model: MODEL, max_tokens: 3000, thinking: { type: 'between_tools' }, output_config: { effort: 'medium' }, system: [{ type: 'text', text: SYSTEM_SK, cache_control: { type: 'ephemeral' } }], tools: TOOLS, messages });
       text = res.content.filter((b) => b.type === 'text').map((b) => b.text).join('\n').trim();
       if (res.stop_reason === 'tool_use') text = '';
       if (res.stop_reason !== 'tool_use') break;
