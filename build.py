@@ -64,6 +64,9 @@ img{max-width:100%}
 <body>
 '''
 HEAD_EN=HEAD_SK.replace('<html lang="sk">','<html lang="en">').replace('<title>PORA | Návrh interiéru Košice – byty, domy, gastro | F***ing cool interiors</title>','<title>PORA | Interior Design Studio Košice, Slovakia – apartments, houses, hospitality | F***ing cool interiors</title>').replace('<meta name="description" content="PORA – interiérové štúdio Košice. Návrh interiéru bytov, domov, kaviarní, reštaurácií a kancelárií. Vizualizácie, podklady k realizácii, autorský dozor. Online pre celý svet.">','<meta name="description" content="PORA – interior design studio in Košice, Slovakia. Interiors of apartments, houses, cafés, restaurants and offices. Visualisations, construction documents, author\'s supervision. Online worldwide.">').replace('<link rel="canonical" href="https://www.pora.sk/">','<link rel="canonical" href="https://www.pora.sk/en/">').replace('<meta property="og:locale" content="sk_SK">\n<meta property="og:locale:alternate" content="en_US">','<meta property="og:locale" content="en_US">\n<meta property="og:locale:alternate" content="sk_SK">').replace('<meta property="og:description" content="Interiérové štúdio Košice. Byty, domy, gastro a komerčné priestory, ktoré nie sú len pekné. Online pre klientov kdekoľvek na svete.">','<meta property="og:description" content="Interior design studio, Košice → worldwide. Apartments, houses, hospitality and commercial spaces that are not just pretty.">').replace('<meta property="og:url" content="https://www.pora.sk/">','<meta property="og:url" content="https://www.pora.sk/en/">').replace('<meta name="twitter:description" content="Interiérové štúdio Košice · návrh interiéru bytov, domov a gastro priestorov · online worldwide.">','<meta name="twitter:description" content="Interior design studio Košice · apartments, houses, hospitality · online worldwide.">').replace('<link rel="preload" as="image" href="/img/POSTER_havanska.jpg">','<link rel="preload" as="image" href="/img/POSTER_havanska.jpg">\n<script>window.__LANG="en"</script>')
+API=open('pora_api.txt').read().strip() if os.path.exists('pora_api.txt') else ''
+if API:
+    HEAD_SK=HEAD_SK.replace('</head>','<script>window.PORA_API="'+API+'"</script>\n</head>');HEAD_EN=HEAD_EN.replace('</head>','<script>window.PORA_API="'+API+'"</script>\n</head>')
 # absolute asset paths so /en/ works
 b2=body.replace('url(img/','url(/img/').replace("url('img/","url('/img/").replace('src="img/','src="/img/').replace("'img/","'/img/").replace('`img/','`/img/').replace('src="vid/','src="/vid/').replace("'vid/","'/vid/").replace('poster="img/','poster="/img/')
 b2=b2.replace("const G=(p,n)=>Array.from({length:n},(_,i)=>`img/","const G=(p,n)=>Array.from({length:n},(_,i)=>`/img/").replace("const G0=(p,n)=>Array.from({length:n},(_,i)=>`img/","const G0=(p,n)=>Array.from({length:n},(_,i)=>`/img/")
@@ -72,7 +75,7 @@ os.makedirs(OUT+'/en',exist_ok=True)
 open(OUT+'/index.html','w').write(HEAD_SK+b2+TAIL)
 open(OUT+'/en/index.html','w').write(HEAD_EN+b2+TAIL)
 # assets
-for d in ['img','vid']:
+for d in ['img','vid','cp']:
     if os.path.exists(OUT+'/'+d): shutil.rmtree(OUT+'/'+d)
     shutil.copytree('site/'+d,OUT+'/'+d)
 # favicon svg (PLUS)
