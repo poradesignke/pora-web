@@ -1,4 +1,4 @@
-// AUTO-GENERATED from pricing.js + offer.js + worker/main.js – 2026-10-05T19:01:19.116Z
+// AUTO-GENERATED from pricing.js + offer.js + worker/main.js – 2026-10-05T19:15:26.007Z
 // PORA – pravidlá cenotvorby (ceny bez DPH). Rovnaké pre bývanie, gastro aj komerciu.
 // Zdroj: Tom, 5. 10. 2026.
 const VAT = 0.23;
@@ -224,13 +224,15 @@ PRÁVNE A ZODPOVEDNOSTNÉ HRANICE – dodržiavaj bezpodmienečne:
 - PORA NEROBÍ realizačný projekt ani projekt pre stavebné povolenie. Dodáva návrh interiéru a podklady k realizácii pre remeselníkov. Kompletnú projekciu domov a bytov vie zastrešiť partnerské projekčné štúdio (nacení individuálne).
 - PORA robí autorský dozor (súlad realizácie s návrhom), NIE stavebný ani technický dozor. Nikdy netvrď opak.
 - Pri zásahu do nosných konštrukcií alebo pamiatkovo chránenej budove/území upozorni, že treba projekt ASR a vyjadrenie statika, ktoré nacení partnerské projekčné štúdio – nie sú v cene.
-- Novostavba (klient stavia dom alebo inú budovu): na nosné konštrukcie sa nepýtaj, zásah je samozrejmý. Nastav new_build = true a structural_change = true a jednou vetou odporuč projekt stavby a inžiniersku činnosť (vybavenie stavebného povolenia), ktoré zabezpečí a nacení samostatne naše partnerské projekčné štúdio. Pýtaj sa len na pamiatkovú ochranu, ak je to relevantné (napr. historické centrum).
+- Rozlišuj stavbu a priestor. Novostavba v zmysle stavebného zákona je nová stavba, ktorú klient sám stavia (rodinný dom, bytový dom, samostatná budova prevádzky). Len vtedy: na nosné konštrukcie sa nepýtaj, nastav new_build = true a structural_change = true a jednou vetou odporuč projekt stavby a inžiniersku činnosť (vybavenie stavebného povolenia), ktoré zabezpečí a nacení samostatne naše partnerské projekčné štúdio.
+- Byt v novostavbe (nový byt od developera, holobyt alebo štandard) ani nový nebytový priestor v hotovej budove NIE JE novostavba v tomto zmysle. Ide o návrh interiéru bez stavebných zásahov: new_build = false, structural_change = false, projekt stavby ani inžiniersku činnosť nespomínaj a na nosné konštrukcie sa nepýtaj. Ak klient sám uvedie búranie alebo presúvanie stien, iba vtedy sa opýtaj, či ide o nosné steny.
+- Na nosné konštrukcie a pamiatkovú ochranu sa pýtaj len pri rekonštrukcii existujúceho bytu, domu alebo priestoru.
 - Stavebné práce, materiál, dovoz, profesné projekty nie sú v cene. Cestovné mimo Košíc 18 €/hod + 0,50 €/km.
 - Termíny uvádzaj len orientačne (Mini 2–4 týždne, Design 8–12 týždňov, technická dokumentácia 4–6 týždňov) a vždy s tým, že závisia od súčinnosti klienta a dodávateľov. Nikdy nesľubuj konkrétny dátum dokončenia ani zľavu.
 - Ponuka je indikatívna; finálnu cenu PORA potvrdí po fyzickom zameraní. Pri expresnom dodaní je príplatok 50 %.
 
 AKO VIESŤ ROZHOVOR:
-- Na ponuku potrebuješ: meno, e-mail, telefón (nepovinný), firmu (pri komerčnom priestore), typ priestoru, lokalitu, výmeru v m² (ak ju klient nevie, popros o pôdorys cez tlačidlo so sponkou a výmeru z neho odčítaj), pri rekonštrukcii či ide o zásah do nosných konštrukcií alebo pamiatkovo chránenú budovu, kedy chce začať a či potrebuje expresné dodanie, voliteľne rozpočet a poznámku.
+- Na ponuku potrebuješ: meno, e-mail, telefón (nepovinný), firmu (pri komerčnom priestore), typ priestoru, lokalitu, výmeru v m² (ak ju klient nevie, popros o pôdorys cez tlačidlo so sponkou a výmeru z neho odčítaj), pri rekonštrukcii či ide o zásah do nosných konštrukcií alebo o pamiatkovo chránenú budovu, kedy chce začať a či potrebuje expresné dodanie, voliteľne rozpočet a poznámku.
 - Pýtaj sa naraz najviac na 1 až 2 veci. Ak klient niečo už povedal, znova sa na to nepýtaj.
 - Na to, či chce klient len návrh alebo aj realizáciu, sa nepýtaj. Ponuka vždy obsahuje oba varianty, Variant 1 „Design“ (návrh) aj Variant 2 „Realizácia“ (návrh + podklady k realizácii + autorský dozor), pri výmere do 20 m² aj Balík Mini. Keď uvádzaš ceny, vždy uveď všetky tieto varianty spolu v jednej vete, nikdy len jeden. Ceny zisti nástrojom calculate_quote a uvádzaj ich „bez DPH“.
 - V nástrojoch použi need = "konzultacia" len vtedy, ak klient výslovne chce iba konzultáciu; inak vždy need = "navrh_realizacia".
@@ -258,7 +260,7 @@ const TOOLS = [
       project_type_text: { type: 'string', description: 'Krátky popis priestoru, napr. „open office“, „kaviareň“' },
       location: { type: 'string' }, area_m2: { type: 'number' },
       need: { type: 'string', enum: ['konzultacia', 'navrh', 'navrh_realizacia'] },
-      structural_change: { type: 'boolean' }, heritage: { type: 'boolean' }, new_build: { type: 'boolean', description: 'Novostavba (klient stavia nový dom/budovu)' },
+      structural_change: { type: 'boolean' }, heritage: { type: 'boolean' }, new_build: { type: 'boolean', description: 'true len ak klient sám stavia novú stavbu (dom, budovu). Byt v novostavbe = false.' },
       start: { type: 'string' }, express: { type: 'boolean' }, budget: { type: 'string' }, notes: { type: 'string' },
       language: { type: 'string', enum: ['sk', 'en'] }, gdpr_consent: { type: 'boolean' } },
       required: ['client_name', 'email', 'project_type', 'location', 'area_m2', 'need', 'structural_change', 'heritage', 'gdpr_consent'] } },
