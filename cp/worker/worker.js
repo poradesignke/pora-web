@@ -1,4 +1,4 @@
-// AUTO-GENERATED from pricing.js + offer.js + worker/main.js – 2026-10-05T19:15:26.007Z
+// AUTO-GENERATED from pricing.js + offer.js + worker/main.js – 2026-10-05T19:21:47.086Z
 // PORA – pravidlá cenotvorby (ceny bez DPH). Rovnaké pre bývanie, gastro aj komerciu.
 // Zdroj: Tom, 5. 10. 2026.
 const VAT = 0.23;
@@ -238,7 +238,7 @@ AKO VIESŤ ROZHOVOR:
 - V nástrojoch použi need = "konzultacia" len vtedy, ak klient výslovne chce iba konzultáciu; inak vždy need = "navrh_realizacia".
 - Súbory, ktoré klient priložil (pôdorys PDF alebo obrázok), sú súčasťou rozhovoru a máš ich k dispozícii počas celého rozhovoru. Nikdy netvrď, že si súbor nevidel, ak je v rozhovore.
 - Pred odoslaním jednou vetou zhrň len kľúčové údaje (priestor, výmera, služba, e-mail) a požiadaj o potvrdenie a súhlas so spracovaním osobných údajov na účel vypracovania ponuky (zásady sú v pätičke webu). Až po výslovnom súhlase zavolaj submit_offer, a to iba raz.
-- Po prijatí odpovedz jednou až dvoma vetami: poďakuj, potvrď, že indikatívna cenová ponuka príde na uvedený e-mail spravidla do jedného pracovného dňa a že ju PORA upresní po zameraní. Nič ďalšie nepridávaj.
+- Po prijatí odpovedz jednou až dvoma vetami: poďakuj a potvrď doručenie podľa stavu, ktorý vráti submit_offer (buď o pár minút, alebo spravidla do jedného pracovného dňa), a že ponuku PORA upresní po zameraní. Nič ďalšie nepridávaj.
 
 ŠTÝL – bezpodmienečne:
 - Píš ako skúsený a zdvorilý konzultant prémiového štúdia: vecne, jasne, krátko (spravidla 1 až 3 vety). Vykáš. Bezchybná spisovná slovenčina s diakritikou (alebo angličtina, ak klient píše po anglicky).
@@ -361,9 +361,10 @@ async function runTool(env, name, input, ctx) {
     if (!(input.area_m2 > 0)) return { error: 'Chýba výmera.' };
     if (ctx.submitted) return { status: 'Ponuka z tohto rozhovoru je už prijatá. Neodosielaj znova.' };
     const data = { ...input }; delete data.number; delete data.date;
-    ctx.submitted = 'pending';
+    const autoNow = String(env.AUTO_SEND).toLowerCase() === 'true' && !quote({ need: data.need, m2: data.area_m2 }).needsApproval;
+    ctx.submitted = autoNow ? 'sent' : 'pending';
     ctx.wait(processOffer(env, data, ctx.origin).catch((e) => notifyOwner(env, 'Ponuku treba poslať ručne – ' + (data.company || data.client_name), `<p style="font:15px sans-serif">Automatické vytvorenie PDF alebo odoslanie zlyhalo. Klient videl potvrdenie, že ponuka príde e-mailom – pošlite ju prosím ručne.</p><pre>${escH(String(e))}</pre>${ownerSummary(data, buildOffer({ ...data, number: '-', date: '' }))}`)));
-    return { status: 'Prijaté. Indikatívna ponuka príde klientovi e-mailom.' };
+    return { status: autoNow ? 'Prijaté. Indikatívna ponuka v PDF príde klientovi na e-mail o pár minút.' : 'Prijaté. Indikatívna ponuka príde klientovi e-mailom spravidla do jedného pracovného dňa (štúdio ju ešte individuálne nacení).' };
   }
   return { error: 'unknown tool' };
 }
@@ -409,7 +410,7 @@ async function chat(req, env, url, ectx) {
     return json({ error: 'unavailable' }, 503, c);
   }
   text = text.replace(/\*\*|__|^#+\s*/gm, '').replace(/^\s*[-•*]\s+/gm, '').replace(/\s[–—]\s/g, ', ').trim();
-  if (!text) text = ctx.submitted ? (body.lang === 'en' ? 'Thank you. Your indicative quote will arrive by email, usually within one business day.' : 'Ďakujeme. Indikatívna cenová ponuka vám príde e-mailom, spravidla do jedného pracovného dňa.') : '…';
+  if (!text) text = ctx.submitted ? (body.lang === 'en' ? (ctx.submitted === 'sent' ? 'Thank you. Your indicative quote will arrive by email in a few minutes.' : 'Thank you. Your indicative quote will arrive by email, usually within one business day.') : (ctx.submitted === 'sent' ? 'Ďakujeme. Indikatívna cenová ponuka vám príde e-mailom o pár minút.' : 'Ďakujeme. Indikatívna cenová ponuka vám príde e-mailom, spravidla do jedného pracovného dňa.')) : '…';
   return json({ reply: text, submitted: ctx.submitted }, 200, c);
 }
 

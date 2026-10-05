@@ -614,9 +614,9 @@ body.chat-open .teaser{display:none}
         <a href="#realizacie" class="btn ghost" data-t="hero_btn">Pozrieť realizácie ↓</a>
         <button type="button" class="cpc" id="cpCard" data-cp hidden aria-label="Získať cenovú ponuku od asistenta PORA">
           <span class="tg"><b></b><span data-t="cp_tag">AI asistent PORA · 24/7</span></span>
-          <span class="hd2" data-t="cp_h">Cenová ponuka <i>za 3 minúty.</i></span>
-          <span class="mini" aria-hidden="true"><span class="u" data-t="cp_m1">Byt 72 m², chcem návrh aj realizáciu.</span><span class="a" data-t="cp_m2">Výborne. Ponuku v PDF vám pošlem na e-mail.</span></span>
-          <span class="go"><em data-t="cp_s">Pár otázok v chate, ponuka príde e-mailom.</em><span data-t="cp_go">Začať →</span></span>
+          <span class="hd2" data-t="cp_h">Cenová ponuka <i>na počkanie.</i></span>
+          <span class="mini" aria-hidden="true"><span class="u" data-t="cp_m1">Byt 72 m², chcem návrh aj realizáciu.</span><span class="a" data-t="cp_m2">Hotovo. Ponuka v PDF je na ceste do vášho e-mailu.</span></span>
+          <span class="go"><em data-t="cp_s">Pár otázok v chate a ponuka v PDF príde hneď e-mailom.</em><span data-t="cp_go">Začať →</span></span>
         </button>
       </div>
     </div>
@@ -770,7 +770,7 @@ body.chat-open .teaser{display:none}
   <div class="wrap">
     <span class="eyebrow" data-t="c_eye">Nezáväzná konzultácia · osobne alebo online</span>
     <h2 class="rv" style="margin-top:20px" data-t="c_h">Poďme<br>na <i class="neon">to.</i></h2>
-    <div class="cpstrip" id="cpStrip" hidden><p data-t="cp_strip"><b>Rýchlejšie ako formulár:</b> asistent PORA sa vás v chate spýta na pár vecí a indikatívnu cenovú ponuku vám pošle e-mailom v PDF.</p><button type="button" class="btn lime" data-cp data-t="cp_strip_b">Získať cenovú ponuku →</button></div>
+    <div class="cpstrip" id="cpStrip" hidden><p data-t="cp_strip"><b>Cenová ponuka na počkanie:</b> asistent PORA sa vás v chate spýta na pár vecí a indikatívnu cenovú ponuku v PDF vám pošle hneď e-mailom.</p><button type="button" class="btn lime" data-cp data-t="cp_strip_b">Získať cenovú ponuku →</button></div>
     <div class="g">
       <form class="form" id="form" novalidate>
         <div class="two">
@@ -813,7 +813,7 @@ body.chat-open .teaser{display:none}
 
 
 <!-- CHAT BOT -->
-<div class="teaser" id="teaser" role="button" tabindex="0"><button class="tx" id="teaserX" type="button" aria-label="Zavrieť">×</button><b data-t="tz_h">Chcete poznať cenu?</b><span data-t="tz_p">Pripravím vám cenovú ponuku a pošlem ju e-mailom. Stačí pár otázok.</span></div>
+<div class="teaser" id="teaser" role="button" tabindex="0"><button class="tx" id="teaserX" type="button" aria-label="Zavrieť">×</button><b data-t="tz_h">Chcete poznať cenu?</b><span data-t="tz_p">Cenovú ponuku vám pripravím na počkanie a hneď ju pošlem e-mailom. Stačí pár otázok.</span></div>
 <button class="fab" id="fab" aria-label="Otvoriť chat s asistentom PORA"><span class="ic"></span><span class="t" data-t="fab">Cenová ponuka</span></button>
 <section class="chat" id="chat" role="dialog" aria-label="Asistent PORA" aria-hidden="true">
   <div class="hd"><span class="av" aria-hidden="true"></span><div><b data-t="ch_t">Asistent PORA</b><small data-t="ch_s">Odpovedá hneď · 24/7</small></div><button class="x" id="chatX" aria-label="Zavrieť chat">×</button></div>
@@ -1225,7 +1225,7 @@ const EN={
  copy:'Copy',l_tel:'Phone',l_studio:'Studio',studio_sub:'DUETT 1 building · 040 01 Košice · Slovakia (EU)',
  f_bill:'Billing details',f_legal:'Legal',f_gdpr:'Privacy notice',f_reg:'Company ID 53834691 · registered in Košice, Slovakia',f_follow:'Follow us',f_photo:'Photo: Vladis Photography',
  viz:'Visualisation',ov_cta:'I want something like this →',cta_card:'Your project<br>could be<br><i>next</i> →',
- fab:'Get a quote',cp_tag:'PORA AI assistant · 24/7',cp_h:'Price quote <i>in 3 minutes.</i>',cp_m1:'Flat, 72 m², I need design and realisation.',cp_m2:'Great. I will email you the quote as a PDF.',cp_s:'A few questions in the chat, the quote arrives by email.',cp_go:'Start →',cp_strip:'<b>Faster than the form:</b> the PORA assistant asks you a few questions in the chat and emails you an indicative price quote as a PDF.',cp_strip_b:'Get a price quote →',tz_h:'Want to know the price?',tz_p:'I will prepare a price quote and email it to you. Just a few questions.',n_cta_cp:'Price quote →',ch_t:'PORA assistant',ch_s:'Replies instantly · 24/7',ph_chat:'Type a question…',ch_n:'The assistant can prepare an indicative price offer by email. Your data is used only for that (<a href="#gdpr" data-doc="gdpr">privacy</a>). Do not enter sensitive data.',
+ fab:'Get a quote',cp_tag:'PORA AI assistant · 24/7',cp_h:'Price quote <i>while you wait.</i>',cp_m1:'Flat, 72 m², I need design and realisation.',cp_m2:'Done. Your PDF quote is on its way to your inbox.',cp_s:'A few questions in the chat and the PDF quote lands in your inbox right away.',cp_go:'Start →',cp_strip:'<b>Price quote while you wait:</b> the PORA assistant asks you a few questions in the chat and emails you an indicative PDF quote right away.',cp_strip_b:'Get a price quote →',tz_h:'Want to know the price?',tz_p:'I will prepare a price quote while you wait and email it right away. Just a few questions.',n_cta_cp:'Price quote →',ch_t:'PORA assistant',ch_s:'Replies instantly · 24/7',ph_chat:'Type a question…',ch_n:'The assistant can prepare an indicative price offer by email. Your data is used only for that (<a href="#gdpr" data-doc="gdpr">privacy</a>). Do not enter sensitive data.',
  ck_p:'This site uses only necessary cookies. Analytics and marketing cookies are enabled only with your consent. More in the <a href="#cookies" data-doc="cookies">cookie notice</a>.',ck_a:'Accept all',ck_b:'Necessary only',
 };
 const TYPE_EN={'Byt':'Apartment','Podkrovný byt':'Attic apartment','Bistro':'Bistro','Kaviareň':'Café','Nechtové štúdio':'Nail studio','Reštaurácia a bar':'Restaurant & bar','Burger bar':'Burger bar','Reštaurácia':'Restaurant','Zubná ambulancia':'Dental clinic','Cukráreň':'Patisserie','Kancelária':'Office'};
