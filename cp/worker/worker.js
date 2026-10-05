@@ -1,4 +1,4 @@
-// AUTO-GENERATED from pricing.js + offer.js + worker/main.js – 2026-10-05T16:47:23.708Z
+// AUTO-GENERATED from pricing.js + offer.js + worker/main.js – 2026-10-05T18:20:14.297Z
 // PORA – pravidlá cenotvorby (ceny bez DPH). Rovnaké pre bývanie, gastro aj komerciu.
 // Zdroj: Tom, 5. 10. 2026.
 const VAT = 0.23;
@@ -214,7 +214,7 @@ const MAX_TURNS = 40;
 const MAX_ATTACH = 8 * 1024 * 1024;
 
 const SYSTEM_SK = `Si asistent interiérového štúdia PORA (PORA s.r.o., Košice; web pora.sk; info@pora.sk; +421 903 494 977).
-Tvoja úloha: odpovedať na otázky o štúdiu a hlavne zrozumiteľne previesť záujemcu k indikatívnej cenovej ponuke (CP), ktorú dostane e-mailom.
+Tvoja úloha: odpovedať na otázky o štúdiu a hlavne rýchlo a zrozumiteľne previesť záujemcu k indikatívnej cenovej ponuke, ktorú dostane e-mailom.
 
 O PORA: interiérové štúdio z Košíc, pracuje osobne po Slovensku a online pre klientov kdekoľvek na svete. Byty, rodinné domy, kaviarne, bistrá, reštaurácie, bary, salóny, ambulancie, kancelárie. 80+ realizácií, z toho 20+ gastro a komerčných. Tím: Tomáš Potočiar (CEO, zakladateľ), Mgr. art. Daniel Csúz (Head of design), Mgr. art. Katarína Csúzová, ArtD. (designer).
 Služby (ceny bez DPH): Balík Mini 2 490 € (len do 20 m²; dispozícia, vizualizácie max. 10 ks, materiály a produkty, 2 h konzultácií); Variant 1 „Design“ od 4 990 € (do 100 m²; zameranie, dispozícia, návrh interiéru, vizualizácie, výpis produktov, technická schéma, 3 h konzultácií); Variant 2 „Realizácia“ od 15 000 € (všetko z Variantu 1 + technická dokumentácia: podklady pre búracie a stavebné úpravy, jednoduchá schéma elektro a vody, výrobné podklady nábytku na mieru + autorský dozor); konzultácie 500 €/hod. Ceny nad 100 m² rastú podľa výmery – presnú sumu VŽDY zisti nástrojom calculate_quote, nikdy ju nepočítaj sám.
@@ -228,12 +228,20 @@ PRÁVNE A ZODPOVEDNOSTNÉ HRANICE – dodržiavaj bezpodmienečne:
 - Ponuka je indikatívna; finálnu cenu PORA potvrdí po fyzickom zameraní. Pri expresnom dodaní je príplatok 50 %.
 
 AKO VIESŤ ROZHOVOR:
-- Píš stručne a priateľsky, v jazyku klienta (slovensky, ak píše po anglicky, tak anglicky). Pýtaj sa naraz najviac 1–2 veci.
-- Na ponuku potrebuješ: (1) meno, (2) e-mail, (3) telefón – nepovinný, (4) firmu – ak ide o komerčný priestor, (5) typ priestoru (byt, dom, gastro, kancelária, salón, iné), (6) lokalitu (mesto/krajina), (7) výmeru v m² – ak ju klient nevie, popros o pôdorys (PDF alebo fotku cez tlačidlo s kancelárskou sponkou) a výmeru z neho odčítaj; ak ju nevieš spoľahlivo určiť, opýtaj sa, (8) čo potrebuje: len konzultáciu / návrh / návrh a realizáciu (podklady + autorský dozor), (9) či sa plánuje zásah do nosných konštrukcií a či ide o pamiatkovo chránenú budovu, (10) kedy chce začať a či potrebuje expresné dodanie, (11) voliteľne orientačný rozpočet na realizáciu a poznámku.
-- Keď poznáš výmeru a potrebu, môžeš orientačné ceny ukázať (cez calculate_quote, vždy „bez DPH“).
-- Pred odoslaním krátko zhrň údaje a požiadaj o potvrdenie a o súhlas so spracovaním osobných údajov na účel vypracovania ponuky (zásady sú v pätičke webu). Až po výslovnom súhlase zavolaj submit_offer.
-- Po odoslaní povedz, že indikatívna ponuka príde na zadaný e-mail čoskoro (zvyčajne v ten istý alebo nasledujúci pracovný deň) a že ju PORA upresní po zameraní.
-- Neodpovedaj na témy nesúvisiace so štúdiom; nezadávaj ani nežiadaj citlivé údaje (rodné číslo, údaje o karte).`;
+- Na ponuku potrebuješ: meno, e-mail, telefón (nepovinný), firmu (pri komerčnom priestore), typ priestoru, lokalitu, výmeru v m² (ak ju klient nevie, popros o pôdorys cez tlačidlo so sponkou a výmeru z neho odčítaj), čo potrebuje (konzultácia / návrh / návrh a realizácia), či ide o zásah do nosných konštrukcií alebo pamiatkovo chránenú budovu, kedy chce začať a či potrebuje expresné dodanie, voliteľne rozpočet a poznámku.
+- Pýtaj sa naraz najviac na 1 až 2 veci. Ak klient niečo už povedal, znova sa na to nepýtaj.
+- Ceny vždy zisti nástrojom calculate_quote a uvádzaj ich „bez DPH“.
+- Súbory, ktoré klient priložil (pôdorys PDF alebo obrázok), sú súčasťou rozhovoru a máš ich k dispozícii počas celého rozhovoru. Nikdy netvrď, že si súbor nevidel, ak je v rozhovore.
+- Pred odoslaním jednou vetou zhrň len kľúčové údaje (priestor, výmera, služba, e-mail) a požiadaj o potvrdenie a súhlas so spracovaním osobných údajov na účel vypracovania ponuky (zásady sú v pätičke webu). Až po výslovnom súhlase zavolaj submit_offer, a to iba raz.
+- Po prijatí odpovedz jednou až dvoma vetami: poďakuj, potvrď, že indikatívna cenová ponuka príde na uvedený e-mail spravidla do jedného pracovného dňa a že ju PORA upresní po zameraní. Nič ďalšie nepridávaj.
+
+ŠTÝL – bezpodmienečne:
+- Píš ako skúsený a zdvorilý konzultant prémiového štúdia: vecne, jasne, krátko (spravidla 1 až 3 vety). Vykáš. Bezchybná spisovná slovenčina s diakritikou (alebo angličtina, ak klient píše po anglicky).
+- Žiadne formátovanie: žiadne odrážky, pomlčky, číslované zoznamy, hviezdičky, tučné písmo ani nadpisy. Len súvislé vety v jednom alebo dvoch krátkych odsekoch.
+- Neopakuj a nezhŕňaj, čo už v rozhovore zaznelo. Nevysvetľuj svoj postup, nespomínaj nástroje, systém, výpočty ani technické detaily.
+- Nikdy sa neospravedlňuj za vlastné chyby, nehovor o technických problémoch a nespochybňuj, či ponuka odišla. Ak by niečo nebolo isté, povedz len, že ponuku štúdio pripraví a pošle e-mailom.
+- Kontakt (info@pora.sk, +421 903 494 977) uveď len vtedy, keď sa naň klient pýta.
+- Neodpovedaj na témy nesúvisiace so štúdiom; nežiadaj citlivé údaje (rodné číslo, údaje o karte).`;
 
 const TOOLS = [
   { name: 'calculate_quote', description: 'Vypočíta ceny variantov podľa pravidiel PORA. Použi vždy, keď uvádzaš konkrétnu cenu.',
@@ -285,13 +293,17 @@ function buildOffer(o) {
 }
 
 async function renderPdf(env, offer) {
-  const body = JSON.stringify({ html: offerHTML(offer, ASSETS), pdfOptions: { format: 'a4', printBackground: true, preferCSSPageSize: true }, gotoOptions: { waitUntil: 'networkidle0', timeout: 45000 } });
-  for (const path of ['browser-run', 'browser-rendering']) {
-    const r = await fetch(`https://api.cloudflare.com/client/v4/accounts/${env.CF_ACCOUNT_ID}/${path}/pdf`, { method: 'POST', headers: { Authorization: `Bearer ${env.CF_API_TOKEN}`, 'content-type': 'application/json' }, body });
-    if (r.ok && (r.headers.get('content-type') || '').includes('pdf')) return await r.arrayBuffer();
-    if (r.status !== 404) throw new Error('PDF ' + r.status + ' ' + (await r.text()).slice(0, 300));
+  const body = JSON.stringify({ html: offerHTML(offer, ASSETS), pdfOptions: { format: 'a4', printBackground: true, preferCSSPageSize: true }, gotoOptions: { waitUntil: 'networkidle0', timeout: 20000 } });
+  const errs = [];
+  for (let attempt = 0; attempt < 2; attempt++) {
+    for (const path of ['browser-rendering', 'browser-run']) {
+      const r = await fetch(`https://api.cloudflare.com/client/v4/accounts/${env.CF_ACCOUNT_ID}/${path}/pdf`, { method: 'POST', headers: { Authorization: `Bearer ${env.CF_API_TOKEN}`, 'content-type': 'application/json' }, body });
+      if (r.ok && (r.headers.get('content-type') || '').includes('pdf')) return await r.arrayBuffer();
+      errs.push(path + ' ' + r.status + ' ' + (await r.text()).slice(0, 300));
+    }
+    await new Promise((res) => setTimeout(res, 11000)); // free plán: 1 požiadavka / 10 s
   }
-  throw new Error('PDF endpoint not found');
+  throw new Error('PDF: ' + errs.join(' | '));
 }
 
 async function sendMail(env, { to, cc, subject, htmlBody, attachments, replyTo }) {
@@ -342,9 +354,11 @@ async function runTool(env, name, input, ctx) {
     if (!input.gdpr_consent) return { error: 'Chýba súhlas so spracovaním osobných údajov.' };
     if (!isEmail(input.email)) return { error: 'Neplatný e-mail.' };
     if (!(input.area_m2 > 0)) return { error: 'Chýba výmera.' };
-    if (ctx.submitted) return { error: 'Ponuka už bola v tomto rozhovore odoslaná.' };
-    try { const st = await processOffer(env, input, ctx.origin); ctx.submitted = st; return { status: st === 'sent' ? 'odoslané klientovi' : 'prijaté – ponuka bude odoslaná po kontrole štúdiom' }; }
-    catch (e) { ctx.error = String(e); await notifyOwner(env, 'Chyba pri vytváraní ponuky', `<pre>${escH(String(e))}</pre><pre>${escH(JSON.stringify(input, null, 1))}</pre>`); return { error: 'Technická chyba – štúdio údaje dostalo a ozve sa e-mailom.' }; }
+    if (ctx.submitted) return { status: 'Ponuka z tohto rozhovoru je už prijatá. Neodosielaj znova.' };
+    const data = { ...input }; delete data.number; delete data.date;
+    ctx.submitted = 'pending';
+    ctx.wait(processOffer(env, data, ctx.origin).catch((e) => notifyOwner(env, 'Ponuku treba poslať ručne – ' + (data.company || data.client_name), `<p style="font:15px sans-serif">Automatické vytvorenie PDF alebo odoslanie zlyhalo. Klient videl potvrdenie, že ponuka príde e-mailom – pošlite ju prosím ručne.</p><pre>${escH(String(e))}</pre>${ownerSummary(data, buildOffer({ ...data, number: '-', date: '' }))}`)));
+    return { status: 'Prijaté. Indikatívna ponuka príde klientovi e-mailom.' };
   }
   return { error: 'unknown tool' };
 }
@@ -356,25 +370,26 @@ async function anthropic(env, payload) {
   const j = await r.json(); if (!r.ok) { const e = new Error(j?.error?.message || ('HTTP ' + r.status)); e.status = r.status; throw e; } return j;
 }
 
-async function chat(req, env, url) {
+async function chat(req, env, url, ectx) {
   const c = cors(req); if (!c['Access-Control-Allow-Origin']) return json({ error: 'origin' }, 403);
   let body; try { body = await req.json(); } catch (_) { return json({ error: 'bad json' }, 400, c); }
   const hist = (Array.isArray(body.messages) ? body.messages : []).slice(-MAX_TURNS)
     .filter((m) => (m.role === 'user' || m.role === 'assistant') && typeof m.content === 'string' && m.content.trim())
-    .map((m) => ({ role: m.role, content: m.content.slice(0, 3000) }));
+    .map((m) => { const o = { role: m.role, content: m.content.slice(0, 3000) }; const a = m.att;
+      if (m.role === 'user' && a && a.data && /^(application\/pdf|image\/(png|jpeg|webp))$/.test(a.type) && a.data.length * 0.75 <= MAX_ATTACH)
+        o.content = [a.type === 'application/pdf' ? { type: 'document', source: { type: 'base64', media_type: 'application/pdf', data: a.data } } : { type: 'image', source: { type: 'base64', media_type: a.type, data: a.data } }, { type: 'text', text: o.content + `\n[Klient priložil súbor: ${String(a.name || '').slice(0, 80)}]` }];
+      return o; });
   if (!hist.length || hist[hist.length - 1].role !== 'user') return json({ error: 'empty' }, 400, c);
   while (hist[0] && hist[0].role !== 'user') hist.shift();
-  const a = body.attachment;
-  if (a && a.data && /^(application\/pdf|image\/(png|jpeg|webp))$/.test(a.type) && a.data.length * 0.75 <= MAX_ATTACH) {
-    const last = hist[hist.length - 1];
-    last.content = [a.type === 'application/pdf' ? { type: 'document', source: { type: 'base64', media_type: 'application/pdf', data: a.data } } : { type: 'image', source: { type: 'base64', media_type: a.type, data: a.data } }, { type: 'text', text: last.content + `\n[Klient priložil súbor: ${String(a.name || '').slice(0, 80)}]` }];
-  }
-  const ctx = { origin: url.origin, submitted: null };
+  // cache: posledný blok so súborom (aby sa pôdorys neplatil v každom kroku naplno)
+  for (let i = hist.length - 1; i >= 0; i--) { if (Array.isArray(hist[i].content)) { hist[i].content[0].cache_control = { type: 'ephemeral' }; break; } }
+  const ctx = { origin: url.origin, submitted: body.submitted ? 'pending' : null, wait: (p) => ectx.waitUntil(p) };
   const messages = hist; let text = '';
   try {
     for (let i = 0; i < 5; i++) {
       const res = await anthropic(env, { model: MODEL, max_tokens: 900, system: [{ type: 'text', text: SYSTEM_SK, cache_control: { type: 'ephemeral' } }], tools: TOOLS, messages });
       text = res.content.filter((b) => b.type === 'text').map((b) => b.text).join('\n').trim();
+      if (res.stop_reason === 'tool_use') text = '';
       if (res.stop_reason !== 'tool_use') break;
       messages.push({ role: 'assistant', content: res.content });
       const results = [];
@@ -388,7 +403,9 @@ async function chat(req, env, url) {
     }
     return json({ error: 'unavailable' }, 503, c);
   }
-  return json({ reply: text || '…', submitted: ctx.submitted }, 200, c);
+  text = text.replace(/\*\*|__|^#+\s*/gm, '').replace(/^\s*[-•*]\s+/gm, '').replace(/\s[–—]\s/g, ', ').trim();
+  if (!text) text = ctx.submitted ? (body.lang === 'en' ? 'Thank you. Your indicative quote will arrive by email, usually within one business day.' : 'Ďakujeme. Indikatívna cenová ponuka vám príde e-mailom, spravidla do jedného pracovného dňa.') : '…';
+  return json({ reply: text, submitted: ctx.submitted }, 200, c);
 }
 
 async function approve(req, env, url) {
@@ -411,11 +428,11 @@ async function approve(req, env, url) {
 }
 
 export default {
-  async fetch(req, env) {
+  async fetch(req, env, ectx) {
     const url = new URL(req.url);
     if (req.method === 'OPTIONS') return new Response(null, { status: 204, headers: cors(req) });
     try {
-      if (url.pathname === '/chat' && req.method === 'POST') return await chat(req, env, url);
+      if (url.pathname === '/chat' && req.method === 'POST') return await chat(req, env, url, ectx);
       if (url.pathname === '/approve') return await approve(req, env, url);
       if (url.pathname === '/health') return json({ ok: true, model: MODEL, config: { anthropic: !!env.ANTHROPIC_API_KEY, brevo: !!env.BREVO_API_KEY, pdf: !!(env.CF_API_TOKEN && env.CF_ACCOUNT_ID), signing: !!env.SIGNING_SECRET, owner: env.OWNER_EMAIL || null, auto: env.AUTO_SEND || 'false' } });
       return json({ ok: true, service: 'PORA asistent' });
