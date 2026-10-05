@@ -551,8 +551,13 @@ html.lt-anim body,html.lt-anim section,html.lt-anim .nav,html.lt-anim footer,htm
 .bulb{position:absolute;top:-90px;right:26%;z-index:4;display:flex;flex-direction:column;align-items:center;background:none;border:0;padding:0;cursor:pointer;color:var(--fg);transform-origin:50% 0;animation:sway 6s ease-in-out infinite}
 .bulb .cord{width:3px;height:clamp(10px,3vh,40px);background:currentColor}
 .bulb .halo{position:absolute;left:50%;top:72%;width:420px;height:420px;transform:translate(-50%,-50%) scale(.4);border-radius:50%;background:radial-gradient(circle,rgba(209,255,5,.45),rgba(209,255,5,.14) 40%,transparent 68%);opacity:0;pointer-events:none;transition:opacity .6s,transform .6s}
-.bulb .lbl{margin-top:4px;font:700 10px/1 var(--display);letter-spacing:.18em;text-transform:uppercase;color:var(--muted);white-space:nowrap;transition:color .3s}
-.bulb:hover .lbl{color:var(--fg)}
+.bulb .lbl{margin-top:10px;font:800 11px/1 var(--display);letter-spacing:.18em;text-transform:uppercase;white-space:nowrap;color:var(--ink);background:var(--lime);padding:8px 12px 7px;border-radius:999px;box-shadow:0 0 0 0 rgba(209,255,5,.6),0 0 18px rgba(209,255,5,.55);animation:lblink 1.8s ease-in-out infinite;transition:background .3s,color .3s}
+@keyframes lblink{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(209,255,5,.55),0 0 22px rgba(209,255,5,.7)}50%{opacity:.55;box-shadow:0 0 0 10px rgba(209,255,5,0),0 0 6px rgba(209,255,5,.2)}}
+.bulb .halo{animation:hpulse 1.8s ease-in-out infinite}
+@keyframes hpulse{0%,100%{opacity:.35}50%{opacity:.08}}
+html.light .bulb .halo{animation:none}
+html.light .bulb .lbl{animation:none;background:var(--ink);color:var(--lime);box-shadow:none}
+.bulb:hover .lbl{animation-play-state:paused;opacity:1}
 html.light .bulb .halo{opacity:1;transform:translate(-50%,-50%) scale(1)}
 .bulb .art{position:relative;display:block;width:190px;aspect-ratio:380/658}
 .bulb .art i{position:absolute;inset:0;background:currentColor;-webkit-mask:url(img/pora-bulb-socket.png) center/100% 100% no-repeat;mask:url(img/pora-bulb-socket.png) center/100% 100% no-repeat}
@@ -573,8 +578,8 @@ html.light .bulb .art .rays{opacity:1;transform:none}
 .lbtn .f{stroke:currentColor;opacity:.55}
 html.light .lbtn .f{stroke:#F2A030;opacity:1}
 html.light .lbtn .g{fill:rgba(255,200,110,.45)}
-@media (max-width:900px){.lbtn{display:none}.bulb{right:auto;left:42%;top:0}.bulb .cord{height:4px}.bulb .art{width:100px}.bulb .lbl{font-size:8.5px;margin-top:8px}.bulb .halo{width:180px;height:180px}.hero{padding-top:215px}}
-@media (prefers-reduced-motion:reduce){.bulb{animation:none}}
+@media (max-width:900px){.lbtn{display:none}.bulb{right:auto;left:42%;top:0}.bulb .cord{height:4px}.bulb .art{width:100px}.bulb .lbl{font-size:9px;margin-top:8px;padding:6px 9px 5px}.bulb .halo{width:180px;height:180px}.hero{padding-top:215px}}
+@media (prefers-reduced-motion:reduce){.bulb,.bulb .lbl,.bulb .halo{animation:none}}
 </style>
 <script>try{if(localStorage.getItem('pora_light')==='1')document.documentElement.classList.add('light')}catch(e){}</script>
 
@@ -1303,7 +1308,9 @@ $$('.neon').forEach(e=>e.dataset.txt=e.textContent);
 (function(){const bd=$('#badge'),anchor=$('.hero h1'),svg=$('svg',bd);if(!bd||!anchor)return;
  let bx=innerWidth-220,by=140,tx=bx,ty=by,rot=0,lastY=scrollY,vel=0,first=true;
  function target(){const sz=bd.offsetWidth;const r=anchor.getBoundingClientRect();const inHero=r.bottom>sz+40&&r.top<innerHeight;
-  if(inHero&&innerWidth>900){return [r.right-sz-8,Math.max(84,r.top-sz*.15)];}
+  if(inHero&&innerWidth>900){let x=r.right-sz-8,y=Math.max(84,r.top-sz*.15);const b=document.getElementById('bulb');
+   if(b){const q=b.getBoundingClientRect(),m=36;if(x<q.right+m&&x+sz>q.left-m&&y<q.bottom+m&&y+sz>q.top-m){x=Math.min(innerWidth-sz-28,Math.max(q.right+m,innerWidth*.78));if(x<q.right+m){y=q.bottom+m;}}}
+   return [x,y];}
   if(inHero){return [r.right-sz,Math.max(78,r.top-sz*.35)];}
   if(innerWidth<=900||matchMedia('(hover:none)').matches){return [innerWidth<=900?14:24,innerHeight-sz-(innerWidth<=900?18:28)];}
   return [innerWidth-sz-24,Math.max(90,innerHeight*.26)];}
