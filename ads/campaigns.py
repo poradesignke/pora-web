@@ -13,7 +13,7 @@ C = []
 def sk_city(name, slug, loc):
     return dict(name=name, url=f'{S}/interierovy-dizajn/{slug}/',
                 keywords=kw(f'interiérový dizajn {loc}', f'návrh interiéru {loc}', f'interiérový dizajnér {loc}', f'bytový dizajnér {loc}', f'dizajn interiéru {loc}', f'interiérový architekt {loc}', f'bytový architekt {loc}'))
-SK_H = ['Interiérový dizajn PORA', 'Cenová ponuka na počkanie', 'Návrh interiéru od 4 990 €', 'Byty, domy, gastro', '80+ realizácií', '3D vizualizácie interiéru', 'Podklady pre remeselníkov', 'Autorský dozor na stavbe', 'F***ing cool interiors', 'Ponuka v PDF do e-mailu', 'Štúdio PORA Košice', 'Pôsobíme po celom Slovensku', 'Osobne aj online', 'Balík Mini za 2 490 €', 'Dizajn, ktorý si zapamätáte']
+SK_H = ['Interiérový dizajn PORA', 'Cenová ponuka na počkanie', 'Návrh interiéru od 4 990 €', 'Byty, domy, gastro', '80+ realizácií', '3D vizualizácie interiéru', 'Podklady pre remeselníkov', 'Autorský dozor na stavbe', 'Interiéry, čo si zapamätáte', 'Ponuka v PDF do e-mailu', 'Štúdio PORA Košice', 'Pôsobíme po celom Slovensku', 'Osobne aj online', 'Balík Mini za 2 490 €', 'Dizajn, ktorý si zapamätáte']
 SK_D = ['Navrhneme byt, dom aj gastro prevádzku. Vizualizácie, podklady a autorský dozor.',
         'AI asistent na webe vám pošle indikatívnu cenovú ponuku v PDF hneď do e-mailu.',
         'Viac ako 80 realizácií, 20+ kaviarní, reštaurácií a salónov. Pozrite si portfólio.',
@@ -28,7 +28,7 @@ C.append(dict(name='SK – Interiérový dizajn', country='Slovensko', lang='sk'
     sk_city('Spišská Nová Ves', 'spisska-nova-ves', 'spišská nová ves')]))
 
 # ---------------- ČESKO ----------------
-CS_H = ['Interiérový design PORA', 'Cenová nabídka ihned', 'Návrh interiéru od 4 990 €', 'Byty, domy, gastro', '80+ realizací', '3D vizualizace interiéru', 'Podklady pro řemeslníky', 'Autorský dozor', 'F***ing cool interiors', 'Nabídka v PDF do e-mailu', 'Komunikujeme česky', 'Spolupráce i online', 'Balíček Mini za 2 490 €', 'Design, který si zapamatujete', 'Studio PORA']
+CS_H = ['Interiérový design PORA', 'Cenová nabídka ihned', 'Návrh interiéru od 4 990 €', 'Byty, domy, gastro', '80+ realizací', '3D vizualizace interiéru', 'Podklady pro řemeslníky', 'Autorský dozor', 'Interiéry s charakterem', 'Nabídka v PDF do e-mailu', 'Komunikujeme česky', 'Spolupráce i online', 'Balíček Mini za 2 490 €', 'Design, který si zapamatujete', 'Studio PORA']
 CS_D = ['Navrhneme byt, dům i gastro provoz. Vizualizace, podklady pro realizaci a autorský dozor.',
         'AI asistent na webu vám pošle orientační cenovou nabídku v PDF ihned do e-mailu.',
         'Přes 80 realizací, 20+ kaváren, restaurací a salonů. Podívejte se na portfolio.',
@@ -39,7 +39,7 @@ C.append(dict(name='CZ – Interiérový design', country='Česko (Praha, Brno, 
     dict(name='CZ – Ostrava', url=f'{S}/cs/ostrava/', keywords=kw('interiérový design ostrava', 'návrh interiéru ostrava', 'bytový architekt ostrava', 'interiérový designér ostrava', 'bytový designér ostrava'))]))
 
 # ---------------- POĽSKO ----------------
-PL_H = ['Projektowanie wnętrz PORA', 'Wycena od ręki', 'Projekt wnętrz od 4 990 €', 'Mieszkania, domy, lokale', '80+ realizacji', 'Wizualizacje 3D wnętrz', 'Dokumentacja wykonawcza', 'Nadzór autorski', 'F***ing cool interiors', 'Wycena w PDF na e-mail', 'Współpraca online', 'Studio z Koszyc', 'Pakiet Mini 2 490 €', 'Wnętrza z charakterem', 'Kraków i Rzeszów']
+PL_H = ['Projektowanie wnętrz PORA', 'Wycena od ręki', 'Projekt wnętrz od 4 990 €', 'Mieszkania, domy, lokale', '80+ realizacji', 'Wizualizacje 3D wnętrz', 'Dokumentacja wykonawcza', 'Nadzór autorski', 'Odważne wnętrza z PORA', 'Wycena w PDF na e-mail', 'Współpraca online', 'Studio z Koszyc', 'Pakiet Mini 2 490 €', 'Wnętrza z charakterem', 'Kraków i Rzeszów']
 PL_D = ['Projektujemy mieszkania, domy i lokale gastronomiczne. Wizualizacje i nadzór autorski.',
         'Asystent AI na stronie od razu wyśle Ci orientacyjną wycenę w PDF na e-mail.',
         'Ponad 80 realizacji, w tym 20+ kawiarni, restauracji i salonów. Zobacz portfolio.',
@@ -50,7 +50,7 @@ C.append(dict(name='PL – Projektowanie wnętrz', country='Poľsko (Krakov, Rze
     dict(name='PL – Warszawa', url=f'{S}/pl/warszawa/', keywords=kw('projektowanie wnętrz warszawa', 'projektant wnętrz warszawa', 'architekt wnętrz warszawa', 'projekt wnętrza warszawa', 'projekt mieszkania warszawa'))]))
 
 # ---------------- RAKÚSKO ----------------
-DE_H = ['Interior Design PORA', 'Angebot sofort per E-Mail', 'Innenarchitektur ab 4 990 €', 'Wohnung, Haus, Gastro', '80+ Projekte', '3D-Visualisierungen', 'Ausführungsunterlagen', 'Künstlerische Oberleitung', 'F***ing cool interiors', 'Richtangebot als PDF', 'Beratung auch online', 'Studio aus Košice', 'Paket Mini 2 490 €', 'Räume mit Charakter', 'Interior Design Wien']
+DE_H = ['Interior Design PORA', 'Angebot sofort per E-Mail', 'Innenarchitektur ab 4 990 €', 'Wohnung, Haus, Gastro', '80+ Projekte', '3D-Visualisierungen', 'Ausführungsunterlagen', 'Künstlerische Oberleitung', 'Mutige Interiors von PORA', 'Richtangebot als PDF', 'Beratung auch online', 'Studio aus Košice', 'Paket Mini 2 490 €', 'Räume mit Charakter', 'Interior Design Wien']
 DE_D = ['Wir planen Wohnungen, Häuser und Gastronomie. Visualisierungen und Ausführungsunterlagen.',
         'Unser KI-Assistent schickt Ihnen sofort ein unverbindliches Richtangebot als PDF.',
         'Über 80 Projekte, davon 20+ Cafés, Restaurants und Salons. Portfolio ansehen.',
@@ -59,7 +59,7 @@ C.append(dict(name='AT – Innenarchitektur Wien', country='Rakúsko (Viedeň + 
     dict(name='AT – Wien', url=f'{S}/de/wien/', keywords=kw('innenarchitekt wien', 'innenarchitektur wien', 'interior design wien', 'interior designer wien', 'raumplanung wien', 'wohnung einrichten lassen wien', 'innenausbau planung wien'))]))
 
 # ---------------- APARTMÁNY V ZAHRANIČÍ (cielené na SK + CZ) ----------------
-AP_H = ['Interiér apartmánu na prenájom', 'Apartmán v Chorvátsku?', 'Investičný byt v Dubaji?', 'Návrh interiéru online', 'Viac hostí, lepšie hodnotenia', 'Cenová ponuka na počkanie', 'Odolné materiály, fotogenické', 'Podklady pre miestnu firmu', '80+ realizácií', 'Štúdio PORA', 'Návrh od 4 990 €', 'Pripravené pre Booking', 'Komunikácia po slovensky', 'F***ing cool interiors', 'Interiér apartmánu pri mori']
+AP_H = ['Interiér apartmánu na prenájom', 'Apartmán v Chorvátsku?', 'Investičný byt v Dubaji?', 'Návrh interiéru online', 'Viac hostí, lepšie hodnotenia', 'Cenová ponuka na počkanie', 'Odolné materiály, fotogenické', 'Podklady pre miestnu firmu', '80+ realizácií', 'Štúdio PORA', 'Návrh od 4 990 €', 'Pripravené pre Booking', 'Komunikácia po slovensky', 'Interiér, čo zarába', 'Interiér apartmánu pri mori']
 AP_D = ['Interiér apartmánu v Chorvátsku či Dubaji, ktorý vydrží hostí a zaujme na fotkách.',
         'Celý návrh online: pôdorys, vizualizácie, výpis produktov a podklady pre miestnu firmu.',
         'AI asistent na webe vám pošle indikatívnu cenovú ponuku v PDF hneď do e-mailu.',
