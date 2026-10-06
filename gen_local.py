@@ -204,6 +204,7 @@ def page(lang, url, title, desc, h1, eyebrow, body_html, ld, crumbs):
 <div class="meta"><span>{E(eyebrow)}</span></div>
 {body_html}
 </main>
+<script>(function(){{var q=location.search;if(!/gclid|gbraid|wbraid/.test(q))return;document.querySelectorAll('a[href*="#ponuka"],a[href="/"],a[href="/en/"]').forEach(function(a){{var h=a.getAttribute('href');var i=h.indexOf('#');a.setAttribute('href',(i<0?h:h.slice(0,i))+q+(i<0?'':h.slice(i)));}});}})();</script>
 '''
     foot = f'''<footer><div class="wrap"><span>© 2026 PORA s.r.o. · Košice → worldwide</span><span><a href="mailto:info@pora.sk">info@pora.sk</a> · <a href="tel:+421903494977">+421 903 494 977</a> · Námestie osloboditeľov 3/A, 040 01 Košice, SK</span><span><a href="/">SK</a> · <a href="/en/">EN</a> · <a href="/cs/">CZ</a> · <a href="/hu/">HU</a> · <a href="/pl/">PL</a> · <a href="/de/">AT</a> · <a href="/interierovy-dizajn/">Interiérový dizajn Slovensko</a></span></div></footer>
 </body></html>
