@@ -266,7 +266,7 @@ body = ('<p class="lead">PORA je interiérové štúdio z Košíc, ktoré navrhu
         'Za sebou máme viac ako 80 realizácií, z toho vyše 20 gastro a komerčných priestorov.</p>'
         '<div class="txt"><p>Interiérový dizajn u nás znamená celý proces: zameranie, dispozíciu, návrh, fotorealistické vizualizácie, výber materiálov a produktov, podklady k realizácii pre remeselníkov a autorský dozor. Pracujeme osobne aj online, takže je jedno, či bývate v Bratislave, Žiline alebo v Poprade.</p></div>'
         + cpbox('sk') + f'<h2>Mestá</h2><div class="cities">{links_sk}</div>' + prices_html('sk') + tiles_html('sk') + faq_html('sk', faq_hub) +
-        '<h2>Zahraničie</h2><div class="cities"><a href="/cs/">Česko</a><a href="/hu/">Magyarország</a><a href="/pl/">Polska</a><a href="/de/">Österreich</a><a href="/en/">English</a></div>')
+        '<h2>Zahraničie</h2><div class="cities"><a href="/interier-apartmanu-v-zahranici/">Apartmány v Chorvátsku a Dubaji</a><a href="/cs/">Česko</a><a href="/hu/">Magyarország</a><a href="/pl/">Polska</a><a href="/de/">Österreich</a><a href="/en/">English</a></div>')
 page('sk', hub_url, 'Interiérový dizajn Slovensko – návrh interiéru bytov, domov a gastro | PORA', desc, 'Interiérový dizajn Slovensko', 'PORA · celé Slovensko',
      body, ld_service('sk', hub_url, 'Interiérový dizajn Slovensko', desc, {"@type": "Country", "name": "Slovensko"}, faq_hub), [('PORA', '/'), ('Interiérový dizajn Slovensko', None)])
 URLS.append(hub_url)
@@ -290,10 +290,49 @@ for lang, d in INTL.items():
         URLS.append(url)
     body = (f'<p class="lead">{E(d["intro"])}</p>' + cpbox(lang) + f'<h2>{HUB_LBL[lang]}</h2><div class="cities">{clinks}</div>' +
             f'<h2>{E(what_h)}</h2><div class="txt"><p>{E(what_p)}</p></div>' + prices_html(lang) + tiles_html(lang) + faq_html(lang, d['faq']) +
-            '<h2>PORA</h2><div class="cities"><a href="/en/">English</a><a href="/">Slovensky</a><a href="/interierovy-dizajn/">Slovensko</a></div>')
+            '<h2>PORA</h2><div class="cities">' + ('<a href="/cs/interier-apartmanu-v-zahranici/">Apartmány v Chorvatsku a Dubaji</a>' if lang == 'cs' else '') + '<a href="/en/">English</a><a href="/">Slovensky</a><a href="/interierovy-dizajn/">Slovensko</a></div>')
     page(lang, base, d['title'], d['desc'], d['h1'], f'PORA · {d["country"]}', body,
          ld_service(lang, base, d['h1'], d['desc'], {"@type": "Country", "name": d['country']}, d['faq']), [('PORA', base), (d['country'], None)])
     URLS.append(base)
+
+
+# --- Investičné apartmány v zahraničí (Chorvátsko, Dubaj) – SK + CZ
+ABROAD = {
+ 'sk': dict(url='/interier-apartmanu-v-zahranici/', h1='Interiér apartmánu v Chorvátsku a Dubaji',
+   title='Interiér apartmánu na prenájom v Chorvátsku a Dubaji – návrh online | PORA',
+   desc='Kúpili ste apartmán v Chorvátsku alebo v Dubaji? Navrhneme interiér, ktorý vydrží hostí a zaujme na Bookingu a Airbnb. Návrh online, podklady pre miestnu firmu. Cenová ponuka na počkanie.',
+   lead='Kúpili ste apartmán pri mori v Chorvátsku alebo investičný byt v Dubaji a chcete ho prenajímať? Navrhneme interiér, ktorý vydrží veľa hostí, dobre sa udržiava a na fotkách v rezervačných portáloch zaujme na prvý pohľad. Komunikujete s nami po slovensky, celý návrh prebieha online.',
+   secs=[('Prečo dizajn rozhoduje o výnose', 'Pri apartmáne na prenájom nerozhoduje len poloha. Hostia si vyberajú podľa fotiek a hodnotia podľa toho, ako sa v priestore cítia. Premyslená dispozícia, dostatok úložných priestorov, odolné materiály a jasný štýl znamenajú lepšie fotky, lepšie hodnotenia a vyššiu obsadenosť.'),
+         ('Ako spolupracujeme na diaľku', 'Od vás potrebujeme pôdorys alebo plány od developera a pár fotiek či videí priestoru. Konzultácie a odsúhlasovanie návrhu robíme cez videohovor. Dodáme dispozíciu, fotorealistické vizualizácie, výber materiálov a výpis produktov a podklady, podľa ktorých interiér zrealizuje miestna firma alebo dodávateľ, ktorého si vyberiete. Ak chcete, prídeme aj osobne, cestovné vám vopred nacením.'),
+         ('Chorvátsko', 'Jadran je pre Slovákov a Čechov najbližšie more a apartmány v Dalmácii, Istrii či na ostrovoch sú obľúbenou investíciou. Navrhujeme interiéry, ktoré pôsobia ľahko a prímorsky, no zvládnu letnú sezónu plnú hostí, piesok aj slnko.'),
+         ('Dubaj', 'Pri investičných bytoch v Dubaji, často kupovaných ešte vo výstavbe, pripravíme návrh interiéru a kompletný výpis vybavenia, aby byt po odovzdaní čo najskôr zarábal. Realizáciu na mieste zabezpečí miestna fit-out firma podľa našich podkladov.')],
+   faq=[('Musím byť pri návrhu osobne?', 'Nie. Celá spolupráca môže prebiehať online. Stačí pôdorys, fotky alebo video priestoru a pravidelné videohovory.'),
+        ('Kto interiér zrealizuje?', 'Miestna firma alebo dodávatelia podľa našich podkladov k realizácii. Odporučíme, na čo si dať pozor, a s realizáciou vieme pomôcť konzultáciami na diaľku.'),
+        ('Koľko stojí návrh apartmánu?', 'Rovnako ako na Slovensku: Balík Mini 2 490 € do 20 m², Variant 1 Design od 4 990 € do 100 m², Variant 2 Realizácia od 15 000 €. Ceny sú bez DPH. Presnú indikatívnu ponuku vám asistent na webe pošle na počkanie.'),
+        ('Robíte aj apartmány v iných krajinách?', 'Áno, návrh online vieme pripraviť pre apartmán kdekoľvek, napríklad v Taliansku, Španielsku či na Cypre.')],
+   area=[{"@type": "Country", "name": "Croatia"}, {"@type": "Country", "name": "United Arab Emirates"}]),
+ 'cs': dict(url='/cs/interier-apartmanu-v-zahranici/', h1='Interiér apartmánu v Chorvatsku a Dubaji',
+   title='Interiér apartmánu k pronájmu v Chorvatsku a Dubaji – návrh online | PORA',
+   desc='Koupili jste apartmán v Chorvatsku nebo v Dubaji? Navrhneme interiér, který vydrží hosty a zaujme na Bookingu a Airbnb. Návrh online, podklady pro místní firmu. Cenová nabídka ihned.',
+   lead='Koupili jste apartmán u moře v Chorvatsku nebo investiční byt v Dubaji a chcete ho pronajímat? Navrhneme interiér, který vydrží spoustu hostů, snadno se udržuje a na fotkách v rezervačních portálech zaujme na první pohled. Komunikujeme česky i slovensky, celý návrh probíhá online.',
+   secs=[('Proč design rozhoduje o výnosu', 'U apartmánu k pronájmu nerozhoduje jen poloha. Hosté vybírají podle fotek a hodnotí podle toho, jak se v prostoru cítí. Promyšlená dispozice, dostatek úložných prostor, odolné materiály a jasný styl znamenají lepší fotky, lepší hodnocení a vyšší obsazenost.'),
+         ('Jak spolupracujeme na dálku', 'Od vás potřebujeme půdorys nebo plány od developera a pár fotek či videí prostoru. Konzultace a odsouhlasení návrhu řešíme přes videohovor. Dodáme dispozici, fotorealistické vizualizace, výběr materiálů a seznam produktů a podklady, podle kterých interiér zrealizuje místní firma nebo dodavatel dle vašeho výběru. Pokud chcete, přijedeme i osobně, cestovné vám předem naceníme.'),
+         ('Chorvatsko', 'Jadran je pro Čechy a Slováky nejbližší moře a apartmány v Dalmácii, Istrii či na ostrovech jsou oblíbenou investicí. Navrhujeme interiéry, které působí lehce a přímořsky, ale zvládnou letní sezónu plnou hostů, písku i slunce.'),
+         ('Dubaj', 'U investičních bytů v Dubaji, často kupovaných ještě ve výstavbě, připravíme návrh interiéru a kompletní seznam vybavení, aby byt po předání co nejdříve vydělával. Realizaci na místě zajistí místní fit-out firma podle našich podkladů.')],
+   faq=[('Musím být u návrhu osobně?', 'Ne. Celá spolupráce může probíhat online. Stačí půdorys, fotky nebo video prostoru a pravidelné videohovory.'),
+        ('Kdo interiér zrealizuje?', 'Místní firma nebo dodavatelé podle našich podkladů pro realizaci. Poradíme, na co si dát pozor, a s realizací umíme pomoct konzultacemi na dálku.'),
+        ('Kolik stojí návrh apartmánu?', 'Balíček Mini 2 490 € do 20 m², Varianta 1 Design od 4 990 € do 100 m², Varianta 2 Realizace od 15 000 €. Ceny jsou bez DPH. Přesnou orientační nabídku vám asistent na webu pošle ihned.'),
+        ('Děláte i apartmány v jiných zemích?', 'Ano, návrh online umíme připravit pro apartmán kdekoli, například v Itálii, Španělsku nebo na Kypru.')],
+   area=[{"@type": "Country", "name": "Croatia"}, {"@type": "Country", "name": "United Arab Emirates"}]),
+}
+for lang, a in ABROAD.items():
+    body = (f'<p class="lead">{E(a["lead"])}</p>' + cpbox(lang) +
+            ''.join(f'<h2>{E(h)}</h2><div class="txt"><p>{E(t_)}</p></div>' for h, t_ in a['secs']) +
+            prices_html(lang) + tiles_html(lang) + faq_html(lang, a['faq']))
+    page(lang, a['url'], a['title'], a['desc'], a['h1'], 'PORA · ' + ('online návrh' if lang == 'sk' else 'online návrh'), body,
+         ld_service(lang, a['url'], a['h1'], a['desc'], a['area'], a['faq']),
+         [('PORA', '/' if lang == 'sk' else '/cs/'), (a['h1'], None)])
+    URLS.append(a['url'])
 
 # --- sitemap: pridať nové URL
 sm = open(OUT + '/sitemap.xml').read()
@@ -313,7 +352,7 @@ for lang, path in (('sk', OUT + '/index.html'), ('en', OUT + '/en/index.html')):
     lbl = 'Kde pôsobíme' if lang == 'sk' else 'Where we work'
     block = (f'<nav class="where" aria-label="{lbl}" style="max-width:1480px;margin:0 auto;padding:28px var(--g,24px) 0;font-size:13px;line-height:2;color:var(--muted)"><b style="letter-spacing:.12em;text-transform:uppercase;margin-right:10px">{lbl}:</b>' +
              ' · '.join(f'<a href="{hub_url}{s_}/" style="color:inherit">{"Interiérový dizajn " if lang=="sk" else "Interior design "}{E(c)}</a>' for s_, c, *_ in SK) +
-             f' · <a href="{hub_url}" style="color:inherit">{"Celé Slovensko" if lang=="sk" else "All of Slovakia"}</a> · <a href="/cs/" style="color:inherit">Česko</a> · <a href="/hu/" style="color:inherit">Magyarország</a> · <a href="/pl/" style="color:inherit">Polska</a> · <a href="/de/" style="color:inherit">Österreich</a></nav>')
+             f' · <a href="{hub_url}" style="color:inherit">{"Celé Slovensko" if lang=="sk" else "All of Slovakia"}</a> · <a href="/interier-apartmanu-v-zahranici/" style="color:inherit">{"Apartmány v Chorvátsku a Dubaji" if lang=="sk" else "Rental apartments in Croatia & Dubai"}</a> · <a href="/cs/" style="color:inherit">Česko</a> · <a href="/hu/" style="color:inherit">Magyarország</a> · <a href="/pl/" style="color:inherit">Polska</a> · <a href="/de/" style="color:inherit">Österreich</a></nav>')
     assert '</footer>' in s
     s = s.replace('</footer>', block + '</footer>', 1)
     open(path, 'w').write(s)
