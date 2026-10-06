@@ -1143,7 +1143,14 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeDocs();closeCh
 /* cookies */
 const ck=$('#cookie');let ckv=null;try{ckv=localStorage.getItem('pora_cookies');}catch(_){}
 if(!ckv)ck.classList.add('show');
-$$('[data-ck]').forEach(b=>b.addEventListener('click',()=>{try{localStorage.setItem('pora_cookies',b.dataset.ck);}catch(_){}ck.classList.remove('show');}));
+/* Google Ads – načíta sa len so súhlasom (consent mode v2) */
+window.poraConv=function(){};
+function poraAds(){const id=window.PORA_ADS;if(!id||window.__adsOn)return;window.__adsOn=1;window.dataLayer=window.dataLayer||[];window.gtag=function(){dataLayer.push(arguments);};
+ gtag('consent','default',{ad_storage:'granted',ad_user_data:'granted',ad_personalization:'granted',analytics_storage:'granted'});gtag('js',new Date());gtag('config',id);
+ const sc=document.createElement('script');sc.async=1;sc.src='https://www.googletagmanager.com/gtag/js?id='+encodeURIComponent(id);document.head.appendChild(sc);
+ window.poraConv=function(){if(window.PORA_ADS_LABEL)gtag('event','conversion',{send_to:id+'/'+window.PORA_ADS_LABEL});};}
+if(ckv==='all')poraAds();
+$$('[data-ck]').forEach(b=>b.addEventListener('click',()=>{try{localStorage.setItem('pora_cookies',b.dataset.ck);}catch(_){}ck.classList.remove('show');if(b.dataset.ck==='all')poraAds();}));
 $('#ckReset').addEventListener('click',()=>{try{localStorage.removeItem('pora_cookies');}catch(_){}closeDocs();ck.classList.add('show');});
 /* form consent */
 const gdprBox=$('#f-gdpr');
@@ -1215,7 +1222,7 @@ async function askApi(q,bubble){const sendAtt=att;att=null;fileTag.hidden=true;c
  const msgs=apiTurns.slice(-40);const withAtt=msgs.map((m,i)=>i).filter(i=>msgs[i].att).slice(-2);
  const payload=msgs.map((m,i)=>m.att&&withAtt.includes(i)?{role:m.role,content:m.content,att:m.att}:{role:m.role,content:m.content});
  try{const r=await fetch(PORA_API+'/chat',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({messages:payload,lang:LANG,submitted:apiSubmitted}),signal:ctl.signal});clearTimeout(to);
-  const j=await r.json();if(!r.ok||!j.reply)throw new Error(j.error||'x');if(j.submitted)apiSubmitted=true;const txt=clean(j.reply);apiTurns.push({role:'assistant',content:txt});bubble.className='msg bot';bubble.textContent=txt;linkify(bubble);return true;}
+  const j=await r.json();if(!r.ok||!j.reply)throw new Error(j.error||'x');if(j.submitted&&!apiSubmitted){apiSubmitted=true;try{window.poraConv();}catch(_){}}const txt=clean(j.reply);apiTurns.push({role:'assistant',content:txt});bubble.className='msg bot';bubble.textContent=txt;linkify(bubble);return true;}
  catch(e){clearTimeout(to);apiTurns.pop();if(sendAtt){att=sendAtt;fileTag.hidden=false;}bubble.className='msg bot';bubble.textContent=LANG==='en'?'Sorry, the connection was interrupted. Please send your message again.':'Spojenie sa prerušilo. Pošlite prosím správu ešte raz.';return true;}}
 async function ask(q){if(busy||(!q.trim()&&!att))return;busy=true;addMsg((att?'📎 '+att.name+(q.trim()?'\n':''):'')+q,'me');chatIn.value='';const typing=addMsg('','bot typing');typing.innerHTML='<span></span><span></span><span></span>';
  let answered=false;if(PORA_API){answered=await askApi(q,typing);if(answered){log.scrollTop=log.scrollHeight;busy=false;return;}}
