@@ -17,8 +17,8 @@ for c in C:
     groups = []
     for g in c['groups']:
         heads = list(c['headlines'])
-        city = g['name'].split('– ')[-1] if '– ' in g['name'] else None
-        if city and city not in ('všeobecné', 'gastro a komercia'):
+        city = g['name'].split('– ')[-1]
+        if city not in ('všeobecné', 'gastro a komercia', 'Chorvátsko', 'Dubaj'):
             h = CITY_H[lang0].format(c=city)
             if len(h) <= 30:
                 heads[0] = h
@@ -38,7 +38,7 @@ function main() {
   var R = function (t, id) { return 'customers/' + cid + '/' + t + '/' + id; };
   var tmp = -1, ops = [];
   DATA.forEach(function (c) {
-    var bud = R('campaignBudgets', tmp--), camp = R('campaigns', tmp--);
+    var bud = R('campaignBudgets', tmp--), campId = tmp--, camp = R('campaigns', campId);
     ops.push({ campaignBudgetOperation: { create: { resourceName: bud, name: 'PORA ' + c.name + ' ' + Date.now(), amountMicros: Math.round(c.budget * 1e6), deliveryMethod: 'STANDARD', explicitlyShared: false } } });
     ops.push({ campaignOperation: { create: {
       resourceName: camp, name: 'PORA ' + c.name, status: 'PAUSED', advertisingChannelType: 'SEARCH', campaignBudget: bud,
@@ -46,8 +46,8 @@ function main() {
       targetSpend: { cpcBidCeilingMicros: Math.round(c.cap * 1e6) },
       geoTargetTypeSetting: { positiveGeoTargetType: 'PRESENCE' },
       containsEuPoliticalAdvertising: 'DOES_NOT_CONTAIN_EU_POLITICAL_ADVERTISING' } } });
-    c.geo.forEach(function (g) { ops.push({ campaignCriterionOperation: { create: { campaign: camp, location: { geoTargetConstant: 'geoTargetConstants/' + g } } } }); });
-    c.lang.forEach(function (l) { ops.push({ campaignCriterionOperation: { create: { campaign: camp, language: { languageConstant: 'languageConstants/' + l } } } }); });
+    c.geo.forEach(function (g) { ops.push({ campaignCriterionOperation: { create: { resourceName: R('campaignCriteria', campId + '~' + g), campaign: camp, location: { geoTargetConstant: 'geoTargetConstants/' + g } } } }); });
+    c.lang.forEach(function (l) { ops.push({ campaignCriterionOperation: { create: { resourceName: R('campaignCriteria', campId + '~' + l), campaign: camp, language: { languageConstant: 'languageConstants/' + l } } } }); });
     c.neg.forEach(function (n) { ops.push({ campaignCriterionOperation: { create: { campaign: camp, negative: true, keyword: { text: n, matchType: 'PHRASE' } } } }); });
     c.groups.forEach(function (g) {
       var ag = R('adGroups', tmp--);

@@ -13,7 +13,7 @@ C = []
 def sk_city(name, slug, loc):
     return dict(name=name, url=f'{S}/interierovy-dizajn/{slug}/',
                 keywords=kw(f'interiérový dizajn {loc}', f'návrh interiéru {loc}', f'interiérový dizajnér {loc}', f'bytový dizajnér {loc}', f'dizajn interiéru {loc}', f'interiérový architekt {loc}', f'bytový architekt {loc}'))
-SK_H = ['Interiérový dizajn PORA', 'Cenová ponuka na počkanie', 'Návrh interiéru od 4 990 €', 'Byty, domy, gastro', '80+ realizácií', '3D vizualizácie interiéru', 'Podklady pre remeselníkov', 'Autorský dozor na stavbe', 'Interiéry, čo si zapamätáte', 'Ponuka v PDF do e-mailu', 'Štúdio PORA Košice', 'Pôsobíme po celom Slovensku', 'Osobne aj online', 'Balík Mini za 2 490 €', 'Dizajn, ktorý si zapamätáte']
+SK_H = ['Interiérový dizajn PORA', 'Cenová ponuka na počkanie', 'Návrh interiéru od 4 990 €', 'Byty, domy, gastro', '80+ realizácií', '3D vizualizácie interiéru', 'Podklady pre remeselníkov', 'Autorský dozor na stavbe', 'Interiéry, čo si zapamätáte', 'Ponuka v PDF do e-mailu', 'Štúdio PORA Košice', 'Pôsobíme po celom Slovensku', 'Osobne aj online', 'Balík Mini za 2 490 €', 'Návrh bytu, domu aj kaviarne']
 SK_D = ['Navrhneme byt, dom aj gastro prevádzku. Vizualizácie, podklady a autorský dozor.',
         'AI asistent na webe vám pošle indikatívnu cenovú ponuku v PDF hneď do e-mailu.',
         'Viac ako 80 realizácií, 20+ kaviarní, reštaurácií a salónov. Pozrite si portfólio.',
