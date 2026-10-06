@@ -357,3 +357,18 @@ for lang, path in (('sk', OUT + '/index.html'), ('en', OUT + '/en/index.html')):
     s = s.replace('</footer>', block + '</footer>', 1)
     open(path, 'w').write(s)
 print('local:', len(URLS), 'pages')
+
+# --- presmerovania starých URL zo starého webu (Wix/WordPress) – zachová hodnotu odkazov v Google
+OLD = {'/kontakt-interierovy-dizajn/': '/#kontakt', '/kontakt/': '/#kontakt', '/contact/': '/en/#kontakt',
+       '/about/': '/', '/team-1/': '/', '/o-nas/': '/',
+       '/cennik-interierovy-dizajn/': '/#sluzby', '/cennik-interierovy-dizajn-2/': '/#sluzby', '/services-1/': '/#sluzby', '/cennik/': '/#sluzby', '/sluzby/': '/#sluzby',
+       '/portfolio_page/gastro-prevadzka/': '/projekty/', '/portfolio_page/projekt-lago-1/': '/projekty/', '/portfolio/': '/projekty/', '/projekty-1/': '/projekty/',
+       '/2020/09/08/ahoj-svet/': '/', '/1/': '/projekty/', '/2/': '/projekty/', '/3/': '/projekty/', '/4/': '/projekty/', '/5/': '/projekty/', '/6/': '/projekty/', '/blog/': '/'}
+for old, new in OLD.items():
+    path = OUT + old
+    if os.path.exists(path + 'index.html'):
+        continue
+    os.makedirs(path, exist_ok=True)
+    open(path + 'index.html', 'w').write(f'<!doctype html><html lang="sk"><head><meta charset="utf-8"><title>PORA – presmerovanie</title><link rel="canonical" href="{SITE}{new}"><meta http-equiv="refresh" content="0; url={new}"><script>location.replace("{new}")</script></head><body><a href="{new}">PORA – pokračovať</a></body></html>')
+# extensionless Wix URL (/about, /1 …) – GitHub Pages servíruje /about aj z /about/index.html, takže to pokrýva aj verziu bez lomky
+print('redirects:', len(OLD))
