@@ -1,0 +1,580 @@
+[
+ {
+  "name": "SK – Interiérový dizajn",
+  "country": "Slovensko",
+  "lang": "sk",
+  "budget_day": 10.0,
+  "negatives": [
+   "zadarmo",
+   "free",
+   "kurz",
+   "kurzy",
+   "škola",
+   "štúdium",
+   "vysoká škola",
+   "práca",
+   "brigáda",
+   "plat",
+   "ponuka práce",
+   "program",
+   "aplikácia",
+   "sketchup",
+   "šablóna",
+   "pdf",
+   "ikea",
+   "bazár",
+   "svadba",
+   "auto",
+   "interiér auta"
+  ],
+  "headlines": [
+   "Interiérový dizajn PORA",
+   "Cenová ponuka na počkanie",
+   "Návrh interiéru od 4 990 €",
+   "Byty, domy, gastro",
+   "80+ realizácií",
+   "3D vizualizácie interiéru",
+   "Podklady pre remeselníkov",
+   "Autorský dozor na stavbe",
+   "F***ing cool interiors",
+   "Ponuka v PDF do e-mailu",
+   "Štúdio PORA Košice",
+   "Pôsobíme po celom Slovensku",
+   "Osobne aj online",
+   "Balík Mini za 2 490 €",
+   "Dizajn, ktorý si zapamätáte"
+  ],
+  "descriptions": [
+   "Navrhneme byt, dom aj gastro prevádzku. Vizualizácie, podklady a autorský dozor.",
+   "AI asistent na webe vám pošle indikatívnu cenovú ponuku v PDF hneď do e-mailu.",
+   "Viac ako 80 realizácií, 20+ kaviarní, reštaurácií a salónov. Pozrite si portfólio.",
+   "Zameranie osobne, konzultácie aj online. Ceny transparentne na webe, bez DPH."
+  ],
+  "groups": [
+   {
+    "name": "SK – všeobecné",
+    "url": "https://www.pora.sk/interierovy-dizajn/",
+    "keywords": [
+     "\"interiérový dizajn\"",
+     "\"návrh interiéru\"",
+     "\"návrh interiéru bytu\"",
+     "\"návrh interiéru domu\"",
+     "\"interiérový dizajnér\"",
+     "\"interiérový architekt\"",
+     "\"bytový dizajnér\"",
+     "\"bytový architekt\"",
+     "\"dizajn interiéru\"",
+     "\"interiérové štúdio\"",
+     "\"návrh kuchyne a obývačky\"",
+     "\"rekonštrukcia bytu návrh\""
+    ]
+   },
+   {
+    "name": "SK – gastro a komercia",
+    "url": "https://www.pora.sk/",
+    "keywords": [
+     "\"návrh kaviarne\"",
+     "\"dizajn kaviarne\"",
+     "\"návrh reštaurácie\"",
+     "\"dizajn reštaurácie\"",
+     "\"interiér reštaurácie\"",
+     "\"návrh baru\"",
+     "\"interiér kaviarne\"",
+     "\"návrh salónu\"",
+     "\"interiér ambulancie\"",
+     "\"návrh kancelárie\"",
+     "\"dizajn kancelárie\""
+    ]
+   },
+   {
+    "name": "Bratislava",
+    "url": "https://www.pora.sk/interierovy-dizajn/bratislava/",
+    "keywords": [
+     "\"interiérový dizajn bratislava\"",
+     "\"návrh interiéru bratislava\"",
+     "\"interiérový dizajnér bratislava\"",
+     "\"bytový dizajnér bratislava\"",
+     "\"dizajn interiéru bratislava\"",
+     "\"interiérový architekt bratislava\"",
+     "\"bytový architekt bratislava\""
+    ]
+   },
+   {
+    "name": "Košice",
+    "url": "https://www.pora.sk/interierovy-dizajn/kosice/",
+    "keywords": [
+     "\"interiérový dizajn košice\"",
+     "\"návrh interiéru košice\"",
+     "\"interiérový dizajnér košice\"",
+     "\"bytový dizajnér košice\"",
+     "\"dizajn interiéru košice\"",
+     "\"interiérový architekt košice\"",
+     "\"bytový architekt košice\""
+    ]
+   },
+   {
+    "name": "Prešov",
+    "url": "https://www.pora.sk/interierovy-dizajn/presov/",
+    "keywords": [
+     "\"interiérový dizajn prešov\"",
+     "\"návrh interiéru prešov\"",
+     "\"interiérový dizajnér prešov\"",
+     "\"bytový dizajnér prešov\"",
+     "\"dizajn interiéru prešov\"",
+     "\"interiérový architekt prešov\"",
+     "\"bytový architekt prešov\""
+    ]
+   },
+   {
+    "name": "Žilina",
+    "url": "https://www.pora.sk/interierovy-dizajn/zilina/",
+    "keywords": [
+     "\"interiérový dizajn žilina\"",
+     "\"návrh interiéru žilina\"",
+     "\"interiérový dizajnér žilina\"",
+     "\"bytový dizajnér žilina\"",
+     "\"dizajn interiéru žilina\"",
+     "\"interiérový architekt žilina\"",
+     "\"bytový architekt žilina\""
+    ]
+   },
+   {
+    "name": "Banská Bystrica",
+    "url": "https://www.pora.sk/interierovy-dizajn/banska-bystrica/",
+    "keywords": [
+     "\"interiérový dizajn banská bystrica\"",
+     "\"návrh interiéru banská bystrica\"",
+     "\"interiérový dizajnér banská bystrica\"",
+     "\"bytový dizajnér banská bystrica\"",
+     "\"dizajn interiéru banská bystrica\"",
+     "\"interiérový architekt banská bystrica\"",
+     "\"bytový architekt banská bystrica\""
+    ]
+   },
+   {
+    "name": "Nitra",
+    "url": "https://www.pora.sk/interierovy-dizajn/nitra/",
+    "keywords": [
+     "\"interiérový dizajn nitra\"",
+     "\"návrh interiéru nitra\"",
+     "\"interiérový dizajnér nitra\"",
+     "\"bytový dizajnér nitra\"",
+     "\"dizajn interiéru nitra\"",
+     "\"interiérový architekt nitra\"",
+     "\"bytový architekt nitra\""
+    ]
+   },
+   {
+    "name": "Trnava",
+    "url": "https://www.pora.sk/interierovy-dizajn/trnava/",
+    "keywords": [
+     "\"interiérový dizajn trnava\"",
+     "\"návrh interiéru trnava\"",
+     "\"interiérový dizajnér trnava\"",
+     "\"bytový dizajnér trnava\"",
+     "\"dizajn interiéru trnava\"",
+     "\"interiérový architekt trnava\"",
+     "\"bytový architekt trnava\""
+    ]
+   },
+   {
+    "name": "Trenčín",
+    "url": "https://www.pora.sk/interierovy-dizajn/trencin/",
+    "keywords": [
+     "\"interiérový dizajn trenčín\"",
+     "\"návrh interiéru trenčín\"",
+     "\"interiérový dizajnér trenčín\"",
+     "\"bytový dizajnér trenčín\"",
+     "\"dizajn interiéru trenčín\"",
+     "\"interiérový architekt trenčín\"",
+     "\"bytový architekt trenčín\""
+    ]
+   },
+   {
+    "name": "Poprad",
+    "url": "https://www.pora.sk/interierovy-dizajn/poprad/",
+    "keywords": [
+     "\"interiérový dizajn poprad\"",
+     "\"návrh interiéru poprad\"",
+     "\"interiérový dizajnér poprad\"",
+     "\"bytový dizajnér poprad\"",
+     "\"dizajn interiéru poprad\"",
+     "\"interiérový architekt poprad\"",
+     "\"bytový architekt poprad\""
+    ]
+   },
+   {
+    "name": "Zvolen",
+    "url": "https://www.pora.sk/interierovy-dizajn/zvolen/",
+    "keywords": [
+     "\"interiérový dizajn zvolen\"",
+     "\"návrh interiéru zvolen\"",
+     "\"interiérový dizajnér zvolen\"",
+     "\"bytový dizajnér zvolen\"",
+     "\"dizajn interiéru zvolen\"",
+     "\"interiérový architekt zvolen\"",
+     "\"bytový architekt zvolen\""
+    ]
+   },
+   {
+    "name": "Martin",
+    "url": "https://www.pora.sk/interierovy-dizajn/martin/",
+    "keywords": [
+     "\"interiérový dizajn martin\"",
+     "\"návrh interiéru martin\"",
+     "\"interiérový dizajnér martin\"",
+     "\"bytový dizajnér martin\"",
+     "\"dizajn interiéru martin\"",
+     "\"interiérový architekt martin\"",
+     "\"bytový architekt martin\""
+    ]
+   },
+   {
+    "name": "Michalovce",
+    "url": "https://www.pora.sk/interierovy-dizajn/michalovce/",
+    "keywords": [
+     "\"interiérový dizajn michalovce\"",
+     "\"návrh interiéru michalovce\"",
+     "\"interiérový dizajnér michalovce\"",
+     "\"bytový dizajnér michalovce\"",
+     "\"dizajn interiéru michalovce\"",
+     "\"interiérový architekt michalovce\"",
+     "\"bytový architekt michalovce\""
+    ]
+   },
+   {
+    "name": "Spišská Nová Ves",
+    "url": "https://www.pora.sk/interierovy-dizajn/spisska-nova-ves/",
+    "keywords": [
+     "\"interiérový dizajn spišská nová ves\"",
+     "\"návrh interiéru spišská nová ves\"",
+     "\"interiérový dizajnér spišská nová ves\"",
+     "\"bytový dizajnér spišská nová ves\"",
+     "\"dizajn interiéru spišská nová ves\"",
+     "\"interiérový architekt spišská nová ves\"",
+     "\"bytový architekt spišská nová ves\""
+    ]
+   }
+  ]
+ },
+ {
+  "name": "CZ – Interiérový design",
+  "country": "Česko (Praha, Brno, Ostrava + okolie)",
+  "lang": "cs",
+  "budget_day": 2.5,
+  "negatives": [
+   "zdarma",
+   "kurz",
+   "škola",
+   "studium",
+   "práce",
+   "brigáda",
+   "plat",
+   "program",
+   "aplikace",
+   "sketchup",
+   "šablona",
+   "pdf",
+   "ikea",
+   "bazar",
+   "auto"
+  ],
+  "headlines": [
+   "Interiérový design PORA",
+   "Cenová nabídka ihned",
+   "Návrh interiéru od 4 990 €",
+   "Byty, domy, gastro",
+   "80+ realizací",
+   "3D vizualizace interiéru",
+   "Podklady pro řemeslníky",
+   "Autorský dozor",
+   "F***ing cool interiors",
+   "Nabídka v PDF do e-mailu",
+   "Komunikujeme česky",
+   "Spolupráce i online",
+   "Balíček Mini za 2 490 €",
+   "Design, který si zapamatujete",
+   "Studio PORA"
+  ],
+  "descriptions": [
+   "Navrhneme byt, dům i gastro provoz. Vizualizace, podklady pro realizaci a autorský dozor.",
+   "AI asistent na webu vám pošle orientační cenovou nabídku v PDF ihned do e-mailu.",
+   "Přes 80 realizací, 20+ kaváren, restaurací a salonů. Podívejte se na portfolio.",
+   "Konzultace online, zaměření osobně. Ceny transparentně na webu, bez DPH."
+  ],
+  "groups": [
+   {
+    "name": "CZ – Praha",
+    "url": "https://www.pora.sk/cs/praha/",
+    "keywords": [
+     "\"interiérový design praha\"",
+     "\"návrh interiéru praha\"",
+     "\"bytový architekt praha\"",
+     "\"interiérový designér praha\"",
+     "\"bytový designér praha\""
+    ]
+   },
+   {
+    "name": "CZ – Brno",
+    "url": "https://www.pora.sk/cs/brno/",
+    "keywords": [
+     "\"interiérový design brno\"",
+     "\"návrh interiéru brno\"",
+     "\"bytový architekt brno\"",
+     "\"interiérový designér brno\"",
+     "\"bytový designér brno\""
+    ]
+   },
+   {
+    "name": "CZ – Ostrava",
+    "url": "https://www.pora.sk/cs/ostrava/",
+    "keywords": [
+     "\"interiérový design ostrava\"",
+     "\"návrh interiéru ostrava\"",
+     "\"bytový architekt ostrava\"",
+     "\"interiérový designér ostrava\"",
+     "\"bytový designér ostrava\""
+    ]
+   }
+  ]
+ },
+ {
+  "name": "PL – Projektowanie wnętrz",
+  "country": "Poľsko (Krakov, Rzeszów, Varšava + okolie)",
+  "lang": "pl",
+  "budget_day": 2.5,
+  "negatives": [
+   "za darmo",
+   "darmowy",
+   "kurs",
+   "szkoła",
+   "studia",
+   "praca",
+   "wynagrodzenie",
+   "program",
+   "aplikacja",
+   "sketchup",
+   "szablon",
+   "pdf",
+   "ikea",
+   "olx",
+   "auto"
+  ],
+  "headlines": [
+   "Projektowanie wnętrz PORA",
+   "Wycena od ręki",
+   "Projekt wnętrz od 4 990 €",
+   "Mieszkania, domy, lokale",
+   "80+ realizacji",
+   "Wizualizacje 3D wnętrz",
+   "Dokumentacja wykonawcza",
+   "Nadzór autorski",
+   "F***ing cool interiors",
+   "Wycena w PDF na e-mail",
+   "Współpraca online",
+   "Studio z Koszyc",
+   "Pakiet Mini 2 490 €",
+   "Wnętrza z charakterem",
+   "Kraków i Rzeszów"
+  ],
+  "descriptions": [
+   "Projektujemy mieszkania, domy i lokale gastronomiczne. Wizualizacje i nadzór autorski.",
+   "Asystent AI na stronie od razu wyśle Ci orientacyjną wycenę w PDF na e-mail.",
+   "Ponad 80 realizacji, w tym 20+ kawiarni, restauracji i salonów. Zobacz portfolio.",
+   "Konsultacje online, inwentaryzacja na miejscu. Przejrzyste ceny netto na stronie."
+  ],
+  "groups": [
+   {
+    "name": "PL – Kraków",
+    "url": "https://www.pora.sk/pl/krakow/",
+    "keywords": [
+     "\"projektowanie wnętrz kraków\"",
+     "\"projektant wnętrz kraków\"",
+     "\"architekt wnętrz kraków\"",
+     "\"projekt wnętrza kraków\"",
+     "\"projekt mieszkania kraków\""
+    ]
+   },
+   {
+    "name": "PL – Rzeszów",
+    "url": "https://www.pora.sk/pl/rzeszow/",
+    "keywords": [
+     "\"projektowanie wnętrz rzeszów\"",
+     "\"projektant wnętrz rzeszów\"",
+     "\"architekt wnętrz rzeszów\"",
+     "\"projekt wnętrza rzeszów\"",
+     "\"projekt mieszkania rzeszów\""
+    ]
+   },
+   {
+    "name": "PL – Warszawa",
+    "url": "https://www.pora.sk/pl/warszawa/",
+    "keywords": [
+     "\"projektowanie wnętrz warszawa\"",
+     "\"projektant wnętrz warszawa\"",
+     "\"architekt wnętrz warszawa\"",
+     "\"projekt wnętrza warszawa\"",
+     "\"projekt mieszkania warszawa\""
+    ]
+   }
+  ]
+ },
+ {
+  "name": "AT – Innenarchitektur Wien",
+  "country": "Rakúsko (Viedeň + 40 km)",
+  "lang": "de",
+  "budget_day": 5.0,
+  "negatives": [
+   "kostenlos",
+   "gratis",
+   "ausbildung",
+   "studium",
+   "kurs",
+   "job",
+   "jobs",
+   "gehalt",
+   "stellenangebot",
+   "software",
+   "programm",
+   "app",
+   "sketchup",
+   "pdf",
+   "ikea",
+   "willhaben",
+   "auto"
+  ],
+  "headlines": [
+   "Interior Design PORA",
+   "Angebot sofort per E-Mail",
+   "Innenarchitektur ab 4 990 €",
+   "Wohnung, Haus, Gastro",
+   "80+ Projekte",
+   "3D-Visualisierungen",
+   "Ausführungsunterlagen",
+   "Künstlerische Oberleitung",
+   "F***ing cool interiors",
+   "Richtangebot als PDF",
+   "Beratung auch online",
+   "Studio aus Košice",
+   "Paket Mini 2 490 €",
+   "Räume mit Charakter",
+   "Interior Design Wien"
+  ],
+  "descriptions": [
+   "Wir planen Wohnungen, Häuser und Gastronomie. Visualisierungen und Ausführungsunterlagen.",
+   "Unser KI-Assistent schickt Ihnen sofort ein unverbindliches Richtangebot als PDF.",
+   "Über 80 Projekte, davon 20+ Cafés, Restaurants und Salons. Portfolio ansehen.",
+   "Beratung online, Aufmaß vor Ort. Transparente Nettopreise auf der Website."
+  ],
+  "groups": [
+   {
+    "name": "AT – Wien",
+    "url": "https://www.pora.sk/de/wien/",
+    "keywords": [
+     "\"innenarchitekt wien\"",
+     "\"innenarchitektur wien\"",
+     "\"interior design wien\"",
+     "\"interior designer wien\"",
+     "\"raumplanung wien\"",
+     "\"wohnung einrichten lassen wien\"",
+     "\"innenausbau planung wien\""
+    ]
+   }
+  ]
+ },
+ {
+  "name": "SK+CZ – Apartmány v zahraničí",
+  "country": "Slovensko + Česko",
+  "lang": "sk, cs",
+  "budget_day": 2.5,
+  "negatives": [
+   "zadarmo",
+   "free",
+   "kurz",
+   "kurzy",
+   "škola",
+   "štúdium",
+   "vysoká škola",
+   "práca",
+   "brigáda",
+   "plat",
+   "ponuka práce",
+   "program",
+   "aplikácia",
+   "sketchup",
+   "šablóna",
+   "pdf",
+   "ikea",
+   "bazár",
+   "svadba",
+   "auto",
+   "interiér auta",
+   "zdarma",
+   "kurz",
+   "škola",
+   "studium",
+   "práce",
+   "brigáda",
+   "plat",
+   "program",
+   "aplikace",
+   "sketchup",
+   "šablona",
+   "pdf",
+   "ikea",
+   "bazar",
+   "auto"
+  ],
+  "headlines": [
+   "Interiér apartmánu na prenájom",
+   "Apartmán v Chorvátsku?",
+   "Investičný byt v Dubaji?",
+   "Návrh interiéru online",
+   "Viac hostí, lepšie hodnotenia",
+   "Cenová ponuka na počkanie",
+   "Odolné materiály, fotogenické",
+   "Podklady pre miestnu firmu",
+   "80+ realizácií",
+   "Štúdio PORA",
+   "Návrh od 4 990 €",
+   "Pripravené pre Booking",
+   "Komunikácia po slovensky",
+   "F***ing cool interiors",
+   "Interiér apartmánu pri mori"
+  ],
+  "descriptions": [
+   "Interiér apartmánu v Chorvátsku či Dubaji, ktorý vydrží hostí a zaujme na fotkách.",
+   "Celý návrh online: pôdorys, vizualizácie, výpis produktov a podklady pre miestnu firmu.",
+   "AI asistent na webe vám pošle indikatívnu cenovú ponuku v PDF hneď do e-mailu.",
+   "Lepšie fotky, lepšie hodnotenia, vyššia obsadenosť. Pozrite si naše realizácie."
+  ],
+  "groups": [
+   {
+    "name": "Chorvátsko",
+    "url": "https://www.pora.sk/interier-apartmanu-v-zahranici/",
+    "keywords": [
+     "\"apartmán chorvátsko interiér\"",
+     "\"zariadenie apartmánu chorvátsko\"",
+     "\"apartmán na prenájom interiér\"",
+     "\"návrh interiéru apartmánu\"",
+     "\"interiér apartmánu\"",
+     "\"vybavenie apartmánu na prenájom\"",
+     "\"apartmán chorvatsko interiér\"",
+     "\"zařízení apartmánu chorvatsko\"",
+     "\"návrh interiéru apartmánu chorvatsko\""
+    ]
+   },
+   {
+    "name": "Dubaj",
+    "url": "https://www.pora.sk/interier-apartmanu-v-zahranici/",
+    "keywords": [
+     "\"byt v dubaji zariadenie\"",
+     "\"apartmán dubaj interiér\"",
+     "\"investičný byt dubaj zariadenie\"",
+     "\"byt v dubaji vybavení\"",
+     "\"interiér bytu dubaj\""
+    ]
+   }
+  ]
+ }
+]
