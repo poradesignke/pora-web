@@ -126,8 +126,61 @@ function ownerSummary(o, offer) {
   <table style="font:14px sans-serif;border-collapse:collapse;margin-top:12px" border="1" cellpadding="6"><tr><th>Variant</th><th>m²</th><th>bez DPH</th><th>s DPH</th></tr>${rows}</table>`;
 }
 
+const BRIEF_SYS = `Si interný asistent interiérového štúdia PORA. Z rozhovoru klienta s webovým asistentom priprav stručný interný výcuc pre tím. Píš po slovensky, vecne a presne.
+Použi presne tieto tri sekcie, každú s nadpisom na samostatnom riadku začínajúcim "## ":
+## Zhrnutie
+2 až 4 vety: kto je klient, aký priestor, čo chce a v akom rozsahu.
+## Čo klient uviedol
+Odrážky začínajúce "- ": všetky konkrétne fakty z rozhovoru (priestor, lokalita, výmera, miestnosti, počet osôb, stav priestoru, štýl a preferencie, požiadavky, obmedzenia, termín, rozpočet, údaje vyčítané z pôdorysu, ktoré asistent v rozhovore spomenul). Ak klient priložil súbory, uveď ich názvy.
+## Čo si od klienta vyžiadať
+Odrážky začínajúce "- ": konkrétne podklady a informácie, ktoré na začatie práce chýbajú a v rozhovore nezazneli (napr. pôdorys v DWG alebo PDF s kótami, fotografie súčasného stavu, svetlá výška, umiestnenie rozvodov a stúpačiek, inšpirácie, presný termín, fakturačné údaje).
+Nevymýšľaj nič, čo v rozhovore nie je. Bez úvodu a záveru, bez tučného písma.`;
+
+function mdLite(t) {
+  let out = '', list = false;
+  for (const raw of String(t || '').replace(/\*\*/g, '').split('\n')) {
+    const l = raw.trim(); if (!l) continue;
+    if (/^[-•*]\s+/.test(l)) { if (!list) { out += '<ul style="margin:4px 0 10px">'; list = true; } out += `<li>${escH(l.replace(/^[-•*]\s+/, ''))}</li>`; continue; }
+    if (list) { out += '</ul>'; list = false; }
+    if (/^#+\s*/.test(l)) out += `<h3 style="font:700 15px sans-serif;margin:16px 0 6px">${escH(l.replace(/^#+\s*/, ''))}</h3>`;
+    else out += `<p style="margin:0 0 8px">${escH(l)}</p>`;
+  }
+  return out + (list ? '</ul>' : '');
+}
+
+const MAIL_EXT = { 'application/pdf': 'pdf', 'image/png': 'png', 'image/jpeg': 'jpg' };
+async function sendBrief(env, o, offer, transcript) {
+  const msgs = (Array.isArray(transcript) ? transcript : []).filter((m) => (m.role === 'user' || m.role === 'assistant') && typeof m.content === 'string');
+  const files = [], skipped = []; let total = 0;
+  for (const m of msgs) {
+    const a = m.att; if (m.role !== 'user' || !a || !a.data) continue;
+    const ext = MAIL_EXT[a.type]; const size = a.data.length * 0.75;
+    const base = String(a.name || 'priloha').replace(/\.[a-z0-9]+$/i, '').replace(/[^\w\-. ]+/g, '_').slice(0, 60) || 'priloha';
+    if (ext && total + size <= 9e6) { files.push({ name: `${base}.${ext}`, content: a.data }); total += size; } else skipped.push(a.name || 'príloha');
+  }
+  const convo = msgs.map((m) => (m.role === 'user' ? 'Klient: ' : 'Asistent: ') + m.content + (m.att && m.att.name ? ` [príloha: ${m.att.name}]` : '')).join('\n\n');
+  let brief = '';
+  try {
+    const facts = { meno: o.client_name, email: o.email, telefon: o.phone, firma: o.company, priestor: o.project_type_text || o.project_type, lokalita: o.location, vymera_m2: o.area_m2, novostavba: o.new_build, nosne: o.structural_change, pamiatka: o.heritage, zaciatok: o.start, expres: o.express, rozpocet: o.budget, poznamka: o.notes };
+    const res = await anthropic(env, { model: MODEL, max_tokens: 1500, thinking: { type: 'between_tools' }, output_config: { effort: 'low' }, system: BRIEF_SYS,
+      messages: [{ role: 'user', content: `Údaje odoslané do ponuky: ${JSON.stringify(facts)}\n\nRozhovor:\n${convo.slice(-60000)}` }] });
+    brief = res.content.filter((b) => b.type === 'text').map((b) => b.text).join('\n');
+  } catch (_) { brief = ''; }
+  const who = o.company || o.client_name;
+  const chatHtml = msgs.map((m) => `<p style="margin:0 0 10px"><b style="color:${m.role === 'user' ? '#111' : '#777'}">${m.role === 'user' ? 'Klient' : 'Asistent'}:</b> ${escH(m.content).replace(/\n/g, '<br>')}${m.att && m.att.name ? ` <i style="color:#777">[príloha: ${escH(m.att.name)}]</i>` : ''}</p>`).join('');
+  const body = `<div style="font:14px/1.5 sans-serif;max-width:760px">
+    <p style="font:15px sans-serif">Interný výcuc z chatu k cenovej ponuke č. <b>${escH(o.number)}</b>. Odpoveď na tento e-mail ide priamo klientovi (${escH(o.email)}).</p>
+    ${brief ? mdLite(brief) : '<p><i>Automatické zhrnutie sa nepodarilo vytvoriť, nižšie je celý rozhovor.</i></p>'}
+    <h3 style="font:700 15px sans-serif;margin:18px 0 6px">Údaje v ponuke</h3>${ownerSummary(o, offer)}
+    <h3 style="font:700 15px sans-serif;margin:22px 0 6px">Prílohy od klienta</h3><p>${files.length ? files.map((f) => escH(f.name)).join(', ') + ' (v prílohe tohto e-mailu)' : 'žiadne'}${skipped.length ? '<br>Nepriložené (veľkosť alebo formát): ' + skipped.map(escH).join(', ') : ''}</p>
+    <h3 style="font:700 15px sans-serif;margin:22px 0 6px">Celý rozhovor</h3><div style="border-left:3px solid #D1FF05;padding-left:12px">${chatHtml || '<p>—</p>'}</div></div>`;
+  const mail = { to: env.OWNER_EMAIL, replyTo: o.email, subject: `[Dopyt] CP ${o.number} – ${who}, ${roundArea(o.area_m2)} m² – výcuc z chatu a podklady`, htmlBody: body };
+  try { await sendMail(env, { ...mail, ...(files.length ? { attachments: files } : {}) }); }
+  catch (e) { if (!files.length) throw e; await sendMail(env, { ...mail, htmlBody: body + '<p style="color:#b00">Prílohy klienta sa nepodarilo pripojiť k e-mailu.</p>' }); }
+}
+
 async function processOffer(env, o, origin) {
-  o.number = offerNumber(); o.date = new Date().toISOString();
+  o.number = o.number || offerNumber(); o.date = new Date().toISOString();
   const offer = buildOffer(o);
   const pdf = b64(await renderPdf(env, offer));
   const att = [{ name: `PORA_cenova_ponuka_${o.number}.pdf`, content: pdf }];
@@ -158,6 +211,8 @@ async function runTool(env, name, input, ctx) {
     const data = { ...input }; delete data.number; delete data.date;
     const autoNow = String(env.AUTO_SEND).toLowerCase() === 'true' && !quote({ need: data.need, m2: data.area_m2 }).needsApproval;
     ctx.submitted = autoNow ? 'sent' : 'pending';
+    data.number = offerNumber();
+    ctx.wait(sendBrief(env, data, buildOffer(data), ctx.transcript).catch(() => {}));
     ctx.wait(processOffer(env, data, ctx.origin).catch((e) => notifyOwner(env, 'Ponuku treba poslať ručne – ' + (data.company || data.client_name), `<p style="font:15px sans-serif">Automatické vytvorenie PDF alebo odoslanie zlyhalo. Klient videl potvrdenie, že ponuka príde e-mailom – pošlite ju prosím ručne.</p><pre>${escH(String(e))}</pre>${ownerSummary(data, buildOffer({ ...data, number: '-', date: '' }))}`)));
     return { status: autoNow ? 'Prijaté. Indikatívna ponuka v PDF príde klientovi na e-mail o pár minút.' : 'Prijaté. Indikatívna ponuka príde klientovi e-mailom spravidla do jedného pracovného dňa (štúdio ju ešte individuálne nacení).' };
   }
@@ -184,7 +239,7 @@ async function chat(req, env, url, ectx) {
   while (hist[0] && hist[0].role !== 'user') hist.shift();
   // cache: posledný blok so súborom (aby sa pôdorys neplatil v každom kroku naplno)
   for (let i = hist.length - 1; i >= 0; i--) { if (Array.isArray(hist[i].content)) { hist[i].content[0].cache_control = { type: 'ephemeral' }; break; } }
-  const ctx = { origin: url.origin, submitted: body.submitted ? 'pending' : null, wait: (p) => ectx.waitUntil(p) };
+  const ctx = { origin: url.origin, submitted: body.submitted ? 'pending' : null, wait: (p) => ectx.waitUntil(p), transcript: Array.isArray(body.messages) ? body.messages.slice(-MAX_TURNS) : [] };
   const messages = hist; let text = '';
   try {
     for (let i = 0; i < 5; i++) {
