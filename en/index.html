@@ -1090,7 +1090,7 @@ document.addEventListener('pointerover',e=>{cur_.classList.toggle('big',!!e.targ
 $('#form').addEventListener('submit',e=>{e.preventDefault();const f=e.target;if(!f.name.value||!f.email.value.includes('@')||!f.gdpr.checked){f.name.reportValidity();f.email.reportValidity();f.gdpr.reportValidity();return;}
  if(f._honey&&f._honey.value)return;const btn=f.querySelector('button[type=submit]');if(btn.disabled)return;const lab=btn.textContent;btn.disabled=true;btn.textContent=(window.__LANG||localStorage.getItem('pora_lang'))==='en'?'Sending…':'Odosielam…';
  const sub='Dopyt z pora.sk – '+f.name.value,body=`Meno: ${f.name.value}\nE-mail: ${f.email.value}\nTyp: ${f.type.value}\nRozpočet: ${f.budget.value}\n\n${f.msg.value}`;
- const done=()=>{btn.disabled=false;btn.textContent=lab;f.classList.add('sent');$('#ok').scrollIntoView({behavior:'smooth',block:'nearest'});};
+ const done=()=>{btn.disabled=false;btn.textContent=lab;f.classList.add('sent');$('#ok').scrollIntoView({behavior:'smooth',block:'nearest'});try{window.poraConv();}catch(_){}};
  const fb=()=>{try{navigator.clipboard.writeText(body).catch(()=>{});}catch(_){}location.href='mailto:info@pora.sk?subject='+encodeURIComponent(sub)+'&body='+encodeURIComponent(body);done();};
  fetch('https://formsubmit.co/ajax/info@pora.sk',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify({name:f.name.value,email:f.email.value,typ:f.type.value,rozpocet:f.budget.value,sprava:f.msg.value,_subject:sub,_replyto:f.email.value,_template:'table',_captcha:'false'})})
   .then(r=>r.json()).then(j=>{if(j&&(j.success===true||j.success==='true'))done();else fb();}).catch(fb);});
@@ -1145,14 +1145,15 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeDocs();closeCh
 /* cookies */
 const ck=$('#cookie');let ckv=null;try{ckv=localStorage.getItem('pora_cookies');}catch(_){}
 if(!ckv)ck.classList.add('show');
-/* Google Ads – načíta sa len so súhlasom (consent mode v2) */
+/* Google Ads – consent mode v2: značka beží vždy, bez súhlasu iba anonymne (bez cookies), so súhlasom naplno */
 window.poraConv=function(){};
-function poraAds(){const id=window.PORA_ADS;if(!id||window.__adsOn)return;window.__adsOn=1;window.dataLayer=window.dataLayer||[];window.gtag=function(){dataLayer.push(arguments);};
- gtag('consent','default',{ad_storage:'granted',ad_user_data:'granted',ad_personalization:'granted',analytics_storage:'granted'});gtag('js',new Date());gtag('config',id);
+(function(){const id=window.PORA_ADS;if(!id)return;window.dataLayer=window.dataLayer||[];window.gtag=function(){dataLayer.push(arguments);};
+ const g=ckv==='all';gtag('consent','default',{ad_storage:g?'granted':'denied',ad_user_data:g?'granted':'denied',ad_personalization:g?'granted':'denied',analytics_storage:g?'granted':'denied',wait_for_update:500});
+ gtag('js',new Date());gtag('config',id,{allow_enhanced_conversions:true});
  const sc=document.createElement('script');sc.async=1;sc.src='https://www.googletagmanager.com/gtag/js?id='+encodeURIComponent(id);document.head.appendChild(sc);
- window.poraConv=function(){if(window.PORA_ADS_LABEL)gtag('event','conversion',{send_to:id+'/'+window.PORA_ADS_LABEL});};}
-if(ckv==='all')poraAds();
-$$('[data-ck]').forEach(b=>b.addEventListener('click',()=>{try{localStorage.setItem('pora_cookies',b.dataset.ck);}catch(_){}ck.classList.remove('show');if(b.dataset.ck==='all')poraAds();}));
+ window.poraConv=function(){if(window.PORA_ADS_LABEL)gtag('event','conversion',{send_to:id+'/'+window.PORA_ADS_LABEL});};
+ window.poraConsent=function(on){const v=on?'granted':'denied';gtag('consent','update',{ad_storage:v,ad_user_data:v,ad_personalization:v,analytics_storage:v});};})();
+$$('[data-ck]').forEach(b=>b.addEventListener('click',()=>{try{localStorage.setItem('pora_cookies',b.dataset.ck);}catch(_){}ck.classList.remove('show');if(window.poraConsent)poraConsent(b.dataset.ck==='all');}));
 $('#ckReset').addEventListener('click',()=>{try{localStorage.removeItem('pora_cookies');}catch(_){}closeDocs();ck.classList.add('show');});
 /* form consent */
 const gdprBox=$('#f-gdpr');
