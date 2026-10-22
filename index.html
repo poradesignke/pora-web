@@ -1408,7 +1408,7 @@ setTimeout(done,3500);
   set(on,true);}
  bulb&&bulb.addEventListener('click',toggle);lb&&lb.addEventListener('click',toggle);
  let saved=null;try{saved=localStorage.getItem('pora_light');}catch(_){}
- set(saved==='1',false);window.__lightTxt=txt;})();
+ set(saved!=='0',false);window.__lightTxt=txt;})();
 
 // ---- CP asistent: zvýraznenie ----
 (function(){if(!window.PORA_API)return;
