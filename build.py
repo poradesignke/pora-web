@@ -31,7 +31,7 @@ HEAD_SK='''<!doctype html>
 <link rel="alternate" hreflang="en" href="https://www.pora.sk/en/">
 <link rel="alternate" hreflang="x-default" href="https://www.pora.sk/">
 <meta name="robots" content="index,follow,max-image-preview:large">
-<meta name="theme-color" content="#0E0E10">
+<meta name="theme-color" content="#FAF9F6">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="PORA">
 <meta property="og:locale" content="sk_SK">
