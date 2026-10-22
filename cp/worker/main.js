@@ -243,7 +243,7 @@ async function chat(req, env, url, ectx) {
   const messages = hist; let text = '';
   try {
     for (let i = 0; i < 5; i++) {
-      const res = await anthropic(env, { model: MODEL, max_tokens: 3000, thinking: { type: 'between_tools' }, output_config: { effort: 'medium' }, system: [{ type: 'text', text: SYSTEM_SK, cache_control: { type: 'ephemeral' } }], tools: TOOLS, messages });
+      const res = await anthropic(env, { model: MODEL, max_tokens: 3000, thinking: { type: 'between_tools' }, output_config: { effort: 'medium' }, system: [{ type: 'text', text: SYSTEM_SK, cache_control: { type: 'ephemeral' } }, { type: 'text', text: body.lang === 'en' ? 'Klient používa anglickú verziu webu: odpovedaj po anglicky, pokiaľ sám nenapíše iným jazykom.' : 'Klient používa slovenskú verziu webu: odpovedaj po slovensky, pokiaľ sám nenapíše iným jazykom.' }], tools: TOOLS, messages });
       text = res.content.filter((b) => b.type === 'text').map((b) => b.text).join('\n').trim();
       if (res.stop_reason === 'tool_use') text = '';
       if (res.stop_reason !== 'tool_use') break;

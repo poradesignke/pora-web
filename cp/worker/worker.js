@@ -1,4 +1,4 @@
-// AUTO-GENERATED from pricing.js + offer.js + worker/main.js – 2026-10-07T12:45:05.213Z
+// AUTO-GENERATED from pricing.js + offer.js + worker/main.js – 2026-10-22T11:55:18.007Z
 // PORA – pravidlá cenotvorby (ceny bez DPH). Rovnaké pre bývanie, gastro aj komerciu.
 // Zdroj: Tom, 5. 10. 2026.
 const VAT = 0.23;
@@ -448,7 +448,7 @@ async function chat(req, env, url, ectx) {
   const messages = hist; let text = '';
   try {
     for (let i = 0; i < 5; i++) {
-      const res = await anthropic(env, { model: MODEL, max_tokens: 3000, thinking: { type: 'between_tools' }, output_config: { effort: 'medium' }, system: [{ type: 'text', text: SYSTEM_SK, cache_control: { type: 'ephemeral' } }], tools: TOOLS, messages });
+      const res = await anthropic(env, { model: MODEL, max_tokens: 3000, thinking: { type: 'between_tools' }, output_config: { effort: 'medium' }, system: [{ type: 'text', text: SYSTEM_SK, cache_control: { type: 'ephemeral' } }, { type: 'text', text: body.lang === 'en' ? 'Klient používa anglickú verziu webu: odpovedaj po anglicky, pokiaľ sám nenapíše iným jazykom.' : 'Klient používa slovenskú verziu webu: odpovedaj po slovensky, pokiaľ sám nenapíše iným jazykom.' }], tools: TOOLS, messages });
       text = res.content.filter((b) => b.type === 'text').map((b) => b.text).join('\n').trim();
       if (res.stop_reason === 'tool_use') text = '';
       if (res.stop_reason !== 'tool_use') break;
