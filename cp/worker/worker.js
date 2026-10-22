@@ -1,4 +1,4 @@
-// AUTO-GENERATED from pricing.js + offer.js + worker/main.js – 2026-10-22T11:55:18.007Z
+// AUTO-GENERATED from pricing.js + offer.js + worker/main.js – 2026-10-22T12:09:01.454Z
 // PORA – pravidlá cenotvorby (ceny bez DPH). Rovnaké pre bývanie, gastro aj komerciu.
 // Zdroj: Tom, 5. 10. 2026.
 const VAT = 0.23;
@@ -448,7 +448,7 @@ async function chat(req, env, url, ectx) {
   const messages = hist; let text = '';
   try {
     for (let i = 0; i < 5; i++) {
-      const res = await anthropic(env, { model: MODEL, max_tokens: 3000, thinking: { type: 'between_tools' }, output_config: { effort: 'medium' }, system: [{ type: 'text', text: SYSTEM_SK, cache_control: { type: 'ephemeral' } }, { type: 'text', text: body.lang === 'en' ? 'Klient používa anglickú verziu webu: odpovedaj po anglicky, pokiaľ sám nenapíše iným jazykom.' : 'Klient používa slovenskú verziu webu: odpovedaj po slovensky, pokiaľ sám nenapíše iným jazykom.' }], tools: TOOLS, messages });
+      const res = await anthropic(env, { model: MODEL, max_tokens: 3000, thinking: { type: 'between_tools' }, output_config: { effort: 'medium' }, system: [{ type: 'text', text: SYSTEM_SK, cache_control: { type: 'ephemeral' } }, { type: 'text', text: body.lang === 'en' ? 'JAZYK: klient je na ANGLICKEJ verzii webu. Odpovedaj výhradne po anglicky – aj na krátke alebo nejednoznačné správy (ok, yes, thanks). Prepni na iný jazyk iba vtedy, keď klient napíše celú vetu v tom jazyku.' : 'JAZYK: klient je na SLOVENSKEJ verzii webu. Odpovedaj po slovensky – aj na krátke alebo nejednoznačné správy (ok, áno). Prepni na iný jazyk iba vtedy, keď klient napíše celú vetu v tom jazyku.' }], tools: TOOLS, messages });
       text = res.content.filter((b) => b.type === 'text').map((b) => b.text).join('\n').trim();
       if (res.stop_reason === 'tool_use') text = '';
       if (res.stop_reason !== 'tool_use') break;
@@ -495,7 +495,7 @@ export default {
     try {
       if (url.pathname === '/chat' && req.method === 'POST') return await chat(req, env, url, ectx);
       if (url.pathname === '/approve') return await approve(req, env, url);
-      if (url.pathname === '/health') return json({ ok: true, model: MODEL, config: { anthropic: !!env.ANTHROPIC_API_KEY, brevo: !!env.BREVO_API_KEY, pdf: !!(env.CF_API_TOKEN && env.CF_ACCOUNT_ID), signing: !!env.SIGNING_SECRET, owner: env.OWNER_EMAIL || null, auto: env.AUTO_SEND || 'false' } });
+      if (url.pathname === '/health') return json({ ok: true, build: '2026-10-22b', model: MODEL, config: { anthropic: !!env.ANTHROPIC_API_KEY, brevo: !!env.BREVO_API_KEY, pdf: !!(env.CF_API_TOKEN && env.CF_ACCOUNT_ID), signing: !!env.SIGNING_SECRET, owner: env.OWNER_EMAIL || null, auto: env.AUTO_SEND || 'false' } });
       return json({ ok: true, service: 'PORA asistent' });
     } catch (e) { return json({ error: 'server', detail: String(e).slice(0, 300) }, 500, cors(req)); }
   },
