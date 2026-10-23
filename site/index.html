@@ -82,19 +82,19 @@ body.menu-open .burger span:nth-child(3){transform:translateY(-7px) rotate(-45de
 /* hero */
 .hero{position:relative;padding:clamp(120px,16vh,180px) 0 56px;min-height:88vh;display:flex;align-items:flex-end}
 .hero .bgx{position:absolute;inset:0;pointer-events:none;overflow:hidden}
-.sk{position:absolute;inset:0;overflow:hidden;pointer-events:none;color:#DAD7D1;opacity:1;transition:opacity 1.2s ease}
-html:not(.light) .sk{color:#2A2A30}
-.sk.off{opacity:0}
-.sk svg{position:absolute;right:-6%;bottom:0;width:min(1180px,120%);height:100%}
-.sk.pl svg{right:auto;left:-6%}
-.sk.pc svg{right:auto;left:50%;transform:translateX(-50%);width:min(1000px,100%);height:92%}
-.sk path{fill:none;stroke:currentColor;stroke-width:1.1;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke}
-.sk.hold path{animation:none!important;stroke-dashoffset:0!important}
+.hsk{position:absolute;inset:0;overflow:hidden;pointer-events:none;color:#DAD7D1;opacity:1;transition:opacity 1.2s ease}
+html:not(.light) .hsk{color:#2A2A30}
+.hsk.off{opacity:0}
+.hsk svg{position:absolute;right:-6%;bottom:0;width:min(1180px,120%);height:100%}
+.hsk.pl svg{right:auto;left:-6%}
+.hsk.pc svg{right:auto;left:50%;transform:translateX(-50%);width:min(1000px,100%);height:92%}
+.hsk path{fill:none;stroke:currentColor;stroke-width:1.1;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke}
+.hsk.hold path{animation:none!important;stroke-dashoffset:0!important}
 @keyframes dr{to{stroke-dashoffset:0}}
 .hero .wrap{position:relative;z-index:1}
-@media (max-width:900px){.sk svg{width:150%;right:-30%;top:150px;bottom:auto;height:52%}.sk.pl svg{right:auto;left:-30%}.sk.pc svg{left:50%;transform:translateX(-50%);width:130%;height:48%}}
-@media (max-width:600px){.sk svg{width:170%;right:-45%;top:170px;height:46%}.sk.pl svg{left:-45%}.sk.pc svg{width:150%;height:42%}}
-@media (prefers-reduced-motion:reduce){.sk path{animation:none!important;stroke-dashoffset:0!important}}
+@media (max-width:900px){.hsk svg{width:150%;right:-30%;top:150px;bottom:auto;height:52%}.hsk.pl svg{right:auto;left:-30%}.hsk.pc svg{left:50%;transform:translateX(-50%);width:130%;height:48%}}
+@media (max-width:600px){.hsk svg{width:170%;right:-45%;top:170px;height:46%}.hsk.pl svg{left:-45%}.hsk.pc svg{width:150%;height:42%}}
+@media (prefers-reduced-motion:reduce){.hsk path{animation:none!important;stroke-dashoffset:0!important}}
 .hero .cx{position:absolute;width:260px;height:260px;opacity:.9}
 .hero .cx::before,.hero .cx::after{content:"";position:absolute;inset:0 38%;background:var(--c);border-radius:4px}
 .hero .cx::after{inset:38% 0}
@@ -620,7 +620,7 @@ body.chat-open .teaser{display:none}
 <section class="hero">
   <button class="bulb" id="bulb" type="button" aria-pressed="false" aria-label="Rozsvietiť – svetlá verzia webu"><span class="cord"></span><span class="halo"></span><span class="art" aria-hidden="true"><i class="sock"></i><i class="rays"></i><img src="img/pora-bulb-paper.png" alt="" width="380" height="658"></span><span class="lbl" id="bulbLbl">Zapni svetlo</span></button>
   <div class="bgx" aria-hidden="true"><div class="cx a"></div><div class="cx b"></div><div class="cx c"></div></div>
-  <div class="sk" id="heroSk" aria-hidden="true"></div>
+  <div class="hsk" id="heroSk" aria-hidden="true"></div>
   <div class="wrap grid">
     <div>
       <span class="eyebrow" data-t="hero_eyebrow">Interiérové štúdio · Košice → worldwide</span>
@@ -878,14 +878,14 @@ body.chat-open .teaser{display:none}
       <li><strong>Vymazanie</strong> („právo na zabudnutie“), ak už údaje nepotrebujeme alebo ste odvolali súhlas.</li>
       <li><strong>Obmedzenie spracúvania</strong> a <strong>prenosnosť</strong> údajov v strojovo čitateľnom formáte.</li>
       <li><strong>Námietka</strong> proti spracúvaniu na základe oprávneného záujmu a kedykoľvek proti priamemu marketingu.</li>
-      <li><strong>Odvolanie súhlasu</strong> kedykoľvek, bez vplyvu na zákonnosť predchádzajúceho spracúvania – napíšte na info@pora.sk alebo použite odkaz v newsletteri.</li>
-      <li><strong>Sťažnosť</strong> na Úrad na ochranu osobných údajov SR, Hraničná 12, 820 07 Bratislava, www.dataprotection.gov.sk.</li>
+      <li><strong>Odvolanie súhlasu</strong> kedykoľvek, bez vplyvu na zákonnosť predchádzajúceho spracúvania – napíšte na info@pora.hsk alebo použite odkaz v newsletteri.</li>
+      <li><strong>Sťažnosť</strong> na Úrad na ochranu osobných údajov SR, Hraničná 12, 820 07 Bratislava, www.dataprotection.gov.hsk.</li>
     </ul>
     <p>Na žiadosť odpovieme do jedného mesiaca. Poskytnutie údajov vo formulári je dobrovoľné; bez kontaktných údajov vám však nevieme odpovedať.</p>
     <h3>7. Zabezpečenie</h3>
     <p>Údaje chránime šifrovaným prenosom (HTTPS), prístupovými právami, dvojfaktorovým prihlasovaním do pracovných účtov a zálohovaním. K údajom majú prístup len členovia tímu, ktorí ich potrebujú pre vašu zákazku.</p>
     <h3>8. Zmeny</h3>
-    <p>Tieto zásady môžeme aktualizovať; aktuálna verzia je vždy zverejnená na pora.sk. Posledná aktualizácia: 2. 10. 2026.</p>
+    <p>Tieto zásady môžeme aktualizovať; aktuálna verzia je vždy zverejnená na pora.hsk. Posledná aktualizácia: 2. 10. 2026.</p>
   </div><div class="l-en" hidden>
     <button class="x" data-close aria-label="Close">×</button>
     <span class="meta">Information under Art. 13 and 14 GDPR · effective 2 Oct 2026</span>
@@ -908,12 +908,12 @@ body.chat-open .teaser{display:none}
     <h3>5. Social media</h3>
     <p>On Instagram (@pora_atelier) and Facebook (poradizajn) we act as joint controller with Meta Platforms Ireland Ltd. for page insights. See Meta's privacy policy for its processing.</p>
     <h3>6. Your rights</h3>
-    <ul><li><strong>Access</strong> to and a copy of your data.</li><li><strong>Rectification</strong> of inaccurate or incomplete data.</li><li><strong>Erasure</strong> where data is no longer needed or consent is withdrawn.</li><li><strong>Restriction</strong> of processing and <strong>portability</strong> in a machine-readable format.</li><li><strong>Objection</strong> to processing based on legitimate interest and, at any time, to direct marketing.</li><li><strong>Withdrawal of consent</strong> at any time without affecting prior processing – write to info@pora.sk or use the link in the newsletter.</li><li><strong>Complaint</strong> to the Office for Personal Data Protection of the Slovak Republic, Hraničná 12, 820 07 Bratislava, www.dataprotection.gov.sk, or to your local supervisory authority in the EU.</li></ul>
+    <ul><li><strong>Access</strong> to and a copy of your data.</li><li><strong>Rectification</strong> of inaccurate or incomplete data.</li><li><strong>Erasure</strong> where data is no longer needed or consent is withdrawn.</li><li><strong>Restriction</strong> of processing and <strong>portability</strong> in a machine-readable format.</li><li><strong>Objection</strong> to processing based on legitimate interest and, at any time, to direct marketing.</li><li><strong>Withdrawal of consent</strong> at any time without affecting prior processing – write to info@pora.hsk or use the link in the newsletter.</li><li><strong>Complaint</strong> to the Office for Personal Data Protection of the Slovak Republic, Hraničná 12, 820 07 Bratislava, www.dataprotection.gov.sk, or to your local supervisory authority in the EU.</li></ul>
     <p>We respond to requests within one month. Providing data in the form is voluntary; without contact details we cannot reply.</p>
     <h3>7. Security</h3>
     <p>Data is protected by encrypted transfer (HTTPS), access rights, two-factor authentication on work accounts and backups. Only team members who need the data for your project have access.</p>
     <h3>8. Changes</h3>
-    <p>We may update this notice; the current version is always published at pora.sk. Last update: 2 Oct 2026.</p>
+    <p>We may update this notice; the current version is always published at pora.hsk. Last update: 2 Oct 2026.</p>
   </div></div>
 </div>
 <div class="doc" id="doc-cookies" role="dialog" aria-modal="true" aria-label="Zásady cookies">
@@ -1061,7 +1061,7 @@ document.addEventListener('pointerover',e=>{cur_.classList.toggle('big',!!e.targ
 /* form + copy */
 $('#form').addEventListener('submit',e=>{e.preventDefault();const f=e.target;if(!f.name.value||!f.email.value.includes('@')||!f.gdpr.checked){f.name.reportValidity();f.email.reportValidity();f.gdpr.reportValidity();return;}
  if(f._honey&&f._honey.value)return;const btn=f.querySelector('button[type=submit]');if(btn.disabled)return;const lab=btn.textContent;btn.disabled=true;btn.textContent=(window.__LANG||localStorage.getItem('pora_lang'))==='en'?'Sending…':'Odosielam…';
- const sub='Dopyt z pora.sk – '+f.name.value,body=`Meno: ${f.name.value}\nE-mail: ${f.email.value}\nTyp: ${f.type.value}\nRozpočet: ${f.budget.value}\n\n${f.msg.value}`;
+ const sub='Dopyt z pora.hsk – '+f.name.value,body=`Meno: ${f.name.value}\nE-mail: ${f.email.value}\nTyp: ${f.type.value}\nRozpočet: ${f.budget.value}\n\n${f.msg.value}`;
  const done=()=>{btn.disabled=false;btn.textContent=lab;f.classList.add('sent');$('#ok').scrollIntoView({behavior:'smooth',block:'nearest'});try{window.poraConv();}catch(_){}};
  const fb=()=>{try{navigator.clipboard.writeText(body).catch(()=>{});}catch(_){}location.href='mailto:info@pora.sk?subject='+encodeURIComponent(sub)+'&body='+encodeURIComponent(body);done();};
  fetch('https://formsubmit.co/ajax/info@pora.sk',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify({name:f.name.value,email:f.email.value,typ:f.type.value,rozpocet:f.budget.value,sprava:f.msg.value,_subject:sub,_replyto:f.email.value,_template:'table',_captcha:'false'})})
@@ -1130,14 +1130,14 @@ $('#ckReset').addEventListener('click',()=>{try{localStorage.removeItem('pora_co
 /* form consent */
 const gdprBox=$('#f-gdpr');
 /* chat bot */
-const KB_SK=`Si asistent interiérového štúdia PORA (PORA s.r.o., Košice, IČO 53834691). Odpovedaj po slovensky, stručne (max. 4 vety alebo krátke odrážky), priateľsky a sebavedomo, v duchu značky "F***ing cool interiors" – bez vulgarizmov. Odpovedaj iba z týchto informácií; ak niečo nevieš, povedz to a odporuč nezáväznú konzultáciu cez formulár na stránke (sekcia Kontakt) alebo e-mail info@pora.sk / +421 903 494 977. Nikdy nesľubuj termíny ani zľavy, neuvádzaj mená súkromných klientov.
+const KB_SK=`Si asistent interiérového štúdia PORA (PORA s.r.o., Košice, IČO 53834691). Odpovedaj po slovensky, stručne (max. 4 vety alebo krátke odrážky), priateľsky a sebavedomo, v duchu značky "F***ing cool interiors" – bez vulgarizmov. Odpovedaj iba z týchto informácií; ak niečo nevieš, povedz to a odporuč nezáväznú konzultáciu cez formulár na stránke (sekcia Kontakt) alebo e-mail info@pora.hsk / +421 903 494 977. Nikdy nesľubuj termíny ani zľavy, neuvádzaj mená súkromných klientov.
 ŠTÚDIO: PORA – dizajnové štúdio interiérov v Košiciach (Námestie osloboditeľov 3/A, budova DUETT 1). Tím: Tomáš Potočiar (CEO, zakladateľ), Mgr. art. Daniel Csúz (COO, Head of Design), Mgr. art. Katarína Csúzová, ArtD. (Senior Designer). Viac ako 80 realizácií, z toho 20+ gastro a komerčných. Pracujeme v Košiciach aj po celom Slovensku. Instagram @pora_atelier.
 ČO ROBÍME: byty, domy, gastro (bistrá, kaviarne, reštaurácie, cukrárne), salóny a nechtové štúdiá, kancelárie, ambulancie. Navrhujeme interiéry a dodávame podklady k realizácii; komplexnú projekciu domov a bytov zastrešíme v spolupráci s projekčným štúdiom. Nerobíme realizačný projekt stavby.
 CENNÍK (bez DPH): Balík Mini 2 490 € – priestor do 20 m²: dispozičné riešenie, fotorealistické vizualizácie max. 10 ks, materiálové riešenie, špecifikácia produktov, 2 h konzultácií. Variant 1 "Design" 4 990 € – do 100 m²: zameranie, pôdorysy, výber materiálov, fotorealistické vizualizácie, základný zoznam produktov, jednoduché kótovanie, 3 h konzultácií. Variant 2 "Realizácia" od 15 000 € (podľa rozsahu projektu): všetko z Variantu 1 + podklady k realizácii (schémy elektro a vody, stolárske špecifikácie, výrobné výkresy), autorský dozor na stavbe, kontrolné dni, vzorkovanie materiálov, koordinácia nákupov. Interiérové konzultácie 500 € / hod (min. 1 h): pomoc so vzorkovaním a výberom materiálov. Variant Mini a Design nad 100 m² a gastro/komerčné priestory naceňujeme individuálne.
 PROCES: 1) nezáväzná konzultácia – prejdeme priestor, predstavy, rozpočet a termíny; 2) koncept a vizualizácie – nálada, materiály, 3D vizualizácie, ladíme kým to nie je presne ono; 3) podklady k realizácii – výkresy pre remeselníkov, špecifikácie, výrobné výkresy, rozpočet; 4) realizácia a autorský dozor – koordinácia dodávok a remeselníkov až po odovzdanie kľúčov.
-AKO ZAČAŤ: vyplniť formulár v sekcii Kontakt (meno, e-mail, typ priestoru, orientačný rozpočet, správa) alebo napísať na info@pora.sk. Ozývame sa do 2 pracovných dní. Orientačné rozpočty realizácií klientov sa typicky pohybujú od 50 000 € vyššie.
+AKO ZAČAŤ: vyplniť formulár v sekcii Kontakt (meno, e-mail, typ priestoru, orientačný rozpočet, správa) alebo napísať na info@pora.hsk. Ozývame sa do 2 pracovných dní. Orientačné rozpočty realizácií klientov sa typicky pohybujú od 50 000 € vyššie.
 GDPR: údaje z formulára spracúvame len na vybavenie dopytu; zásady sú v pätičke webu.`;
-const KB_EN=`You are the assistant of interior design studio PORA (PORA s.r.o., Košice, Slovakia, EU). Answer in English, briefly (max. 4 sentences or short bullets), friendly and confident, in the spirit of the brand "F***ing cool interiors" – without profanity. Answer ONLY from this information; if you don't know, say so and recommend a free consultation via the form on the page (Contact section) or info@pora.sk / +421 903 494 977. Never promise deadlines or discounts, never name private clients.
+const KB_EN=`You are the assistant of interior design studio PORA (PORA s.r.o., Košice, Slovakia, EU). Answer in English, briefly (max. 4 sentences or short bullets), friendly and confident, in the spirit of the brand "F***ing cool interiors" – without profanity. Answer ONLY from this information; if you don't know, say so and recommend a free consultation via the form on the page (Contact section) or info@pora.hsk / +421 903 494 977. Never promise deadlines or discounts, never name private clients.
 STUDIO: PORA – interior design studio based in Košice, Slovakia, working online for clients worldwide (consultations and design remotely; site supervision on agreement). Team: Tomáš Potočiar (CEO, founder), Mgr. art. Daniel Csúz (COO, Head of Design), Mgr. art. Katarína Csúzová, ArtD. (Senior Designer). 80+ projects, 20+ hospitality and commercial. Instagram @pora_atelier.
 WHAT WE DO: apartments, houses, hospitality (bistros, cafés, restaurants, patisseries), salons and nail studios, offices, clinics. We design interiors and deliver construction documents; full architectural design of houses is covered with a partner architecture studio.
 PRICES (excl. VAT): Mini package €2,490 – up to 20 m²: layout, up to 10 photorealistic visualisations, materials, product specification, 2 h consultation. Variant 1 "Design" €4,990 – up to 100 m²: survey, floor plans, materials, visualisations, product list, simple dimensioning, 3 h consultation. Variant 2 "Realisation" from €15,000 (depending on project scope): everything in Variant 1 + construction documents (electrical & plumbing schemes, joinery specs, shop drawings), author's supervision, site meetings, sampling, purchasing coordination. Interior consultations €500/hour (min. 1 h), online or in person. Mini/Design above 100 m² and commercial spaces quoted individually.
@@ -1154,7 +1154,7 @@ const FAQ=[
  {k:['kto','tim','tím','ludia','ľudia','dizajner','dizajnér','tomas','tomáš','daniel','katar'],a:'PORA vedie Tomáš Potočiar (CEO), dizajn má na starosti Mgr. art. Daniel Csúz (COO / Head of Design) a Mgr. art. Katarína Csúzová, ArtD. (Senior Designer). Jeden tím od konceptu po autorský dozor – viac ako 80 realizácií.'},
  {k:['dom','rodinn','novostavb','byt','rekonstruk','rekonštruk','projekt','projekc','stavb','povolen'],a:'Navrhujeme byty aj domy – od dispozície cez materiály a svetlo po nábytok na mieru – a dodávame podklady k realizácii pre remeselníkov. Realizačný projekt stavby nerobíme, no komplexnú projekciu domu či bytu vieme zastrešiť v spolupráci s projekčným štúdiom. Napíšte nám výmeru a stav priestoru, pripravíme ponuku.'},
  {k:['vizual','3d','render','navrh','návrh','ako bude vyzer'],a:'Áno, súčasťou každého balíka sú fotorealistické 3D vizualizácie – pri Balíku Mini do 10 záberov, pri Variantoch Design a Realizácia kompletné vizualizácie priestoru. Ladíme ich s vami, kým to nie je presne ono.'},
- {k:['kontakt','telef','mail','email','e-mail','cislo','číslo','zavol','ozv'],a:'Napíšte na info@pora.sk alebo zavolajte +421 903 494 977. Najrýchlejšie je vyplniť formulár v sekcii Kontakt – ozveme sa do 2 pracovných dní.'},
+ {k:['kontakt','telef','mail','email','e-mail','cislo','číslo','zavol','ozv'],a:'Napíšte na info@pora.hsk alebo zavolajte +421 903 494 977. Najrýchlejšie je vyplniť formulár v sekcii Kontakt – ozveme sa do 2 pracovných dní.'},
  {k:['konzult','ponuk','chcem','mam zaujem','mám záujem','zaujem','záujem','objedn'],a:'Super! Nezáväzná konzultácia začína formulárom – kliknite na „Konzultácia“ hore alebo prejdite do sekcie Kontakt, vyplňte typ priestoru, orientačný rozpočet a pár viet o projekte. Ozveme sa do 2 pracovných dní.',go:true},
  {k:['gdpr','osobn','udaj','údaj','sukrom','súkrom','cookie'],a:'Údaje z formulára aj chatu používame len na vybavenie vášho dopytu. Celé zásady ochrany osobných údajov a cookies nájdete v pätičke stránky.'},
  {k:['ahoj','dobry','dobrý','zdrav','cau','čau','hello','hi'],a:'Dobrý deň! Som asistent PORA. Pomôžem s cenami, priebehom spolupráce, termínmi aj s tým, čo všetko robíme. Na čo sa chcete opýtať?'},
@@ -1178,12 +1178,12 @@ const FAQ_EN=[
  {k:['who','team','designer','people','tomas','tomáš','daniel','katar'],a:'PORA is led by Tomáš Potočiar (CEO); design is headed by Mgr. art. Daniel Csúz (COO / Head of Design) with Mgr. art. Katarína Csúzová, ArtD. (Senior Designer). One team from concept to author\'s supervision – 80+ projects.'},
  {k:['house','apartment','flat','home','renovation','villa','architect','permit'],a:'We design apartments and houses – layout, materials, light, bespoke furniture – and deliver construction documents for craftsmen. Full architectural design of a house is covered together with a partner architecture studio. Send us the size and state of the space and we will prepare a quote.'},
  {k:['visual','3d','render','look like','design'],a:'Yes, every package includes photorealistic 3D visualisations – up to 10 views in the Mini package, full visualisations in the Design and Realisation variants. We refine them with you until it is exactly right.'},
- {k:['contact','phone','mail','email','call','reach'],a:'Write to info@pora.sk or call +421 903 494 977. The fastest way is the form in the Contact section – we reply within 2 business days.'},
+ {k:['contact','phone','mail','email','call','reach'],a:'Write to info@pora.hsk or call +421 903 494 977. The fastest way is the form in the Contact section – we reply within 2 business days.'},
  {k:['consult','quote','offer','interested','book','want'],a:'Great! A free consultation starts with the form – click "Consultation" at the top or go to the Contact section, fill in the type of space, indicative budget and a few words about the project. We reply within 2 business days.',go:true},
  {k:['gdpr','privacy','data','cookie','personal'],a:'Data from the form and chat is used only to handle your enquiry. The full privacy and cookie notices are in the footer.'},
  {k:['hello','hi','hey','good'],a:'Hello! I am the PORA assistant. I can help with prices, how we work, timelines and what we do. What would you like to know?'},
 ];
-function ruleAnswer(q){const n=norm(q);let best=null,score=0;(LANG==='en'?FAQ_EN:FAQ).forEach(f=>{const sc=f.k.reduce((a,k)=>a+(n.includes(norm(k))?1:0),0);if(sc>score){score=sc;best=f;}});return best||{a:LANG==='en'?'I can\'t answer that from the information on this site. Please write to us via the form in the Contact section or at info@pora.sk – we reply within 2 business days.':'Na toto neviem odpovedať z informácií na webe. Napíšte nám prosím do formulára v sekcii Kontakt alebo na info@pora.sk – ozveme sa do 2 pracovných dní.'};}
+function ruleAnswer(q){const n=norm(q);let best=null,score=0;(LANG==='en'?FAQ_EN:FAQ).forEach(f=>{const sc=f.k.reduce((a,k)=>a+(n.includes(norm(k))?1:0),0);if(sc>score){score=sc;best=f;}});return best||{a:LANG==='en'?'I can\'t answer that from the information on this site. Please write to us via the form in the Contact section or at info@pora.hsk – we reply within 2 business days.':'Na toto neviem odpovedať z informácií na webe. Napíšte nám prosím do formulára v sekcii Kontakt alebo na info@pora.hsk – ozveme sa do 2 pracovných dní.'};}
 async function getSample(){if(sampleChecked)return sampleFn;sampleChecked=true;try{if(window.claude&&typeof claude.use==='function'){sampleFn=await Promise.race([claude.use('sample'),new Promise(r=>setTimeout(()=>r(null),4000))]);}}catch(_){sampleFn=null;}return sampleFn;}
 const PORA_API=window.PORA_API||'';let att=null;let apiTurns=[];
 const fileIn=document.getElementById('chatFile'),fileTag=document.getElementById('chatFileTag');
@@ -1371,7 +1371,7 @@ setTimeout(done,3500);
  const still=matchMedia('(prefers-reduced-motion:reduce)').matches;
  const load=k=>cache[k]||(cache[k]=fetch('/sk/'+String(k+1).padStart(2,'0')+'.svg').then(r=>r.text()));
  const POS=['pr','pl','pc','pr','pl','pc'],PAR={pr:'xMaxYMax meet',pl:'xMinYMax meet',pc:'xMidYMax meet'};
- async function show(k){const svg=await load(k);sk.innerHTML=svg;sk.classList.remove('pr','pl','pc');sk.classList.add(POS[k]);sk.querySelector('svg').setAttribute('preserveAspectRatio',PAR[POS[k]]);const ps=[...sk.querySelectorAll('path')];let end=0;
+ async function show(k){const svg=await load(k);sk.innerHTML=svg;sk.classList.remove('pr','pl','pc');sk.classList.add(POS[k]);sk.querySelector('svg').setAttribute('preserveAspectRatio',PAR[POS[k]]);const ps=[...hsk.querySelectorAll('path')];let end=0;
   ps.forEach(p=>{const m=p.style.animation.match(/([\d.]+)s linear ([\d.]+)s/);if(m)end=Math.max(end,+m[1]+ +m[2]);});
   sk.classList.toggle('hold',still);sk.classList.remove('off');load((k+1)%N);
   if(still)return;setTimeout(()=>{sk.classList.add('off');setTimeout(()=>{i=(i+1)%N;show(i);},1300);},(end+7)*1000);}
