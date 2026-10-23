@@ -128,12 +128,14 @@ body.menu-open .burger span:nth-child(3){transform:translateY(-7px) rotate(-45de
 html:not(.light) .sk{color:#2A2A30}
 .sk.off{opacity:0}
 .sk svg{position:absolute;right:-6%;bottom:0;width:min(1180px,120%);height:100%}
+.sk.pl svg{right:auto;left:-6%}
+.sk.pc svg{right:auto;left:50%;transform:translateX(-50%);width:min(1000px,100%);height:92%}
 .sk path{fill:none;stroke:currentColor;stroke-width:1.1;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke}
 .sk.hold path{animation:none!important;stroke-dashoffset:0!important}
 @keyframes dr{to{stroke-dashoffset:0}}
 .hero .wrap{position:relative;z-index:1}
-@media (max-width:900px){.sk svg{width:150%;right:-30%;top:150px;bottom:auto;height:52%}}
-@media (max-width:600px){.sk svg{width:170%;right:-45%;top:170px;height:46%}}
+@media (max-width:900px){.sk svg{width:150%;right:-30%;top:150px;bottom:auto;height:52%}.sk.pl svg{right:auto;left:-30%}.sk.pc svg{left:50%;transform:translateX(-50%);width:130%;height:48%}}
+@media (max-width:600px){.sk svg{width:170%;right:-45%;top:170px;height:46%}.sk.pl svg{left:-45%}.sk.pc svg{width:150%;height:42%}}
 @media (prefers-reduced-motion:reduce){.sk path{animation:none!important;stroke-dashoffset:0!important}}
 .hero .cx{position:absolute;width:260px;height:260px;opacity:.9}
 .hero .cx::before,.hero .cx::after{content:"";position:absolute;inset:0 38%;background:var(--c);border-radius:4px}
@@ -1412,7 +1414,8 @@ setTimeout(done,3500);
 (function(){const sk=document.getElementById('heroSk');if(!sk)return;const N=6,cache={};let i=Math.floor(Math.random()*N);
  const still=matchMedia('(prefers-reduced-motion:reduce)').matches;
  const load=k=>cache[k]||(cache[k]=fetch('/sk/'+String(k+1).padStart(2,'0')+'.svg').then(r=>r.text()));
- async function show(k){const svg=await load(k);sk.innerHTML=svg;const ps=[...sk.querySelectorAll('path')];let end=0;
+ const POS=['pr','pl','pc','pr','pl','pc'],PAR={pr:'xMaxYMax meet',pl:'xMinYMax meet',pc:'xMidYMax meet'};
+ async function show(k){const svg=await load(k);sk.innerHTML=svg;sk.classList.remove('pr','pl','pc');sk.classList.add(POS[k]);sk.querySelector('svg').setAttribute('preserveAspectRatio',PAR[POS[k]]);const ps=[...sk.querySelectorAll('path')];let end=0;
   ps.forEach(p=>{const m=p.style.animation.match(/([\d.]+)s linear ([\d.]+)s/);if(m)end=Math.max(end,+m[1]+ +m[2]);});
   sk.classList.toggle('hold',still);sk.classList.remove('off');load((k+1)%N);
   if(still)return;setTimeout(()=>{sk.classList.add('off');setTimeout(()=>{i=(i+1)%N;show(i);},1300);},(end+7)*1000);}
