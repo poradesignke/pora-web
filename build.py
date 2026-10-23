@@ -79,7 +79,7 @@ os.makedirs(OUT+'/en',exist_ok=True)
 open(OUT+'/index.html','w').write(HEAD_SK+b2+TAIL)
 open(OUT+'/en/index.html','w').write(HEAD_EN+b2+TAIL)
 # assets
-for d in ['img','vid','cp']:
+for d in ['img','vid','cp','sk']:
     if os.path.exists(OUT+'/'+d): shutil.rmtree(OUT+'/'+d)
     shutil.copytree('site/'+d,OUT+'/'+d)
 # favicon svg (PLUS)
