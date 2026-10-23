@@ -107,5 +107,21 @@ function main() {
     });
   });
   if (assetOps.length) report('Popisy a sitelinky', AdsApp.mutateAll(assetOps, { partialFailure: false })); else Logger.log('Popisy a sitelinky: už hotové');
+
+  // 5) Nové kľúčové slová s nákupným úmyslom (frázová zhoda) do SK kampane
+  var NEW_KW = { 'PORA SK': ['cena návrhu interiéru', 'cena za návrh interiéru', 'návrh interiéru cena', 'návrh bytu', 'návrh interiéru bytu cena', 'interiérový dizajnér cena'],
+                 'PORA CZ': ['cena návrhu interiéru', 'návrh interiéru cena', 'návrh bytu'],
+                 'PORA PL': ['projekt wnętrza cena', 'ile kosztuje projekt wnętrza', 'projekt mieszkania'],
+                 'PORA AT': ['innenarchitekt kosten', 'innenarchitekt preise', 'wohnungsplanung'] };
+  var added = 0;
+  camps.forEach(function (c) {
+    var key = Object.keys(NEW_KW).filter(function (k) { return c.getName().indexOf(k) === 0; })[0];
+    if (!key) return;
+    var agIt = c.adGroups().withCondition('Status != REMOVED').get(); if (!agIt.hasNext()) return;
+    var ag = agIt.next();
+    var have = {}; var kIt = ag.keywords().get(); while (kIt.hasNext()) have[kIt.next().getText().replace(/["\[\]]/g, '').toLowerCase()] = 1;
+    NEW_KW[key].forEach(function (k) { if (!have[k.toLowerCase()]) { ag.newKeywordBuilder().withText('"' + k + '"').build(); added++; } });
+  });
+  Logger.log('Nové kľúčové slová: pridané ' + added);
   Logger.log('Hotovo.');
 }
