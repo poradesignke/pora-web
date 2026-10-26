@@ -62,7 +62,7 @@ img,video{max-width:100%;display:block}
 a{color:inherit;text-decoration:none}
 button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;padding:0}
 section{scroll-margin-top:72px}
-h1,h2,h3{margin:0;font-family:var(--display);font-weight:800;line-height:.9;letter-spacing:-.03em;text-transform:uppercase;text-wrap:balance}
+h1,h2,h3{margin:0;font-family:var(--display);font-weight:900;line-height:.92;letter-spacing:.012em;text-transform:uppercase;text-wrap:balance}
 .wrap{width:100%;max-width:1480px;margin:0 auto;padding-inline:var(--gutter)}
 .eyebrow{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);display:inline-flex;align-items:center;gap:10px}
 .eyebrow::before{content:"";width:8px;height:8px;background:var(--lime);border-radius:50%}
@@ -146,9 +146,9 @@ html:not(.light) .hsk{color:#2A2A30}
 @keyframes drift{0%,100%{transform:translate(0,0) rotate(0)}50%{transform:translate(30px,-40px) rotate(25deg)}}
 .hero .grid{position:relative;z-index:1;display:grid;grid-template-columns:minmax(0,1fr);gap:40px;align-items:end;width:100%}
 .hero .grid{container-type:inline-size}
-.hero h1{font-size:clamp(60px,15.5vw,250px);line-height:1;font-weight:900}
+.hero h1{font-size:clamp(64px,17vw,270px);line-height:1;font-weight:900;letter-spacing:.02em}
 /* "INTERIORS." in Big Shoulders 900 is ~6.8em wide: never let the headline exceed its container */
-@supports (font-size:1cqw){.hero h1{font-size:min(clamp(60px,15.5vw,250px),14.6cqw)}}
+@supports (font-size:1cqw){.hero h1{font-size:min(clamp(64px,17vw,270px),15.2cqw)}}
 .hero h1 .l{display:block;overflow:hidden;padding:.06em .3em .06em 0;margin:-.06em -.3em -.06em 0}
 .hero h1.done .l{overflow:visible}
 .hero h1 .l span{display:inline-block;transform:translateY(110%);transition:transform 1.1s cubic-bezier(.16,1,.3,1)}
@@ -396,7 +396,8 @@ html.light .chip.on{color:var(--bg)}
 @media (max-width:900px){.cross .g{grid-template-columns:1fr}.cross .art{justify-self:start;max-width:380px}}
 
 /* contact */
-.contact h2{font-size:clamp(56px,12vw,200px)}
+.contact h2{font-size:clamp(72px,16vw,270px);letter-spacing:.02em}
+.cross h2{font-size:clamp(72px,14vw,240px);letter-spacing:.02em}
 .contact h2 i{font-style:normal;color:var(--lime)}
 .contact .g{display:grid;grid-template-columns:1fr 1fr;gap:60px;margin-top:60px}
 .form{display:flex;flex-direction:column;gap:16px;min-width:0}
