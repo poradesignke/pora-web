@@ -161,6 +161,10 @@ html:not(.light) .hsk{color:#2A2A30}
 @keyframes neonb{0%,100%{opacity:.5;filter:blur(.2em)}50%{opacity:.8;filter:blur(.3em)}}
 @keyframes neon{0%,100%{text-shadow:0 0 1px #fff,0 0 2px #fff,0 0 10px #D1FF05,0 0 22px #D1FF05,0 0 48px rgba(209,255,5,.75),0 0 90px rgba(209,255,5,.45)}50%{text-shadow:0 0 1px #fff,0 0 3px #fff,0 0 14px #D1FF05,0 0 30px #D1FF05,0 0 64px rgba(209,255,5,.9),0 0 120px rgba(209,255,5,.55)}92%{text-shadow:0 0 1px #fff,0 0 6px #D1FF05,0 0 14px rgba(209,255,5,.5)}}
 .hero h1 .dot{color:var(--coral)}
+/* COOL: druhé O padá a opiera sa o L */
+.hero h1 .tilt{display:inline-block;transform:rotate(22deg);transform-origin:70% 100%;margin:0 .155em 0 -.09em}
+.hero h1 .neon::after{display:none}
+html:not(.light) .hero h1 .neon{filter:drop-shadow(0 0 .12em rgba(209,255,5,.55))}
 .hero h1 .l:last-child span{white-space:nowrap}
 .hero .sub{display:flex;gap:28px;align-items:flex-end;flex-wrap:wrap;margin-top:34px}
 .hero .sub p{margin:0;max-width:440px;font-size:19px;color:#DDDAE0;text-shadow:0 1px 14px rgba(14,14,16,.9),0 0 2px rgba(14,14,16,.9)}
@@ -668,7 +672,7 @@ body.chat-open .teaser{display:none}
   <div class="wrap grid">
     <div>
       <span class="eyebrow" data-t="hero_eyebrow">Interiérové štúdio · Košice → worldwide</span>
-      <h1 id="h1" style="margin-top:26px"><span class="l"><span>F***ing</span></span><span class="l"><span class="lime neon">cool</span></span><span class="l"><span>interiors<span class="dot">.</span></span></span></h1>
+      <h1 id="h1" style="margin-top:26px"><span class="l"><span>F***ing</span></span><span class="l"><span class="lime neon">co<span class="tilt">o</span>l</span></span><span class="l"><span>interiors<span class="dot">.</span></span></span></h1>
       <div class="sub">
         <p data-t="hero_p">Byty, domy, gastro a komerčné priestory, ktoré nie sú len pekné. Sú osobité, odvážne a nezabudnuteľné. Navrhujeme v Košiciach a online pre klientov kdekoľvek na svete.</p>
         <a href="#realizacie" class="btn ghost" data-t="hero_btn">Pozrieť realizácie ↓</a>
