@@ -24,7 +24,7 @@ for p in P:
 E = html.escape
 
 CSS = '''
-:root{--bg:#0E0E10;--panel:#1C1C20;--line:#2A2A30;--fg:#F0EEE9;--muted:#A7A4AC;--lime:#D1FF05;--violet:#7548A8;--coral:#EF5A45;--ink:#111113;--display:'Syne',system-ui,sans-serif;--body:'DM Sans',system-ui,sans-serif;--g:clamp(16px,4vw,56px);color-scheme:dark}
+:root{--bg:#0E0E10;--panel:#1C1C20;--line:#2A2A30;--fg:#F0EEE9;--muted:#A7A4AC;--lime:#D1FF05;--violet:#7548A8;--coral:#EF5A45;--ink:#111113;--display:'Big Shoulders Display','Syne',system-ui,sans-serif;--body:'DM Sans',system-ui,sans-serif;--g:clamp(16px,4vw,56px);color-scheme:dark}
 *{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--body);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
 a{color:inherit}img{max-width:100%;display:block}
 .wrap{max-width:1480px;margin:0 auto;padding:0 var(--g)}
@@ -86,7 +86,7 @@ def head(lang, title, desc, canon, alt_sk, alt_en, image, ld):
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:opsz,wght@9..40,400;9..40,500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=DM+Sans:opsz,wght@9..40,400;9..40,500&display=swap">
 <script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script>
 <style>{CSS}</style>
 </head>
