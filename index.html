@@ -1455,7 +1455,62 @@ setTimeout(done,3500);
  t.addEventListener('click',e=>{if(e.target.id==='teaserX'){e.stopPropagation();hideT(true);return;}startCP();});
  t.addEventListener('keydown',e=>{if(e.key==='Enter')startCP();});
 })();
+</script><style id="cool-anim">
+/* COOL – O sa trasie, zakolíše a dopadne na L; sezónne lístky/sneh na písmenách */
+html.js .hero h1 .l span.tilt{transform:rotate(0)}
+html.js .hero h1 .neon.fall .tilt{animation:coolFall 2.9s cubic-bezier(.3,0,.3,1) forwards}
+@keyframes coolFall{
+ 0%{transform:rotate(0)}
+ 4%{transform:translateX(.012em) rotate(1.6deg)}  8%{transform:translateX(-.012em) rotate(-1.6deg)}
+ 12%{transform:translateX(.012em) rotate(1.8deg)} 16%{transform:translateX(-.012em) rotate(-1.8deg)}
+ 20%{transform:translateX(.01em) rotate(1.4deg)}  24%{transform:translateX(-.01em) rotate(-1.4deg)}
+ 28%{transform:rotate(0)}
+ 40%{transform:rotate(-7deg)} 52%{transform:rotate(9deg)} 62%{transform:rotate(-4deg)} 68%{transform:rotate(3deg)}
+ 80%{transform:rotate(26deg)} 87%{transform:rotate(19deg)} 93%{transform:rotate(23.5deg)} 100%{transform:rotate(22deg)}}
+.hero h1 .neon .sd{position:absolute;top:-.17em;width:.26em;height:.26em;pointer-events:none;z-index:2;filter:drop-shadow(0 .02em .02em rgba(0,0,0,.18))}
+.hero h1 .neon .sd svg{display:block;width:100%;height:100%}
+.hero h1 .neon.fall .sd{animation:sdShake .9s ease-in-out .9s, sdFall 1.8s cubic-bezier(.45,0,.75,.4) forwards;animation-delay:.9s,var(--d)}
+@keyframes sdShake{0%,100%{transform:rotate(var(--r))}25%{transform:rotate(calc(var(--r) + 14deg))}75%{transform:rotate(calc(var(--r) - 14deg))}}
+@keyframes sdFall{
+ 0%{transform:translate(0,0) rotate(var(--r));opacity:1}
+ 30%{transform:translate(var(--x1),.45em) rotate(calc(var(--r) + 70deg))}
+ 60%{transform:translate(var(--x2),1em) rotate(calc(var(--r) - 40deg));opacity:1}
+ 100%{transform:translate(var(--x3),1.9em) rotate(calc(var(--r) + 160deg));opacity:0}}
+.hero h1 .neon .sd.snow{top:-.06em;width:.3em;height:.1em}
+@media (prefers-reduced-motion:reduce){html.js .hero h1 .l span.tilt{transform:rotate(22deg)!important;animation:none!important}.hero h1 .neon .sd{display:none}}
+</style>
+<script id="cool-anim-js">
+(function(){const h=document.getElementById('h1');if(!h)return;const n=h.querySelector('.neon');if(!n)return;
+ const m=new Date().getMonth()+1,q=new URLSearchParams(location.search).get('sezona');
+ const season=q||(m>=9&&m<=11?'jesen':(m===12||m<=2?'zima':(m>=3&&m<=5?'jar':'leto')));
+ // realistické lístky: javor a buk s farebným prechodom a žilkami
+ let uid=0;
+ const MAPLE=(c1,c2)=>{const id='lf'+(uid++);return '<svg viewBox="0 0 24 24"><defs><radialGradient id="'+id+'" cx="50%" cy="58%" r="62%"><stop offset="0" stop-color="'+c1+'"/><stop offset="1" stop-color="'+c2+'"/></radialGradient></defs><path d="M12 1.2l1.7 3.7 3.1-1.5-.5 3.8 3.7-.5-1.8 3.2 3.4 1.5-3.8 1.7 1.3 2.9-3.6-.7L13.2 19 12 15.6 10.8 19l-2.3-3.7-3.6.7 1.3-2.9-3.8-1.7 3.4-1.5-1.8-3.2 3.7.5-.5-3.8 3.1 1.5z" fill="url(#'+id+')" stroke="rgba(90,30,10,.35)" stroke-width=".35" stroke-linejoin="round"/><path d="M12 22.8V8M12 13.6L7 9.2M12 13.6l5-4.4M12 15l-5.6.4M12 15l5.6.4" stroke="rgba(90,30,10,.45)" stroke-width=".55" fill="none" stroke-linecap="round"/></svg>';};
+ const BEECH=(c1,c2)=>{const id='lf'+(uid++);return '<svg viewBox="0 0 24 24"><defs><linearGradient id="'+id+'" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="'+c1+'"/><stop offset="1" stop-color="'+c2+'"/></linearGradient></defs><path d="M12 1.5c-4.2 2.6-6.8 6.4-6.4 10.6.2 2 1 3.6 2 4.8l.8-.2-.3.9c1.1 1 2.4 1.7 3.9 2 1.5-.3 2.8-1 3.9-2l-.3-.9.8.2c1-1.2 1.8-2.8 2-4.8.4-4.2-2.2-8-6.4-10.6z" fill="url(#'+id+')" stroke="rgba(90,40,10,.3)" stroke-width=".35"/><path d="M12 23V3M12 7.5l-3 2M12 7.5l3 2M12 11l-4 2.4M12 11l4 2.4M12 14.5l-3.6 2.2M12 14.5l3.6 2.2" stroke="rgba(90,40,10,.42)" stroke-width=".5" fill="none" stroke-linecap="round"/></svg>';};
+ const PETAL=c=>'<svg viewBox="0 0 20 20"><ellipse cx="10" cy="10" rx="6" ry="9" fill="'+c+'"/></svg>';
+ const SNOW='<svg viewBox="0 0 30 10" preserveAspectRatio="none"><path d="M1 9C2 3 7 1 12 2c4-2 10-1 13 2 3 1 4 3 4 5z" fill="#fff" stroke="rgba(0,0,0,.08)"/></svg>';
+ // [x v em, natočenie, typ, farba1, farba2, kedy opadne (s), veľkosť v em, výška]
+ const spots=[
+  [-.04,-28,'m','#F7C548','#D2471C',.25,.3,-.2],
+  [.2,40,'b','#F2B035','#B3531B',.5,.24,-.15],
+  [.42,-12,'m','#F08A24','#9E2B17',.62,.32,-.21],
+  [.66,62,'b','#E8C14A','#C0661C',.8,.22,-.13],
+  [.9,-40,'m','#F5A13A','#C2381A',1.05,.3,-.2],
+  [1.26,22,'b','#E35A2B','#8E2A17',1.25,.25,-.16],
+  [1.42,-58,'m','#F2B035','#D2471C',1.4,.27,-.18]];
+ if(season!=='leto'){spots.forEach(([x,r,t,c1,c2,d,sz,top],i)=>{const s=document.createElement('span');const z=season==='zima';s.className='sd'+(z?' snow':'');s.setAttribute('aria-hidden','true');
+   if(z&&i%2)return;
+   s.style.left=x+'em';if(!z){s.style.width=sz+'em';s.style.height=sz+'em';s.style.top=top+'em';}
+   s.style.setProperty('--r',(z?0:r)+'deg');s.style.setProperty('--d',(d+.9)+'s');
+   s.style.setProperty('--x1',(i%2?'.12em':'-.1em'));s.style.setProperty('--x2',(i%2?'-.08em':'.14em'));s.style.setProperty('--x3',(i%2?'.2em':'-.16em'));
+   s.innerHTML=z?SNOW:(season==='jar'?PETAL(['#F6B8C8','#F9D3DD','#EFA3B8','#FBE3EA'][i%4]):(t==='m'?MAPLE(c1,c2):BEECH(c1,c2)));n.appendChild(s);});}
+ const go=()=>{n.classList.remove('fall');void n.offsetWidth;n.classList.add('fall');};
+ const start=()=>setTimeout(go,250);
+ if(h.classList.contains('done'))start();else new MutationObserver((ms,o)=>{if(h.classList.contains('done')){o.disconnect();start();}}).observe(h,{attributes:true,attributeFilter:['class']});
+ n.addEventListener('mouseenter',()=>{if(!n.classList.contains('fall'))return;const t=n.querySelector('.tilt');t.animate([{transform:'rotate(22deg)'},{transform:'rotate(17deg)'},{transform:'rotate(24deg)'},{transform:'rotate(22deg)'}],{duration:600,easing:'ease-out'});});
+})();
 </script>
+
 
 </body>
 </html>
