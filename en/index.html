@@ -1788,6 +1788,7 @@ let visible=true,lastP=-1,lastLang='',lastVap=0;
 new IntersectionObserver(es=>{visible=es[0].isIntersecting;tvVideo(night&&visible);if(visible){dirty=true;}},{rootMargin:'100px'}).observe(stage);
 function frame(now){
  requestAnimationFrame(frame);
+ if(!set){layout();if(set)syncMode();}
  if(!visible||!set)return;
  const p=prog(),e=still?0:ease(Math.min(1,p/.88));
  const lg=window.LANG||'';if(lg!==lastLang){lastLang=lg;syncMode();}
