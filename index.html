@@ -113,7 +113,7 @@ footer .big img{height:auto}
 .menu.open{transform:none;visibility:visible;transition:transform .6s cubic-bezier(.7,0,.2,1)}
 .menu>a{font:800 clamp(26px,8.2vw,96px)/1.05 var(--display);text-transform:uppercase;letter-spacing:-.03em;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.18)}
 .menu a:hover{color:var(--lime)}
-.menu small{margin-top:28px;font:400 15px/1.7 var(--body,inherit);color:rgba(255,255,255,.75);text-transform:none;letter-spacing:0}.menu small a{font:inherit;padding:0;border:0;display:inline;text-transform:none;letter-spacing:0;white-space:nowrap}.menu small a:hover{color:var(--lime)}
+.menu small{margin-top:28px;font:400 15px/1.7 var(--body,inherit);color:rgba(255,255,255,.9);text-transform:none;letter-spacing:0}.menu small a{font:inherit;padding:0;border:0;display:inline;text-transform:none;letter-spacing:0;white-space:nowrap}.menu small a:hover{color:var(--lime)}
 body.menu-open .badge,body.chat-open .badge,body.ov-open .badge,.badge.off{opacity:0;pointer-events:none}
 .badge{transition:opacity .3s,box-shadow .3s}
 body.menu-open .burger span:nth-child(1){transform:translateY(7px) rotate(45deg)}
@@ -317,7 +317,7 @@ html.light .chip.on{color:var(--bg)}
 .reel .lb{position:absolute;left:12px;top:12px;background:var(--lime);color:var(--ink);font:800 11px/1 var(--display);letter-spacing:.14em;padding:8px 10px;border-radius:999px}
 .reel.ig{background:var(--violet);display:flex;align-items:flex-end;padding:22px}
 .reel.ig b{font:800 clamp(26px,3vw,40px)/1 var(--display);letter-spacing:-.02em;text-transform:uppercase}
-.reel.ig small{display:block;margin-top:10px;font-size:13px;color:rgba(255,255,255,.75)}
+.reel.ig small{display:block;margin-top:10px;font-size:13px;color:rgba(255,255,255,.9)}
 
 /* services */
 .sec{padding:clamp(90px,14vh,170px) 0}
@@ -373,7 +373,7 @@ html.light .chip.on{color:var(--bg)}
 .cross{background:var(--violet);color:var(--cream);overflow:hidden}
 .cross .g{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
 .cross h2 i{font-style:normal;color:var(--lime)}
-.cross p{margin:18px 0 0;font-size:19px;color:rgba(255,255,255,.8);max-width:480px}
+.cross p{margin:18px 0 0;font-size:19px;color:rgba(255,255,255,.92);max-width:480px}
 .cross .art{position:relative;aspect-ratio:1;max-width:520px;justify-self:end;width:100%}
 .cross .fallback .k{position:absolute;width:38%;aspect-ratio:1;--c:var(--lime);animation:bob 6s ease-in-out infinite}
 .cross .fallback .k::before,.cross .fallback .k::after{content:"";position:absolute;inset:0 36%;background:var(--c);border-radius:6px;box-shadow:0 30px 60px rgba(0,0,0,.35)}
@@ -395,7 +395,7 @@ html.light .chip.on{color:var(--bg)}
 .swatches{display:flex;align-items:center;gap:12px;margin-top:30px;flex-wrap:wrap}
 .sw{width:36px;height:36px;border-radius:50%;background:var(--c);border:3px solid transparent;box-shadow:0 0 0 2px rgba(255,255,255,.25);transition:transform .2s,box-shadow .2s;min-height:36px}
 .sw.on,.sw:hover{transform:scale(1.12);box-shadow:0 0 0 2px #fff,0 0 18px var(--c)}
-.swatches .hint{font-size:13px;color:rgba(255,255,255,.7);margin-left:6px}
+.swatches .hint{font-size:13px;color:rgba(255,255,255,.9);margin-left:6px}
 @media (max-width:900px){.cross .g{grid-template-columns:1fr}.cross .art{justify-self:start;max-width:380px}}
 
 /* contact */
@@ -565,6 +565,12 @@ html.light .cross h2 i.neon{color:#F7FFC2;background:none;text-shadow:0 0 1px #f
 html.light .cross .neon::after{display:block}
 html.light .hero h1 .lime{color:var(--fg)}
 html.light .state .row b{color:var(--violet)}
+/* kontrast textu vo svetlom režime */
+html.light .qa p{color:#3A383E}
+html.light .qa p a{color:var(--fg)}
+html.light .consent a,html.light .form .ok a{color:var(--violet)}
+html.light .svc .pr small{color:#55535A}
+html.light .reel.ig b{color:#fff}
 html.light .lang span.on,html.light footer a:hover,html.light .rowp:hover .nm,html.light .fh:hover b,html.light .fold.open .fh b,html.light .qa summary:hover{color:var(--violet)}
 html.light .eyebrow::before{background:var(--coral)}
 html.light .links a::after,html.light .fh .pl::before,html.light .fh .pl::after,html.light .qa summary i::before,html.light .qa summary i::after{background:var(--fg)}
@@ -819,7 +825,7 @@ body.chat-open .teaser{display:none}
 <section class="sec cross">
   <div class="wrap g">
     <div>
-      <span class="eyebrow" style="color:rgba(255,255,255,.7)" data-t="x_eye">Náš znak</span>
+      <span class="eyebrow" style="color:rgba(255,255,255,.9)" data-t="x_eye">Náš znak</span>
       <h2 class="rv" style="margin-top:20px" data-t="x_h">PORA<br><i class="neon">PLUS</i></h2>
       <p class="rv" data-t="x_p">Náš symbol nie je kríž, je to PLUS. Niečo navyše, niečo lepšie, niečo, čo v interiéri nečakáte. Nájdete ho v logu, na stavbe aj na kľúčenke, ktorú sme pre rok 2026 navrhli v limetkovej, fialovej a oranžovej.</p>
       <div class="swatches" role="group" aria-label="Farba kľúčenky"><button class="sw on" data-col="#D1FF05" aria-label="Limetková" style="--c:#D1FF05"></button><button class="sw" data-col="#7548A8" aria-label="Fialová" style="--c:#7548A8"></button><button class="sw" data-col="#F5500F" aria-label="Oranžová" style="--c:#F5500F"></button><span class="hint" data-t="x_hint">Potiahnite a otočte si kľúčenku</span></div>
