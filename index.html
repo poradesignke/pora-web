@@ -639,6 +639,36 @@ html.light .cpstrip p b{color:inherit;background:var(--lime);padding:0 4px}
 body.chat-open .teaser{display:none}
 @media (max-width:560px){.teaser{right:12px;bottom:calc(70px + env(safe-area-inset-bottom,0px));max-width:230px}}
 @media (prefers-reduced-motion:reduce){.cpc,.cpc .tg b{animation:none}}
+
+/* ---- 3D úvod ---- */
+.hero.h3d{padding:0;min-height:0;display:block}
+.h3stage{position:relative;height:520vh}
+.h3pin{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;background:var(--bg)}
+.h3fb{position:absolute;inset:0;width:100%;height:100%;max-width:none;object-fit:cover;object-position:44% 50%;transition:opacity .7s ease}
+.h3d.ready .h3fb{opacity:0}
+.h3fb{-webkit-mask-image:linear-gradient(#000 60%,transparent 97%);mask-image:linear-gradient(#000 60%,transparent 97%)}
+.h3pin::after{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;background:var(--bg);z-index:2}
+#h3gl{position:absolute;inset:0;width:100%;height:100%;display:block}
+.h3d.nogl #h3gl{display:none}
+.h3top{position:absolute;left:0;right:0;top:calc(98px + env(safe-area-inset-top,0px));z-index:3;pointer-events:none}
+.h3top .eyebrow{display:inline-flex;background:var(--bg);padding:9px 14px 9px 12px;border-radius:999px;transition:background-color .6s}
+.hero .h3h1{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;margin:0;padding:0}
+.h3d.nogl .h3h1{left:max(16px,4vw);bottom:9%;width:auto;height:auto;clip:auto;overflow:visible;white-space:normal;z-index:3;background:var(--bg);padding:.05em .2em;border-radius:12px}
+.h3lamp{position:absolute;left:0;top:0;z-index:4;border:0;padding:0;margin:0;background:transparent;border-radius:50%;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.h3lamp::after{content:"";position:absolute;inset:-6px;border-radius:50%;border:1.5px solid transparent;transition:border-color .3s}
+.h3lamp:hover::after,.h3lamp:focus-visible::after{border-color:var(--lime)}
+.h3lamp:focus-visible{outline:none}
+.h3lamp.dot::before{content:"";position:absolute;left:50%;bottom:-14px;width:8px;height:8px;margin-left:-4px;border-radius:50%;background:var(--lime);animation:h3ping 1.6s infinite}
+.h3hint{position:absolute;left:0;top:0;z-index:5;display:flex;align-items:center;gap:8px;white-space:nowrap;pointer-events:none;background:#111113;color:#F0EEE9;font:600 12px/1 'DM Sans',system-ui,sans-serif;letter-spacing:.04em;padding:9px 12px 9px 10px;border-radius:999px;transition:opacity .4s}
+.h3hint i{width:8px;height:8px;border-radius:50%;background:#D1FF05;animation:h3ping 1.6s infinite}
+@keyframes h3ping{0%{box-shadow:0 0 0 0 rgba(209,255,5,.7)}70%{box-shadow:0 0 0 9px rgba(209,255,5,0)}100%{box-shadow:0 0 0 0 rgba(209,255,5,0)}}
+.h3prog{position:absolute;right:max(16px,2vw);top:50%;transform:translateY(-50%);width:2px;height:110px;background:var(--line);border-radius:2px;overflow:hidden;z-index:3}
+.h3prog b{display:block;width:100%;height:100%;background:var(--lime);transform-origin:top;transform:scaleY(0)}
+.h3sub{padding:44px 0 6px}
+.hero .h3sub .sub{margin-top:0}
+.h3d.nogl .h3lamp,.h3d.nogl .h3hint,.h3d.nogl .h3prog{display:none}
+@media (max-width:900px){.h3stage{height:440vh}.h3top{top:calc(84px + env(safe-area-inset-top,0px))}.h3top .eyebrow{font-size:10px;padding:7px 11px 7px 9px}}
+@media (prefers-reduced-motion:reduce){.h3stage{height:auto}.h3lamp.dot::before,.h3hint i{animation:none}}
 </style>
 <script>(function(){var v=null;try{v=localStorage.getItem('pora_light')}catch(e){}if(v!=='0')document.documentElement.classList.add('light')})()</script>
 
@@ -669,15 +699,21 @@ body.chat-open .teaser{display:none}
 </div>
 
 <main id="top">
-<!-- HERO -->
-<section class="hero">
-  <button class="bulb" id="bulb" type="button" aria-pressed="false" aria-label="Rozsvietiť – svetlá verzia webu"><span class="cord"></span><span class="halo"></span><span class="art" aria-hidden="true"><i class="sock"></i><i class="rays"></i><img src="/img/pora-bulb-paper.png" alt="" width="380" height="658"></span><span class="lbl" id="bulbLbl">Zapni svetlo</span></button>
-  <div class="bgx" aria-hidden="true"><div class="cx a"></div><div class="cx b"></div><div class="cx c"></div></div>
-  <div class="hsk" id="heroSk" aria-hidden="true"></div>
-  <div class="wrap grid">
+<!-- HERO (3D: fotka Projekt 03 – miestnosť · nápis · lampa so stolom; lampa = vypínač svetla) -->
+<section class="hero h3d" id="hero3d">
+  <div class="h3stage" id="h3stage">
+    <div class="h3pin" id="h3pin">
+      <picture><source media="(max-aspect-ratio: 9/10)" srcset="img/hero3d/fb_m.jpg"><img class="h3fb" src="/img/hero3d/fb_d.jpg" alt="Interiér bytu PORA – jedáleň s guľatou lampou a dichroickým sklom (Projekt 03)" width="2000" height="1500" fetchpriority="high"></picture>
+      <canvas id="h3gl" aria-hidden="true"></canvas>
+      <div class="wrap h3top"><span class="eyebrow" data-t="hero_eyebrow">Interiérové štúdio · Košice → worldwide</span></div>
+      <h1 id="h1" class="h3h1"><span class="l"><span>F***ing</span></span><span class="l"><span class="lime neon">co<span class="tilt">o</span>l</span></span><span class="l"><span>interiors<span class="dot">.</span></span></span></h1>
+      <button class="h3lamp" id="h3lamp" type="button" aria-pressed="true" aria-label="Zhasnúť lampu – tmavá verzia webu"></button>
+      <div class="h3hint" id="h3hint" aria-hidden="true"><i></i><span id="h3hintT">Klikni na lampu</span></div>
+      <div class="h3prog" aria-hidden="true"><b id="h3progB"></b></div>
+    </div>
+  </div>
+  <div class="wrap grid h3sub">
     <div>
-      <span class="eyebrow" data-t="hero_eyebrow">Interiérové štúdio · Košice → worldwide</span>
-      <h1 id="h1" style="margin-top:26px"><span class="l"><span>F***ing</span></span><span class="l"><span class="lime neon">co<span class="tilt">o</span>l</span></span><span class="l"><span>interiors<span class="dot">.</span></span></span></h1>
       <div class="sub">
         <p data-t="hero_p">Byty, domy, gastro a komerčné priestory, ktoré nie sú len pekné. Sú osobité, odvážne a nezabudnuteľné. Navrhujeme v Košiciach a online pre klientov kdekoľvek na svete.</p>
         <a href="#realizacie" class="btn ghost" data-t="hero_btn">Pozrieť realizácie ↓</a>
@@ -688,7 +724,6 @@ body.chat-open .teaser{display:none}
           <span class="go"><em data-t="cp_s">Pár otázok v chate a ponuka v PDF príde hneď e-mailom.</em><span data-t="cp_go">Začať →</span></span>
         </button>
       </div>
-    </div>
     </div>
   </div>
 </section>
@@ -1397,7 +1432,7 @@ $$('.neon').forEach(e=>e.dataset.txt=e.textContent);
 })();
 
 /* floating consultation badge */
-(function(){const bd=$('#badge'),anchor=$('.hero h1'),svg=$('svg',bd);if(!bd||!anchor)return;
+(function(){const bd=$('#badge'),anchor=$('.hero .h3sub')||$('.hero h1'),svg=$('svg',bd);if(!bd||!anchor)return;
  let bx=innerWidth-220,by=140,tx=bx,ty=by,rot=0,lastY=scrollY,vel=0,first=true;
  function target(){const sz=bd.offsetWidth;const r=anchor.getBoundingClientRect();const inHero=r.bottom>sz+40&&r.top<innerHeight;
   if(inHero&&innerWidth>900){let x=r.right-sz-8,y=Math.max(84,r.top-sz*.15);const b=document.getElementById('bulb');
@@ -1407,7 +1442,7 @@ $$('.neon').forEach(e=>e.dataset.txt=e.textContent);
   if(innerWidth<=900||matchMedia('(hover:none)').matches){return [innerWidth<=900?14:24,innerHeight-sz-(innerWidth<=900?18:28)];}
   return [innerWidth-sz-24,Math.max(90,innerHeight*.26)];}
  function tick(){const y=scrollY;vel=vel*.85+(y-lastY)*.15;lastY=y;const [x,yy]=target();tx=x;ty=yy+vel*-.35;
-  if(innerWidth<=900){const r=anchor.getBoundingClientRect();bd.classList.toggle('off',r.bottom<40);}
+  {const r=anchor.getBoundingClientRect(),st=document.getElementById('h3stage'),inStage=st&&st.getBoundingClientRect().bottom>innerHeight*.75;bd.classList.toggle('off',inStage||(innerWidth<=900&&r.bottom<40));}
   if(first){bx=tx;by=ty;first=false;}
   bx+=(tx-bx)*.05;by+=(ty-by)*.05;rot+=.35+Math.min(6,Math.abs(vel)*.08);
   bd.style.transform=`translate3d(${bx.toFixed(1)}px,${by.toFixed(1)}px,0)`;svg.style.transform=`rotate(${rot.toFixed(1)}deg)`;requestAnimationFrame(tick);}
@@ -1441,7 +1476,7 @@ setTimeout(done,3500);
   if(on){const r=(bulb&&bulb.getBoundingClientRect().bottom>0?bulb:e.currentTarget).getBoundingClientRect();fl.style.setProperty('--fx',(r.left+r.width/2)+'px');fl.style.setProperty('--fy',(r.bottom-40)+'px');fl.classList.remove('go');void fl.offsetWidth;fl.classList.add('go');}
   if(bulb){bulb.classList.remove('pull');void bulb.offsetWidth;bulb.classList.add('pull');}
   set(on,true);}
- bulb&&bulb.addEventListener('click',toggle);lb&&lb.addEventListener('click',toggle);
+ bulb&&bulb.addEventListener('click',toggle);lb&&lb.addEventListener('click',toggle);window.__poraToggle=toggle;
  let saved=null;try{saved=localStorage.getItem('pora_light');}catch(_){}
  set(saved!=='0',false);window.__lightTxt=txt;})();
 
@@ -1522,7 +1557,275 @@ html.js .hero h1 .neon.fall .tilt{animation:coolFall 2.9s cubic-bezier(.3,0,.3,1
  n.addEventListener('mouseenter',()=>{if(!n.classList.contains('fall'))return;const t=n.querySelector('.tilt');t.animate([{transform:'rotate(22deg)'},{transform:'rotate(17deg)'},{transform:'rotate(24deg)'},{transform:'rotate(22deg)'}],{duration:600,easing:'ease-out'});});
 })();
 </script>
+<script>
+/* ---- 3D úvod: fotka Projekt 03 (miestnosť · nápis · lampa so stolom), lampa = vypínač svetla, v noci beží TV ---- */
+(function(){
+const hero=document.getElementById('hero3d'), stage=document.getElementById('h3stage'), pin=document.getElementById('h3pin'), canvas=document.getElementById('h3gl');
+if(!hero||!canvas)return;
+const H=document.documentElement;
+const topEl=hero.querySelector('.h3top'),lampBtn=document.getElementById('h3lamp'), hint=document.getElementById('h3hint'), hintT=document.getElementById('h3hintT'), progB=document.getElementById('h3progB');
+const fail=()=>{hero.classList.add('nogl');lampBtn&&(lampBtn.hidden=true);hint&&(hint.hidden=true);};
+if(typeof THREE==='undefined'){fail();return;}
+const A={
+ d:{bg:'/img/hero3d/d_bg.jpg',fg:'/img/hero3d/d_fg.webp',dbg:'/img/hero3d/d_dbg.jpg',dfg:'/img/hero3d/d_dfg.jpg',aspect:4/3,x0:0,x1:1},
+ m:{bg:'/img/hero3d/m_bg.jpg',fg:'/img/hero3d/m_fg.webp',dbg:'/img/hero3d/m_dbg.jpg',dfg:'/img/hero3d/m_dfg.jpg',aspect:0.93349,x0:.05,x1:.75}};
+const Z0=5, OS=1.15, AMT=2.6, NEAR=.7, DT=1.05;
+const FULL={lamp:{u:.322,v:.184,r:.092,d:.6439}, tv:[[.3393,.4356],[.3929,.4288],[.3933,.5422],[.3393,.5289]],
+ glass:[[.544,.182],[.615,.146],[.616,.712],[.544,.665]]};
+const offOf=d=>(1-d)*AMT-d*NEAR;
+const still=matchMedia('(prefers-reduced-motion: reduce)').matches;
+let R;
+try{R=new THREE.WebGLRenderer({canvas,antialias:true,alpha:false,powerPreference:'high-performance'});if(!R.capabilities.maxVertexTextures)throw 0;}catch(e){fail();return;}
+const DPR=Math.min(devicePixelRatio||1,2);
+R.setPixelRatio(DPR);
+const scene=new THREE.Scene(), cam=new THREE.PerspectiveCamera(40,1,.05,400);
+const aniso=Math.min(8,R.capabilities.getMaxAnisotropy());
+const cache={};
+function tex(src,cb){if(cache[src])return cache[src];const t=new THREE.TextureLoader().load(src,()=>{dirty=true;cb&&cb();});t.anisotropy=aniso;t.minFilter=THREE.LinearMipmapLinearFilter;t.magFilter=THREE.LinearFilter;return cache[src]=t;}
+function dtex(src){const t=tex(src);t.minFilter=THREE.LinearFilter;t.generateMipmaps=false;return t;}
 
+/* ---------- nápis: kreslený v rozlíšení displeja, s otrhaným papierovým obrysom ---------- */
+const mk=()=>document.createElement('canvas');
+const cDay=mk(),cNight=mk(),cGlow=mk(),cSpill=mk(),cHalo=mk();
+const T={};for(const [k,c] of Object.entries({day:cDay,night:cNight,glow:cGlow,spill:cSpill,halo:cHalo})){const t=new THREE.CanvasTexture(c);t.minFilter=THREE.LinearFilter;t.magFilter=THREE.LinearFilter;t.generateMipmaps=false;t.anisotropy=aniso;T[k]=t;}
+function noiseField(w,h,cell,seed){const gw=Math.ceil(w/cell)+2,gh=Math.ceil(h/cell)+2,g=new Float32Array(gw*gh);let s=seed;for(let i=0;i<g.length;i++){s=(s*16807)%2147483647;g[i]=s/2147483647*2-1;}
+ return (x,y)=>{const fx=x/cell,fy=y/cell,ix=fx|0,iy=fy|0,tx=fx-ix,ty=fy-iy,sx=tx*tx*(3-2*tx),sy=ty*ty*(3-2*ty),i=iy*gw+ix;return (g[i]*(1-sx)+g[i+1]*sx)*(1-sy)+(g[i+gw]*(1-sx)+g[i+gw+1]*sx)*sy;};}
+function tornMask(w,h,draw,s){
+ // scaled-down work canvas: thick outline of the words, edges pushed around by noise -> torn paper
+ const k=Math.min(1,1400/w),W=Math.round(w*k),Hh=Math.round(h*k),m=mk();m.width=W;m.height=Hh;const g=m.getContext('2d');g.scale(k,k);draw(g);
+ const src=g.getImageData(0,0,W,Hh),out=g.createImageData(W,Hh),a=src.data,o=out.data,sk=s*k;
+ const n1=noiseField(W,Hh,Math.max(4,sk*.16),7),n2=noiseField(W,Hh,Math.max(2,sk*.045),91),n3=noiseField(W,Hh,Math.max(4,sk*.16),33),n4=noiseField(W,Hh,Math.max(2,sk*.045),57);
+ const A1=sk*.05,A2=sk*.018;
+ for(let y=0;y<Hh;y++)for(let x=0;x<W;x++){const dx=n1(x,y)*A1+n2(x,y)*A2,dy=n3(x,y)*A1+n4(x,y)*A2;let X=(x+dx)|0,Y=(y+dy)|0;if(X<0||Y<0||X>=W||Y>=Hh)continue;const v=a[(Y*W+X)*4+3];if(v>110){const j=(y*W+x)*4;o[j]=o[j+1]=o[j+2]=255;o[j+3]=255;}}
+ g.setTransform(1,0,0,1,0,0);g.clearRect(0,0,W,Hh);g.putImageData(out,0,0);return m;}
+let TB={u:.7,v:.4};
+function drawText(win,set,portrait,pw,ph){
+ const F='"Big Shoulders Display","Arial Narrow",Impact,sans-serif';
+ const sc=Math.min(1,4096/Math.max(pw,ph)/DPR/1.2),CW=Math.round(pw*DPR*1.2*sc),CH=Math.round(ph*DPR*1.2*sc);
+ const toW=(u,v)=>({x:(u-win.x0)/win.w,y:(v-win.y0)/win.h});
+ const navF=Math.min(.2,110/ph);   // keep clear of the menu bar
+ let b;
+ if(portrait){const t=toW(0,.33),bt=toW(0,.54);b={x:.1,w:.8,y:Math.max(t.y,navF),h:bt.y-Math.max(t.y,navF)};}
+ else{const x0=Math.max(.46,toW(set.toU(.5),0).x),y0=Math.max(navF+.02,toW(0,.17).y),y1=toW(0,.57).y;b={x:x0,w:.94-x0,y:y0,h:y1-y0};}
+ TB={u:b.x+b.w/2,v:b.y+b.h/2};
+ const bx=b.x*CW,bw=b.w*CW,by=b.y*CH,bh=b.h*CH;
+ const g0=cDay.getContext('2d');g0.font=`900 100px ${F}`;const wRef=g0.measureText('INTERIORS.').width/100;
+ const lh=.95,s=Math.min(bw/(wRef*1.06),bh/(3*lh+.12));
+ const ys=[by+s*.9,by+s*(.9+lh),by+s*(.9+2*lh)];
+ function cool(ctx,x,y,fill,glowCol,blur,stroke){
+  ctx.font=`900 ${s}px ${F}`;const wC=ctx.measureText('C').width,wO=ctx.measureText('O').width;
+  ctx.fillStyle=fill;if(glowCol){ctx.shadowColor=glowCol;ctx.shadowBlur=blur;}
+  const put=(ch,X,Y)=>{if(stroke)ctx.strokeText(ch,X,Y);ctx.fillText(ch,X,Y);};
+  let cx=x;put('C',cx,y);cx+=wC;put('O',cx,y);cx+=wO;
+  const ox=cx-s*.09;ctx.save();ctx.translate(ox+wO*.7,y);ctx.rotate(22*Math.PI/180);put('O',-wO*.7,0);ctx.restore();
+  cx=ox+wO+s*.155;put('L',cx,y);cx+=ctx.measureText('L').width;ctx.shadowBlur=0;return cx-x;}
+ function words(ctx,fill,stroke){ctx.font=`900 ${s}px ${F}`;ctx.fillStyle=fill;for(const [t,i] of [['F***ING',0],['INTERIORS.',2]]){if(stroke)ctx.strokeText(t,bx,ys[i]);ctx.fillText(t,bx,ys[i]);}}
+ const shape=g=>{g.textBaseline='alphabetic';g.lineJoin='round';g.lineCap='round';g.lineWidth=s*.2;g.strokeStyle='#000';words(g,'#000',true);cool(g,bx,ys[1],'#000',null,0,true);};
+ const torn=tornMask(CW,CH,shape,s);
+ function paper(ctx,col,sh){ // the torn sticker under the letters
+  const t=mk();t.width=CW;t.height=CH;const g=t.getContext('2d');g.drawImage(torn,0,0,CW,CH);g.globalCompositeOperation='source-in';g.fillStyle=col;g.fillRect(0,0,CW,CH);
+  ctx.save();ctx.shadowColor=sh;ctx.shadowBlur=s*.05;ctx.shadowOffsetY=s*.025;ctx.drawImage(t,0,0);ctx.restore();}
+ function paint(c,mode,w,h){
+  c.width=w;c.height=h;const ctx=c.getContext('2d');ctx.clearRect(0,0,w,h);ctx.save();ctx.scale(w/CW,h/CH);ctx.textBaseline='alphabetic';
+  if(mode==='day'){paper(ctx,'#FAF9F6','rgba(0,0,0,.28)');words(ctx,'#111113');const cap=s*.74,wc=cool(ctx,-99999,0,'#000');ctx.fillStyle='#D1FF05';ctx.fillRect(bx-s*.04,ys[1]-cap*.4,wc+s*.08,cap*.3);cool(ctx,bx,ys[1],'#111113');}
+  if(mode==='night'){paper(ctx,'#121214','rgba(0,0,0,.6)');words(ctx,'#F0EEE9');cool(ctx,bx,ys[1],'#F7FFC2','rgba(255,255,255,.9)',s*.02);}
+  if(mode==='glow'){cool(ctx,bx,ys[1],'#D1FF05','#D1FF05',s*.28);cool(ctx,bx,ys[1],'rgba(209,255,5,.9)','rgba(209,255,5,.8)',s*.09);}
+  if(mode==='spill'){cool(ctx,bx,ys[1],'#000');}
+  if(mode==='halo'){ctx.drawImage(torn,0,0,CW,CH);}
+  ctx.restore();}
+ paint(cDay,'day',CW,CH);paint(cNight,'night',CW,CH);paint(cGlow,'glow',CW,CH);
+ const sw=512,shh=Math.round(512*CH/CW);
+ paint(cSpill,'spill',sw,shh);{const tmp=mk();tmp.width=sw;tmp.height=shh;const t=tmp.getContext('2d');t.filter='blur(20px)';t.drawImage(cSpill,0,0);t.filter='blur(48px)';t.globalCompositeOperation='lighter';t.drawImage(cSpill,0,0);const c=cSpill.getContext('2d');c.clearRect(0,0,sw,shh);c.drawImage(tmp,0,0);}
+ paint(cHalo,'halo',sw,shh);{const tmp=mk();tmp.width=sw;tmp.height=shh;const t=tmp.getContext('2d');t.filter='blur(14px)';t.drawImage(cHalo,0,0);const c=cHalo.getContext('2d');c.clearRect(0,0,sw,shh);c.drawImage(tmp,0,0);}
+ Object.values(T).forEach(t=>t.needsUpdate=true);dirty=true;}
+
+/* ---------- TV: v noci na nej beží PORA reel ---------- */
+let video=null;const tvTex={value:null};
+function tvVideo(on){
+ if(on&&!video){video=document.createElement('video');video.muted=true;video.loop=true;video.playsInline=true;video.setAttribute('playsinline','');video.setAttribute('muted','');video.preload='auto';video.crossOrigin='anonymous';video.src='/vid/reel_3.mp4';
+  const vt=new THREE.VideoTexture(video);vt.minFilter=THREE.LinearFilter;vt.magFilter=THREE.LinearFilter;vt.generateMipmaps=false;tvTex.value=vt;video.addEventListener('playing',()=>{bgU.uTvOn.value=1;dirty=true;});}
+ if(!video)return;
+ if(on){const p=video.play();if(p&&p.catch)p.catch(()=>{});}else video.pause();}
+function homography(q){ // maps quad (TL,TR,BR,BL in texture uv) -> unit square
+ const dst=[[0,1],[1,1],[1,0],[0,0]],M=[],b=[];
+ for(let i=0;i<4;i++){const [x,y]=q[i],[u,v]=dst[i];M.push([x,y,1,0,0,0,-u*x,-u*y]);b.push(u);M.push([0,0,0,x,y,1,-v*x,-v*y]);b.push(v);}
+ for(let c=0;c<8;c++){let p=c;for(let r=c+1;r<8;r++)if(Math.abs(M[r][c])>Math.abs(M[p][c]))p=r;[M[c],M[p]]=[M[p],M[c]];[b[c],b[p]]=[b[p],b[c]];for(let r=0;r<8;r++)if(r!==c){const f=M[r][c]/M[c][c];for(let k=c;k<8;k++)M[r][k]-=f*M[c][k];b[r]-=f*b[c];}}
+ const h=b.map((v,i)=>v/M[i][i]);return new THREE.Matrix3().set(h[0],h[1],h[2],h[3],h[4],h[5],h[6],h[7],1);}
+
+/* ---------- materiály ---------- */
+const VS=`varying vec2 vUv; varying vec3 vW; void main(){ vUv=uv; vec4 w=modelMatrix*vec4(position,1.0); vW=w.xyz; gl_Position=projectionMatrix*viewMatrix*w; }`;
+const VSD=`uniform sampler2D uD; uniform vec3 uC; uniform vec2 uSize; uniform float uAmt,uNear,uZ0; varying vec2 vUv; varying vec3 vW;
+void main(){ vUv=uv; float d=texture2D(uD,uv).r; float off=(1.0-d)*uAmt-d*uNear; float f=(uZ0+off)/uZ0;
+ vec3 P0=vec3((uv.x-0.5)*uSize.x,(uv.y-0.5)*uSize.y,0.0); vec3 P=uC+(P0-uC)*f; vW=P; gl_Position=projectionMatrix*viewMatrix*vec4(P,1.0); }`;
+const DU=()=>({uD:{value:null},uC:{value:new THREE.Vector3()},uSize:{value:new THREE.Vector2(4,3)},uAmt:{value:AMT},uNear:{value:NEAR},uZ0:{value:Z0}});
+const common=`
+uniform float uNight,uTextZ,uFlick; uniform vec2 uTC,uTS; uniform vec3 uEye; uniform sampler2D uSpill,uHalo;
+vec2 onText(vec3 P){ float t=(uTextZ-P.z)/(uEye.z-P.z); vec2 q=mix(P.xy,uEye.xy,t); return (q-uTC)/uTS+0.5; }
+float tx(sampler2D s,vec3 P){ vec2 uv=onText(P); if(uv.x<0.0||uv.y<0.0||uv.x>1.0||uv.y>1.0) return 0.0; return texture2D(s,uv).a; }`;
+const U=()=>({uNight:{value:0},uFlick:{value:1},uTextZ:{value:0},uTC:{value:new THREE.Vector2()},uTS:{value:new THREE.Vector2(1,1)},uEye:{value:new THREE.Vector3()},uSpill:{value:T.spill},uHalo:{value:T.halo}});
+const bgU=Object.assign(U(),DU(),{uTex:{value:null},uTv:tvTex,uTvOn:{value:0},uTvH:{value:new THREE.Matrix3()},uTvC:{value:new THREE.Vector3()},uGlH:{value:new THREE.Matrix3()},uGlB:{value:new THREE.Vector3()}});
+const bgMat=new THREE.ShaderMaterial({uniforms:bgU,vertexShader:VSD,fragmentShader:`
+precision highp float; varying vec2 vUv; varying vec3 vW; ${common} uniform sampler2D uTex,uTv; uniform float uTvOn; uniform mat3 uTvH,uGlH; uniform vec3 uTvC,uGlB;
+vec3 tvCol(vec2 st){ return texture2D(uTv,vec2(st.x,0.5+(st.y-0.5)*0.84)).rgb; }
+void main(){
+ vec3 col=texture2D(uTex,vUv).rgb;
+ float ha=min(1.0,tx(uHalo,vW)*1.2);
+ vec3 day=mix(col,vec3(0.985,0.975,0.955),ha*0.12);
+ float sp=min(1.0,tx(uSpill,vW)*2.4);
+ vec3 night=col*0.1+vec3(0.82,1.0,0.05)*sp*0.2*uFlick+col*sp*0.9*uFlick*vec3(0.75,1.0,0.35);
+ // bathroom behind the dichroic glass is lit: soft coloured light coming through the foil and onto the floor
+ { vec3 g=uGlH*vec3(vUv,1.0); vec2 gs=g.xy/g.z;
+   vec3 dich=mix(mix(vec3(0.78,1.0,0.25),vec3(1.0,0.42,0.78),smoothstep(0.15,0.65,gs.y)),vec3(0.45,0.5,1.0),smoothstep(0.6,1.0,gs.y));
+   dich=mix(dich,vec3(1.0,0.82,0.45),0.25*smoothstep(0.2,0.9,gs.x));
+   if(gs.x>0.0&&gs.x<1.0&&gs.y>0.0&&gs.y<1.0){ float e=smoothstep(0.0,0.06,min(min(gs.x,1.0-gs.x),min(gs.y,1.0-gs.y)));
+     night+=(col*0.8+0.22)*dich*0.85*e+dich*0.07; }
+   vec2 dg=(vUv-uGlB.xy)*vec2(1.0,1.6)/uGlB.z; float pool=exp(-dot(dg,dg)*1.3);
+   night+=col*vec3(0.85,0.7,1.0)*pool*0.6+vec3(0.6,0.5,0.9)*pool*0.04; }
+ if(uTvOn>0.5){
+  vec3 q=uTvH*vec3(vUv,1.0); vec2 st=q.xy/q.z;
+  vec3 avg=(tvCol(vec2(.3,.3))+tvCol(vec2(.7,.3))+tvCol(vec2(.5,.5))+tvCol(vec2(.3,.7))+tvCol(vec2(.7,.7)))*0.2;
+  float dd=length((vUv-uTvC.xy)*vec2(1.0,0.75))/uTvC.z;
+  night+=col*avg*1.6*exp(-dd*dd*1.4)+avg*0.06*exp(-dd*dd*0.5);          // the screen lights the wall and the room
+  if(st.x>0.0&&st.x<1.0&&st.y>0.0&&st.y<1.0){ float edge=smoothstep(0.0,0.015,min(min(st.x,1.0-st.x),min(st.y,1.0-st.y))); night=mix(night,tvCol(st)*1.05,edge*uNight); }
+ }
+ gl_FragColor=vec4(mix(day,night,uNight),1.0);
+}`});
+const fgU=Object.assign(U(),DU(),{uTex:{value:null},uLamp:{value:new THREE.Vector3()}});
+const fgMat=new THREE.ShaderMaterial({uniforms:fgU,transparent:true,depthWrite:false,vertexShader:VSD,fragmentShader:`
+precision highp float; varying vec2 vUv; varying vec3 vW; ${common} uniform sampler2D uTex; uniform vec3 uLamp;
+void main(){
+ vec4 t=texture2D(uTex,vUv); if(t.a<0.004) discard;
+ float sp=min(1.0,tx(uSpill,vW+vec3(0.0,0.0,-1.0))*2.4);
+ float lampG=1.0-smoothstep(0.9,1.02,length((vUv-uLamp.xy)/uLamp.z*vec2(1.0,0.75)));
+ vec3 night=t.rgb*(0.07+lampG*0.16)+t.rgb*sp*0.45*uFlick*vec3(0.75,1.0,0.35);
+ gl_FragColor=vec4(mix(t.rgb,night,uNight),t.a);
+}`});
+const txU={uDay:{value:T.day},uNt:{value:T.night},uNight:{value:0}};
+const txMat=new THREE.ShaderMaterial({uniforms:txU,transparent:true,depthWrite:false,vertexShader:VS,fragmentShader:`
+precision highp float; varying vec2 vUv; uniform sampler2D uDay,uNt; uniform float uNight;
+void main(){ vec4 a=texture2D(uDay,vUv), b=texture2D(uNt,vUv); vec4 c=mix(a,b,uNight); if(c.a<0.01) discard; gl_FragColor=c; }`});
+const glU={uTex:{value:T.glow},uK:{value:0}};
+const glMat=new THREE.ShaderMaterial({uniforms:glU,transparent:true,depthWrite:false,blending:THREE.AdditiveBlending,vertexShader:VS,fragmentShader:`
+precision highp float; varying vec2 vUv; uniform sampler2D uTex; uniform float uK;
+void main(){ vec4 t=texture2D(uTex,vUv); gl_FragColor=vec4(t.rgb*t.a*uK,1.0); }`});
+const geo=new THREE.PlaneGeometry(1,1),dgeo=new THREE.PlaneGeometry(1,1,288,216);
+const bg=new THREE.Mesh(dgeo,bgMat),txt=new THREE.Mesh(geo,txMat),glow=new THREE.Mesh(geo,glMat),fg=new THREE.Mesh(dgeo,fgMat);
+bg.frustumCulled=fg.frustumCulled=false;bg.renderOrder=0;txt.renderOrder=1;glow.renderOrder=2;fg.renderOrder=3;
+[bg,txt,glow,fg].forEach(m=>{m.material.depthTest=false;});
+scene.add(bg,txt,glow,fg);
+/* vodná para: spodok fotky sa rozplynie do farby stránky */
+const vapU={uCol:{value:new THREE.Color(0xFAF9F6)},uT:{value:0},uRes:{value:new THREE.Vector2(1,1)},uH:{value:.42}};
+const vapMat=new THREE.ShaderMaterial({uniforms:vapU,transparent:true,depthTest:false,depthWrite:false,
+ vertexShader:`varying vec2 vUv; void main(){ vUv=uv; gl_Position=vec4(position.xy*2.0,0.0,1.0); }`,
+ fragmentShader:`precision highp float; varying vec2 vUv; uniform vec3 uCol; uniform float uT,uH; uniform vec2 uRes;
+ float h(vec2 p){ return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453); }
+ float n(vec2 p){ vec2 i=floor(p),f=fract(p); f=f*f*(3.0-2.0*f); return mix(mix(h(i),h(i+vec2(1,0)),f.x),mix(h(i+vec2(0,1)),h(i+vec2(1,1)),f.x),f.y); }
+ float fbm(vec2 p){ float v=0.0,a=0.5; for(int i=0;i<5;i++){ v+=a*n(p); p=p*2.03+vec2(1.7,9.2); a*=0.5; } return v; }
+ void main(){
+  float y=vUv.y/uH; vec2 p=vec2(vUv.x*uRes.x/uRes.y,vUv.y)*2.6;
+  float w1=fbm(p+vec2(uT*0.018,-uT*0.03)), w2=fbm(p*1.8+vec2(-uT*0.012,-uT*0.045)+w1);
+  float base=1.0-smoothstep(0.0,1.0,y);
+  float a=base+(w1*0.55+w2*0.45-0.5)*1.25*base*(1.0-base)*2.0;
+  a=max(a,1.0-smoothstep(0.0,0.22,y));
+  gl_FragColor=vec4(uCol,clamp(a,0.0,1.0)*smoothstep(1.15,0.0,y));
+ }`});
+const vapor=new THREE.Mesh(new THREE.PlaneGeometry(1,1),vapMat);vapor.frustumCulled=false;
+const vScene=new THREE.Scene();vScene.add(vapor);const vCam=new THREE.Camera();
+R.autoClear=false;
+
+/* ---------- rozloženie ---------- */
+const C=new THREE.Vector3(0,0,Z0);
+let IW=4,IH=3,vw=4,vh=3,set=null,lastKey='',LAMP,dirty=true,shown=false;
+function mkSet(k){const s=A[k];s.toU=u=>(u-s.x0)/(s.x1-s.x0);s.key=k;return s;}
+const SETS={d:mkSet('d'),m:mkSet('m')};
+function place(m,d,w,h,cx,cy){const f=(Z0+d)/Z0;m.position.set(C.x+(cx-C.x)*f,C.y+(cy-C.y)*f,-d);m.scale.set(w*f,h*f,1);return f;}
+function layout(){
+ const w=pin.clientWidth,h=pin.clientHeight,a=w/h;if(!w||!h)return;
+ R.setSize(w,h,false);
+ set=a<.9?SETS.m:SETS.d;IH=3;IW=IH*set.aspect;
+ LAMP={u:set.toU(FULL.lamp.u),v:FULL.lamp.v,r:FULL.lamp.r/(set.x1-set.x0),d:FULL.lamp.d};
+ if(a>IW/IH){vw=IW;vh=IW/a}else{vh=IH;vw=IH*a}
+ vw/=OS;vh/=OS;
+ let cx=0;if(a<.9)cx=(set.toU(.445)-.5)*IW;
+ cx=Math.max(-IW/2+vw/2,Math.min(IW/2-vw/2,cx));C.set(cx,0,Z0);
+ cam.aspect=a;cam.fov=2*Math.atan(vh/2/Z0)*180/Math.PI;cam.updateProjectionMatrix();
+ const win={x0:(cx-vw/2)/IW+.5,w:vw/IW,y0:.5-vh/IH/2,h:vh/IH};
+ bgU.uTex.value=tex(set.bg,()=>{shown=true;});fgU.uTex.value=tex(set.fg);
+ fgU.uLamp.value.set(LAMP.u,1-LAMP.v,LAMP.r);
+ bgU.uD.value=dtex(set.dbg);fgU.uD.value=dtex(set.dfg);
+ for(const u of [bgU,fgU]){u.uC.value.copy(C);u.uSize.value.set(IW,IH);}
+ const q=FULL.tv.map(([u,v])=>[set.toU(u),1-v]);bgU.uTvH.value=homography(q);
+ const tcx=(q[0][0]+q[2][0])/2,tcy=(q[0][1]+q[2][1])/2;bgU.uTvC.value.set(tcx,tcy,(q[1][0]-q[0][0])*1.6);
+ const gq=FULL.glass.map(([u,v])=>[set.toU(u),1-v]);bgU.uGlH.value=homography(gq);
+ bgU.uGlB.value.set((gq[2][0]+gq[3][0])/2,(gq[2][1]+gq[3][1])/2,(gq[2][0]-gq[3][0])*2.2);
+ vapU.uRes.value.set(w,h);vapU.uH.value=a<.9?.34:.42;
+ const ft=place(txt,DT,vw,vh,cx,0);place(glow,DT,vw,vh,cx,0);glow.position.z+=.002;
+ for(const u of [bgU,fgU]){u.uTextZ.value=-DT;u.uTC.value.set(txt.position.x,txt.position.y);u.uTS.value.set(vw*ft,vh*ft);}
+ txt.userData.b={w:vw*ft,h:vh*ft};
+ const key=set.key+w+'x'+h;if(key!==lastKey){lastKey=key;drawText(win,set,a<.9,w,h);}
+ dirty=true;}
+
+/* ---------- deň / noc z prepínača webu (lampa na fotke ho ovláda) ---------- */
+let night=!H.classList.contains('light'),nightV=night?1:0,flickT=-1e9,hintGone=false;
+try{hintGone=localStorage.getItem('pora_h3lamp')==='1';}catch(_){}
+const en=()=>(window.LANG||H.lang||'sk')==='en';
+function syncMode(){const n=!H.classList.contains('light');if(n!==night){night=n;flickT=performance.now();}tvVideo(night&&visible);
+ lampBtn.setAttribute('aria-pressed',String(!night));
+ lampBtn.setAttribute('aria-label',night?(en()?'Turn the lamp on – light version':'Rozsvietiť lampu – svetlá verzia webu'):(en()?'Turn the lamp off – dark version':'Zhasnúť lampu – tmavá verzia webu'));
+ hintT.textContent=en()?'Click the lamp':'Klikni na lampu';dirty=true;}
+new MutationObserver(syncMode).observe(H,{attributes:true,attributeFilter:['class','lang']});
+lampBtn.addEventListener('click',()=>{hintGone=true;try{localStorage.setItem('pora_h3lamp','1');}catch(_){}
+ if(window.__poraToggle)window.__poraToggle({currentTarget:lampBtn});else H.classList.toggle('light');syncMode();});
+
+/* ---------- pohyb ---------- */
+let mx=0,my=0,tmx=0,tmy=0;
+addEventListener('pointermove',e=>{if(e.pointerType!=='mouse')return;tmx=e.clientX/innerWidth*2-1;tmy=e.clientY/innerHeight*2-1;},{passive:true});
+const prog=()=>{const r=stage.getBoundingClientRect(),span=r.height-pin.clientHeight;return span>0?Math.min(1,Math.max(0,-r.top/span)):0;};
+const ease=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
+const PDAY=new THREE.Color(0xFAF9F6),PNIGHT=new THREE.Color(0x0E0E10),v3=new THREE.Vector3(),DAY=new THREE.Color(0xE9E6E0),NIGHT=new THREE.Color(0x0E0E10),clr=new THREE.Color(),T0=new THREE.Vector3();
+let visible=true,lastP=-1,lastLang='',lastVap=0;
+new IntersectionObserver(es=>{visible=es[0].isIntersecting;tvVideo(night&&visible);if(visible){dirty=true;}},{rootMargin:'100px'}).observe(stage);
+function frame(now){
+ requestAnimationFrame(frame);
+ if(!visible||!set)return;
+ const p=prog(),e=still?0:ease(Math.min(1,p/.88));
+ const lg=window.LANG||'';if(lg!==lastLang){lastLang=lg;syncMode();}
+ const tgt=night?1:0;if(Math.abs(nightV-tgt)>.002){nightV+=(tgt-nightV)*(still?1:.09);dirty=true;}else nightV=tgt;
+ const dt=(now-flickT)/1000;let flick=1;if(dt<.9&&!still){flick=(dt<.08||(dt>.18&&dt<.26)||(dt>.4&&dt<.45))?.25:1;dirty=true;}
+ const km=still?1:.06,ox=mx,oy=my;mx+=(tmx-mx)*km;my+=(tmy-my)*km;if(Math.abs(mx-ox)+Math.abs(my-oy)>1e-4)dirty=true;
+ if(p!==lastP){lastP=p;dirty=true;}
+ if(video&&!video.paused&&nightV>0)dirty=true;
+ if(!still&&now-lastVap>33){lastVap=now;dirty=true;}
+ if(!dirty)return;dirty=false;
+ // jemný posun kamery (hĺbka) + pootočenie pohľadu, záber je stále celý vyplnený
+ const mob=set.key==='m';T0.set(C.x,C.y,-1.0);
+ const yaw=(mob?.04:.068)*e+(still?0:mx*.02),pitch=-.03*e-(still?0:my*.015),dist=(Z0-T0.z)*(1-.16*e);
+ cam.position.set(T0.x+Math.sin(yaw)*Math.cos(pitch)*dist,T0.y+Math.sin(pitch)*dist,T0.z+Math.cos(yaw)*Math.cos(pitch)*dist);
+ cam.up.set(0,1,0);cam.lookAt(T0);cam.rotateY(-(mob?0:.1)*e);cam.rotateX(-.035*e);cam.rotateZ(-.018*e);cam.updateMatrixWorld(true);
+ {const ts=1/(1+.2*e),b0=txt.userData.b;txt.scale.set(b0.w*ts,b0.h*ts,1);glow.scale.copy(txt.scale);for(const u of [bgU,fgU])u.uTS.value.set(b0.w*ts,b0.h*ts);}
+ for(const u of [bgU,fgU]){u.uNight.value=nightV;u.uFlick.value=flick;u.uEye.value.copy(cam.position);}
+ txU.uNight.value=nightV;glU.uK.value=nightV*flick*1.1;
+ clr.copy(DAY).lerp(NIGHT,nightV);R.setClearColor(clr,1);
+ R.clear();R.render(scene,cam);
+ vapU.uCol.value.copy(PDAY).lerp(PNIGHT,nightV);vapU.uT.value=now/1000;R.render(vScene,vCam);
+ if(shown&&!hero.classList.contains('ready'))hero.classList.add('ready');
+ // vypínač sedí na lampe
+ const lf=(Z0+offOf(LAMP.d))/Z0,lq=(x,y)=>v3.set(C.x+(x-C.x)*lf,C.y+(y-C.y)*lf,Z0*(1-lf));
+ const lx=(LAMP.u-.5)*IW,ly=(.5-LAMP.v)*IH,W=pin.clientWidth,Hh=pin.clientHeight;
+ lq(lx,ly).project(cam);const sx=(v3.x*.5+.5)*W,sy=(-v3.y*.5+.5)*Hh;
+ lq(lx+LAMP.r*IW,ly).project(cam);const rr=Math.abs((v3.x*.5+.5)*W-sx);
+ lampBtn.style.transform=`translate(${(sx-rr).toFixed(1)}px,${(sy-rr).toFixed(1)}px)`;lampBtn.style.width=lampBtn.style.height=(2*rr).toFixed(1)+'px';
+ hint.style.opacity=(sy>-rr&&sy<Hh+rr)?1:0;
+ const hw2=hint.offsetWidth,hh2=hint.offsetHeight;
+ hint.style.transform=`translate(${Math.max(12,Math.min(W-hw2-12,sx-hw2/2)).toFixed(1)}px,${(sy+rr+(mob?8:12)).toFixed(1)}px)`;
+ if(progB)progB.style.transform='scaleY('+p.toFixed(3)+')';
+ if(topEl)topEl.style.opacity=Math.max(0,1-p*12).toFixed(3);}
+let rt,lw=innerWidth;addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(()=>{layout();},150);});
+const go=()=>{layout();syncMode();requestAnimationFrame(frame);};
+const fl=document.fonts&&document.fonts.load?Promise.race([document.fonts.load('900 200px "Big Shoulders Display"'),new Promise(r=>setTimeout(r,2500))]):Promise.resolve();
+fl.then(go,go);
+})();
+</script>
 
 </body>
 </html>
