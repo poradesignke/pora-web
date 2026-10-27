@@ -1599,7 +1599,7 @@ function tornMask(w,h,draw,s){
  const A1=sk*.05,A2=sk*.018;
  for(let y=0;y<Hh;y++)for(let x=0;x<W;x++){const dx=n1(x,y)*A1+n2(x,y)*A2,dy=n3(x,y)*A1+n4(x,y)*A2;let X=(x+dx)|0,Y=(y+dy)|0;if(X<0||Y<0||X>=W||Y>=Hh)continue;const v=a[(Y*W+X)*4+3];if(v>110){const j=(y*W+x)*4;o[j]=o[j+1]=o[j+2]=255;o[j+3]=255;}}
  g.setTransform(1,0,0,1,0,0);g.clearRect(0,0,W,Hh);g.putImageData(out,0,0);return m;}
-let TB={u:.7,v:.4};
+let TB={u:.7,v:.4},TBR={x:.5,y:.3,w:.4,h:.3};
 function drawText(win,set,portrait,pw,ph){
  const F='"Big Shoulders Display","Arial Narrow",Impact,sans-serif';
  const sc=Math.min(1,4096/Math.max(pw,ph)/DPR/1.2),CW=Math.round(pw*DPR*1.2*sc),CH=Math.round(ph*DPR*1.2*sc);
@@ -1608,7 +1608,7 @@ function drawText(win,set,portrait,pw,ph){
  let b;
  if(portrait){const t=toW(0,.33),bt=toW(0,.54);b={x:.1,w:.8,y:Math.max(t.y,navF),h:bt.y-Math.max(t.y,navF)};}
  else{const x0=Math.max(.46,toW(set.toU(.5),0).x),y0=Math.max(navF+.02,toW(0,.17).y),y1=toW(0,.57).y;b={x:x0,w:.94-x0,y:y0,h:y1-y0};}
- TB={u:b.x+b.w/2,v:b.y+b.h/2};
+ TB={u:b.x+b.w/2,v:b.y+b.h/2};TBR={x:b.x,y:b.y,w:b.w,h:b.h};
  const bx=b.x*CW,bw=b.w*CW,by=b.y*CH,bh=b.h*CH;
  const g0=cDay.getContext('2d');g0.font=`900 100px ${F}`;const wRef=g0.measureText('INTERIORS.').width/100;
  const lh=.95,s=Math.min(bw/(wRef*1.06),bh/(3*lh+.12));
@@ -1819,7 +1819,14 @@ function frame(now){
  lampBtn.style.transform=`translate(${(sx-rr).toFixed(1)}px,${(sy-rr).toFixed(1)}px)`;lampBtn.style.width=lampBtn.style.height=(2*rr).toFixed(1)+'px';
  hint.style.opacity=(sy>-rr&&sy<Hh+rr)?1:0;
  const hw2=hint.offsetWidth,hh2=hint.offsetHeight;
- hint.style.transform=`translate(${Math.max(12,Math.min(W-hw2-12,sx-hw2/2)).toFixed(1)}px,${(sy+rr+(mob?8:12)).toFixed(1)}px)`;
+ // the hint sits inside the lamp's glowing ball: below the studio label, never on the headline
+ const eb=topEl&&+topEl.style.opacity!==0?topEl.querySelector('.eyebrow').getBoundingClientRect().bottom+8:0;
+ let hy=Math.max(sy-hh2/2,eb,96);
+ const hx=Math.max(12,Math.min(W-hw2-12,sx-hw2/2));
+ const tTop=(TBR.y*Hh)-8, tL=TBR.x*W-8, tR=(TBR.x+TBR.w)*W+8;
+ if(hx<tR&&hx+hw2>tL&&hy+hh2>tTop) hy=Math.min(hy,tTop-hh2);
+ hy=Math.min(hy,sy+rr*.85-hh2);
+ hint.style.transform=`translate(${hx.toFixed(1)}px,${hy.toFixed(1)}px)`;
  if(progB)progB.style.transform='scaleY('+p.toFixed(3)+')';
  if(topEl)topEl.style.opacity=Math.max(0,1-p*12).toFixed(3);}
 let rt,lw=innerWidth;addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(()=>{layout();},150);});
