@@ -659,8 +659,16 @@ body.chat-open .teaser{display:none}
 .h3lamp:hover::after,.h3lamp:focus-visible::after{border-color:var(--lime)}
 .h3lamp:focus-visible{outline:none}
 .h3lamp.dot::before{content:"";position:absolute;left:50%;bottom:-14px;width:8px;height:8px;margin-left:-4px;border-radius:50%;background:var(--lime);animation:h3ping 1.6s infinite}
-.h3hint{position:absolute;left:0;top:0;z-index:5;display:flex;align-items:center;gap:8px;white-space:nowrap;pointer-events:none;background:#111113;color:#F0EEE9;font:600 12px/1 'DM Sans',system-ui,sans-serif;letter-spacing:.04em;padding:9px 12px 9px 10px;border-radius:999px;transition:opacity .4s}
-.h3hint i{width:8px;height:8px;border-radius:50%;background:#D1FF05;animation:h3ping 1.6s infinite}
+.h3hint{position:absolute;left:0;top:0;z-index:5;width:52px;height:65px;pointer-events:none;transition:opacity .35s}
+.h3hint .hand{position:absolute;left:0;top:0;width:52px;height:65px;overflow:visible;animation:h3tap 1.8s cubic-bezier(.5,0,.3,1) infinite;transform-origin:23.5px 3.5px}
+.h3hint .hand path{fill:#111113;stroke:#FAF9F6;stroke-width:1.6;stroke-linejoin:round}
+.h3hint .hand .k{fill:none;stroke:#FAF9F6;stroke-width:1.3;stroke-linecap:round}
+html:not(.light) .h3hint .hand path{fill:#F0EEE9;stroke:#111113}
+html:not(.light) .h3hint .hand .k{stroke:#111113}
+.h3hint .rip{position:absolute;left:23.5px;top:3.5px;width:56px;height:56px;margin:-28px 0 0 -28px;border-radius:50%;border:2.5px solid #D1FF05;background:rgba(209,255,5,.22);opacity:0;animation:h3rip 1.8s ease-out infinite}
+.h3hint .rip.r2{animation-delay:.18s;background:none}
+@keyframes h3tap{0%,100%{transform:translate(9px,14px) rotate(-8deg)}38%{transform:translate(0,2px) rotate(-8deg)}46%{transform:translate(0,4px) rotate(-8deg) scale(.92)}58%{transform:translate(0,1px) rotate(-8deg)}}
+@keyframes h3rip{0%,40%{opacity:0;transform:scale(.25)}46%{opacity:1}100%{opacity:0;transform:scale(1.45)}}
 @keyframes h3ping{0%{box-shadow:0 0 0 0 rgba(209,255,5,.7)}70%{box-shadow:0 0 0 9px rgba(209,255,5,0)}100%{box-shadow:0 0 0 0 rgba(209,255,5,0)}}
 .h3prog{position:absolute;right:max(16px,2vw);top:50%;transform:translateY(-50%);width:2px;height:110px;background:var(--line);border-radius:2px;overflow:hidden;z-index:3}
 .h3prog b{display:block;width:100%;height:100%;background:var(--lime);transform-origin:top;transform:scaleY(0)}
@@ -668,7 +676,7 @@ body.chat-open .teaser{display:none}
 .hero .h3sub .sub{margin-top:0}
 .h3d.nogl .h3lamp,.h3d.nogl .h3hint,.h3d.nogl .h3prog{display:none}
 @media (max-width:900px){.h3stage{height:440vh}.h3top{top:calc(84px + env(safe-area-inset-top,0px))}.h3top .eyebrow{font-size:10px;padding:7px 11px 7px 9px}}
-@media (prefers-reduced-motion:reduce){.h3stage{height:auto}.h3lamp.dot::before,.h3hint i{animation:none}}
+@media (prefers-reduced-motion:reduce){.h3stage{height:auto}.h3hint .hand,.h3hint .rip{animation:none}.h3hint .rip{opacity:.8}}
 </style>
 <script>(function(){var v=null;try{v=localStorage.getItem('pora_light')}catch(e){}if(v!=='0')document.documentElement.classList.add('light')})()</script>
 
@@ -708,7 +716,7 @@ body.chat-open .teaser{display:none}
       <div class="wrap h3top"><span class="eyebrow" data-t="hero_eyebrow">Interiérové štúdio · Košice → worldwide</span></div>
       <h1 id="h1" class="h3h1"><span class="l"><span>F***ing</span></span><span class="l"><span class="lime neon">co<span class="tilt">o</span>l</span></span><span class="l"><span>interiors<span class="dot">.</span></span></span></h1>
       <button class="h3lamp" id="h3lamp" type="button" aria-pressed="true" aria-label="Zhasnúť lampu – tmavá verzia webu"></button>
-      <div class="h3hint" id="h3hint" aria-hidden="true"><i></i><span id="h3hintT">Klikni na lampu</span></div>
+      <div class="h3hint" id="h3hint" aria-hidden="true"><span class="rip"></span><span class="rip r2"></span><svg class="hand" viewBox="0 0 32 40"><path d="M11 21V5.5a3.5 3.5 0 0 1 7 0V16l6.5 1.2a4 4 0 0 1 3.3 4.6l-1.3 8.2a8 8 0 0 1-7.9 6.8h-3.2a8 8 0 0 1-6.6-3.5L4 26.5a2.6 2.6 0 0 1 3.9-3.4Z"/><path class="k" d="M18 16.2v4.3M22.3 17v3.8"/></svg><span id="h3hintT" hidden></span></div>
       <div class="h3prog" aria-hidden="true"><b id="h3progB"></b></div>
     </div>
   </div>
@@ -1816,16 +1824,15 @@ function frame(now){
  lq(lx,ly).project(cam);const sx=(v3.x*.5+.5)*W,sy=(-v3.y*.5+.5)*Hh;
  lq(lx+LAMP.r*IW,ly).project(cam);const rr=Math.abs((v3.x*.5+.5)*W-sx);
  lampBtn.style.transform=`translate(${(sx-rr).toFixed(1)}px,${(sy-rr).toFixed(1)}px)`;lampBtn.style.width=lampBtn.style.height=(2*rr).toFixed(1)+'px';
- hint.style.opacity=(sy>-rr&&sy<Hh+rr)?1:0;
  const hw2=hint.offsetWidth,hh2=hint.offsetHeight;
- // the hint sits inside the lamp's glowing ball: below the studio label, never on the headline
- const eb=topEl&&+topEl.style.opacity!==0?topEl.querySelector('.eyebrow').getBoundingClientRect().bottom+8:0;
- let hy=Math.max(sy-hh2/2,eb,96);
- const hx=Math.max(12,Math.min(W-hw2-12,sx-hw2/2));
- const tTop=(TBR.y*Hh)-8, tL=TBR.x*W-8, tR=(TBR.x+TBR.w)*W+8;
- if(hx<tR&&hx+hw2>tL&&hy+hh2>tTop) hy=Math.min(hy,tTop-hh2);
- hy=Math.min(hy,sy+rr*.85-hh2);
- hint.style.transform=`translate(${hx.toFixed(1)}px,${hy.toFixed(1)}px)`;
+ // tapping finger on the visible part of the lamp: never under the header, never on the headline
+ const navB=(document.getElementById('nav')||{getBoundingClientRect:()=>({bottom:80})}).getBoundingClientRect().bottom+10;
+ const eb=topEl&&+topEl.style.opacity>0.05?topEl.querySelector('.eyebrow').getBoundingClientRect().bottom+14:0;
+ let ty=Math.max(sy+rr*.3,navB+8,eb), tx=sx+rr*.1;
+ const tTop=TBR.y*Hh-14, tL=TBR.x*W-30, tR=(TBR.x+TBR.w)*W+10;
+ const onLamp=ty<sy+rr*.82&&tx>12&&tx<W-50, clearText=!(tx+30>tL&&tx-25<tR&&ty+55>tTop);
+ hint.style.opacity=onLamp&&clearText?1:0;
+ hint.style.transform=`translate(${(tx-23.5).toFixed(1)}px,${(ty-3.5).toFixed(1)}px)`;
  if(progB)progB.style.transform='scaleY('+p.toFixed(3)+')';
  if(topEl)topEl.style.opacity=Math.max(0,1-p*12).toFixed(3);}
 let rt,lw=innerWidth;addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(()=>{layout();},150);});
