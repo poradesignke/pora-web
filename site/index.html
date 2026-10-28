@@ -1571,7 +1571,7 @@ function drawText(win,set,portrait,pw,ph){
  const navF=Math.min(.2,110/ph);   // keep clear of the menu bar
  let b;
  if(portrait){const t=toW(0,.33),bt=toW(0,.54);b={x:.1,w:.8,y:Math.max(t.y,navF),h:bt.y-Math.max(t.y,navF)};}
- else{const x0=Math.max(.46,toW(set.toU(.5),0).x),y0=Math.max(navF+.02,toW(0,.17).y),y1=Math.min(.9,toW(0,.57).y);b={x:x0,w:.94-x0,y:y0,h:y1-y0};}
+ else{const x0=Math.max(.46,toW(set.toU(.5),0).x),y0=Math.max(navF+.02,toW(0,.17).y),y1=toW(0,.57).y;b={x:x0,w:.94-x0,y:y0,h:y1-y0};}
  TB={u:b.x+b.w/2,v:b.y+b.h/2};TBR={x:b.x,y:b.y,w:b.w,h:b.h};
  const bx=b.x*CW,bw=b.w*CW,by=b.y*CH,bh=b.h*CH;
  const g0=cDay.getContext('2d');g0.font=`900 100px ${F}`;const wRef=g0.measureText('INTERIORS.').width/100;
@@ -1712,12 +1712,9 @@ function layout(){
  if(a>IW/IH){vw=IW;vh=IW/a}else{vh=IH;vw=IH*a}
  vw/=OS;vh/=OS;
  let cx=0;if(a<.9)cx=(set.toU(.445)-.5)*IW;
- cx=Math.max(-IW/2+vw/2,Math.min(IW/2-vw/2,cx));
- // PC / širokouhlé: posuň pohľad nahor, aby lampa (vypínač) bola celá viditeľná pod menu – mobil a tablet bez zmeny
- let cy=0;if(w>=1100&&a>=1.2){const wv=vh/IH,top=Math.max(0,FULL.lamp.v-.42*wv);cy=Math.max(0,Math.min(IH/2-vh/2,(.5-top)*IH-vh/2));}
- C.set(cx,cy,Z0);
+ cx=Math.max(-IW/2+vw/2,Math.min(IW/2-vw/2,cx));C.set(cx,0,Z0);
  cam.aspect=a;cam.fov=2*Math.atan(vh/2/Z0)*180/Math.PI;cam.updateProjectionMatrix();
- const win={x0:(cx-vw/2)/IW+.5,w:vw/IW,y0:.5-(cy+vh/2)/IH,h:vh/IH};
+ const win={x0:(cx-vw/2)/IW+.5,w:vw/IW,y0:.5-vh/IH/2,h:vh/IH};
  bgU.uTex.value=tex(set.bg,()=>{shown=true;});fgU.uTex.value=tex(set.fg);
  fgU.uLamp.value.set(LAMP.u,1-LAMP.v,LAMP.r);
  bgU.uD.value=dtex(set.dbg);fgU.uD.value=dtex(set.dfg);
@@ -1727,7 +1724,7 @@ function layout(){
  const gq=FULL.glass.map(([u,v])=>[set.toU(u),1-v]);bgU.uGlH.value=homography(gq);
  bgU.uGlB.value.set((gq[2][0]+gq[3][0])/2,(gq[2][1]+gq[3][1])/2,(gq[2][0]-gq[3][0])*2.2);
  vapU.uRes.value.set(w,h);vapU.uH.value=a<.9?.34:.42;
- const ft=place(txt,DT,vw,vh,cx,cy);place(glow,DT,vw,vh,cx,cy);glow.position.z+=.002;
+ const ft=place(txt,DT,vw,vh,cx,0);place(glow,DT,vw,vh,cx,0);glow.position.z+=.002;
  for(const u of [bgU,fgU]){u.uTextZ.value=-DT;u.uTC.value.set(txt.position.x,txt.position.y);u.uTS.value.set(vw*ft,vh*ft);}
  txt.userData.b={w:vw*ft,h:vh*ft};
  const key=set.key+w+'x'+h;if(key!==lastKey){lastKey=key;drawText(win,set,a<.9,w,h);}
@@ -1779,14 +1776,16 @@ function frame(now){
  vapU.uCol.value.copy(PDAY).lerp(PNIGHT,nightV);vapU.uT.value=now/1000;R.render(vScene,vCam);
  if(shown&&!hero.classList.contains('ready'))hero.classList.add('ready');
  // vypínač sedí na lampe
- const lf=(Z0+offOf(LAMP.d))/Z0,lq=(x,y)=>v3.set(C.x+(x-C.x)*lf,C.y+(y-C.y)*lf,Z0*(1-lf));
- const lx=(LAMP.u-.5)*IW,ly=(.5-LAMP.v)*IH,W=pin.clientWidth,Hh=pin.clientHeight;
- lq(lx,ly).project(cam);const sx=(v3.x*.5+.5)*W,sy=(-v3.y*.5+.5)*Hh;
- lq(lx+LAMP.r*IW,ly).project(cam);const rr=Math.abs((v3.x*.5+.5)*W-sx);
+ const W=pin.clientWidth,Hh=pin.clientHeight;
+ const navB=(document.getElementById('nav')||{getBoundingClientRect:()=>({bottom:80})}).getBoundingClientRect().bottom+10;
+ const proj=L=>{const lf=(Z0+offOf(L.d))/Z0,lq=(x,y)=>v3.set(C.x+(x-C.x)*lf,C.y+(y-C.y)*lf,Z0*(1-lf));const lx=(L.u-.5)*IW,ly=(.5-L.v)*IH;
+  lq(lx,ly).project(cam);const x=(v3.x*.5+.5)*W,y=(-v3.y*.5+.5)*Hh;lq(lx+L.r*IW,ly).project(cam);return [x,y,Math.abs((v3.x*.5+.5)*W-x)];};
+ let [sx,sy,rr]=proj(LAMP);
+ // PC / širokouhlé: keď je lampa skrytá pod menu, vypínačom je lampa v odraze zrkadla (pohľad sa nemení)
+ if(W>=1100&&set.key==='d'&&sy<navB+rr*.35){const m=proj({u:set.toU(.781),v:.338,r:.046,d:.38});if(m[1]-m[2]*.4>navB)[sx,sy,rr]=m;}
  lampBtn.style.transform=`translate(${(sx-rr).toFixed(1)}px,${(sy-rr).toFixed(1)}px)`;lampBtn.style.width=lampBtn.style.height=(2*rr).toFixed(1)+'px';
  const hw2=hint.offsetWidth,hh2=hint.offsetHeight;
  // tapping finger on the visible part of the lamp: never under the header, never on the headline
- const navB=(document.getElementById('nav')||{getBoundingClientRect:()=>({bottom:80})}).getBoundingClientRect().bottom+10;
  const eb=topEl&&+topEl.style.opacity>0.05?topEl.querySelector('.eyebrow').getBoundingClientRect().bottom+14:0;
  let ty=Math.max(sy+rr*.3,navB+8,eb), tx=sx+rr*.1;
  const tTop=TBR.y*Hh-14, tL=TBR.x*W-30, tR=(TBR.x+TBR.w)*W+10;
