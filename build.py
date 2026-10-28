@@ -97,3 +97,18 @@ open(OUT+'/404.html','w').write('<!doctype html><html lang="sk"><head><meta char
 print('built', sum(len(f) for _,_,f in os.walk(OUT)),'files')
 exec(open('gen_extra.py').read())
 exec(open('gen_local.py').read())
+# Google tag (consent mode v2) na všetky podstránky – landing /interierovy-dizajn/, mestá, projekty
+if ADS:
+    _T=('<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}'
+        '(function(){var c;try{c=localStorage.getItem("pora_cookies")}catch(e){}var g=c==="all"?"granted":"denied";'
+        'gtag("consent","default",{ad_storage:g,ad_user_data:g,ad_personalization:g,analytics_storage:g,wait_for_update:500});})();'
+        'gtag("js",new Date());gtag("config","'+ADS[0]+'");</script>\n'
+        '<script async src="https://www.googletagmanager.com/gtag/js?id='+ADS[0]+'"></script>\n</head>')
+    _n=0
+    for _r,_d,_fs in os.walk(OUT):
+        for _f in _fs:
+            if not _f.endswith('.html'): continue
+            _p=os.path.join(_r,_f); _s=open(_p).read()
+            if 'gtag/js' in _s or 'PORA_ADS' in _s or 'name="viewport"' not in _s or 'http-equiv="refresh"' in _s: continue
+            open(_p,'w').write(_s.replace('</head>',_T,1)); _n+=1
+    print('gtag pridaný na', _n, 'podstránok')
