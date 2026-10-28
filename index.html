@@ -1825,7 +1825,7 @@ function frame(now){
   lq(lx,ly).project(cam);const x=(v3.x*.5+.5)*W,y=(-v3.y*.5+.5)*Hh;lq(lx+L.r*IW,ly).project(cam);return [x,y,Math.abs((v3.x*.5+.5)*W-x)];};
  let [sx,sy,rr]=proj(LAMP);
  // PC / širokouhlé: keď je lampa skrytá pod menu, vypínačom je lampa v odraze zrkadla (pohľad sa nemení)
- if(W>=1100&&set.key==='d'&&sy<navB+rr*.35){const m=proj({u:set.toU(.781),v:.338,r:.046,d:.38});if(m[1]-m[2]*.4>navB)[sx,sy,rr]=m;}
+ if(W>=1100&&set.key==='d'&&sy<navB+rr*.35){const m=proj({u:set.toU(.781),v:.338,r:.046,d:.38});if(m[1]+m[2]*.45>navB)[sx,sy,rr]=m;}
  lampBtn.style.transform=`translate(${(sx-rr).toFixed(1)}px,${(sy-rr).toFixed(1)}px)`;lampBtn.style.width=lampBtn.style.height=(2*rr).toFixed(1)+'px';
  const hw2=hint.offsetWidth,hh2=hint.offsetHeight;
  // tapping finger on the visible part of the lamp: never under the header, never on the headline
