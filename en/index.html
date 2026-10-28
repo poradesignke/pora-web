@@ -643,7 +643,7 @@ body.chat-open .teaser{display:none}
 
 /* ---- 3D úvod ---- */
 .hero.h3d{padding:0;min-height:0;display:block}
-.h3stage{position:relative;height:520vh}
+.h3stage{position:relative;height:240vh}
 .h3pin{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;background:var(--bg)}
 .h3fb{position:absolute;inset:0;width:100%;height:100%;max-width:none;object-fit:cover;object-position:44% 50%;transition:opacity .7s ease}
 .h3d.ready .h3fb{opacity:0}
@@ -1618,7 +1618,7 @@ function tornMask(w,h,draw,s){
  const A1=sk*.05,A2=sk*.018;
  for(let y=0;y<Hh;y++)for(let x=0;x<W;x++){const dx=n1(x,y)*A1+n2(x,y)*A2,dy=n3(x,y)*A1+n4(x,y)*A2;let X=(x+dx)|0,Y=(y+dy)|0;if(X<0||Y<0||X>=W||Y>=Hh)continue;const v=a[(Y*W+X)*4+3];if(v>110){const j=(y*W+x)*4;o[j]=o[j+1]=o[j+2]=255;o[j+3]=255;}}
  g.setTransform(1,0,0,1,0,0);g.clearRect(0,0,W,Hh);g.putImageData(out,0,0);return m;}
-let TB={u:.7,v:.4},TBR={x:.5,y:.3,w:.4,h:.3};
+let TB={u:.7,v:.4},TBR={x:.5,y:.3,w:.4,h:.3},TXR={x0:.5,x1:.9,y0:.3,y1:.6};
 function drawText(win,set,portrait,pw,ph){
  const F='"Big Shoulders Display","Arial Narrow",Impact,sans-serif';
  const sc=Math.min(1,4096/Math.max(pw,ph)/DPR/1.2),CW=Math.round(pw*DPR*1.2*sc),CH=Math.round(ph*DPR*1.2*sc);
@@ -1632,6 +1632,7 @@ function drawText(win,set,portrait,pw,ph){
  const g0=cDay.getContext('2d');g0.font=`900 100px ${F}`;const wRef=g0.measureText('INTERIORS.').width/100;
  const lh=.95,s=Math.min(bw/(wRef*1.06),bh/(3*lh+.12));
  const ys=[by+s*.9,by+s*(.9+lh),by+s*(.9+2*lh)];
+ TXR={x0:(bx-s*.12)/CW,x1:(bx+wRef*s*1.04+s*.12)/CW,y0:(by-s*.08)/CH,y1:(ys[2]+s*.22)/CH};
  function cool(ctx,x,y,fill,glowCol,blur,stroke){
   ctx.font=`900 ${s}px ${F}`;const wC=ctx.measureText('C').width,wO=ctx.measureText('O').width;
   ctx.fillStyle=fill;if(glowCol){ctx.shadowColor=glowCol;ctx.shadowBlur=blur;}
@@ -1781,7 +1782,7 @@ function layout(){
  vapU.uRes.value.set(w,h);vapU.uH.value=a<.9?.34:.42;
  const ft=place(txt,DT,vw,vh,cx,0);place(glow,DT,vw,vh,cx,0);glow.position.z+=.002;
  for(const u of [bgU,fgU]){u.uTextZ.value=-DT;u.uTC.value.set(txt.position.x,txt.position.y);u.uTS.value.set(vw*ft,vh*ft);}
- txt.userData.b={w:vw*ft,h:vh*ft};
+ txt.userData.b={w:vw*ft,h:vh*ft};txt.userData.y0=txt.position.y;glow.userData.y0=glow.position.y;
  const key=set.key+w+'x'+h;if(key!==lastKey){lastKey=key;drawText(win,set,a<.9,w,h);}
  dirty=true;}
 
@@ -1824,6 +1825,15 @@ function frame(now){
  cam.position.set(T0.x+Math.sin(yaw)*Math.cos(pitch)*dist,T0.y+Math.sin(pitch)*dist,T0.z+Math.cos(yaw)*Math.cos(pitch)*dist);
  cam.up.set(0,1,0);cam.lookAt(T0);cam.rotateY(-(mob?0:.1)*e);cam.rotateX(-.035*e);cam.rotateZ(-.018*e);cam.updateMatrixWorld(true);
  {const ts=1/(1+.2*e),b0=txt.userData.b;txt.scale.set(b0.w*ts,b0.h*ts,1);glow.scale.copy(txt.scale);for(const u of [bgU,fgU])u.uTS.value.set(b0.w*ts,b0.h*ts);}
+ // nápis nikdy pod lištou menu: ak ho pohyb kamery vytlačí nahor, posunie sa nadol
+ const NV=document.getElementById('nav'),navH=Math.max(NV?NV.offsetHeight:70,56)+12,Wd=pin.clientWidth,Hd=pin.clientHeight;
+ const txScr=(u,v)=>{const P=txt.position,S=txt.scale;v3.set(P.x+(u-.5)*S.x,P.y+(.5-v)*S.y,P.z).project(cam);return [(v3.x*.5+.5)*Wd,(-v3.y*.5+.5)*Hd];};
+ if(txt.userData.y0!==undefined){txt.position.y=txt.userData.y0;glow.position.y=glow.userData.y0;
+  const cu=(TXR.x0+TXR.x1)/2,top=Math.min(txScr(TXR.x0,TXR.y0)[1],txScr(TXR.x1,TXR.y0)[1]);
+  if(top<navH){txt.position.y-=.01;const t2=Math.min(txScr(TXR.x0,TXR.y0)[1],txScr(TXR.x1,TXR.y0)[1]);txt.position.y+=.01;const k=(t2-top)/.01;
+   if(k>0){const d=(navH-top)/k;txt.position.y-=d;glow.position.y-=d;}}
+  for(const u of [bgU,fgU])u.uTC.value.set(txt.position.x,txt.position.y);
+  const a=txScr(TXR.x0,TXR.y0),b2=txScr(TXR.x1,TXR.y1);hero._txr=[Math.min(a[0],b2[0]),Math.min(a[1],b2[1]),Math.max(a[0],b2[0]),Math.max(a[1],b2[1])];}
  for(const u of [bgU,fgU]){u.uNight.value=nightV;u.uFlick.value=flick;u.uEye.value.copy(cam.position);}
  txU.uNight.value=nightV;glU.uK.value=nightV*flick*1.1;
  clr.copy(DAY).lerp(NIGHT,nightV);R.setClearColor(clr,1);
@@ -1843,8 +1853,8 @@ function frame(now){
  // tapping finger on the visible part of the lamp: never under the header, never on the headline
  const eb=topEl&&+topEl.style.opacity>0.05?topEl.querySelector('.eyebrow').getBoundingClientRect().bottom+14:0;
  let ty=Math.max(sy+rr*.3,navB+8,eb), tx=sx+rr*.1;
- const tTop=TBR.y*Hh-14, tL=TBR.x*W-30, tR=(TBR.x+TBR.w)*W+10;
- const onLamp=ty<sy+rr*.82&&tx>12&&tx<W-50, clearText=!(tx+30>tL&&tx-25<tR&&ty+55>tTop);
+ const tr=hero._txr||[TBR.x*W,TBR.y*Hh,(TBR.x+TBR.w)*W,(TBR.y+TBR.h)*Hh],tTop=tr[1]-14,tL=tr[0]-30,tR=tr[2]+10,tBot=tr[3];
+ const onLamp=ty<sy+rr*.82&&tx>12&&tx<W-50, clearText=!(tx+30>tL&&tx-25<tR&&ty+55>tTop&&ty<tBot);
  hint.style.opacity=onLamp&&clearText?1:0;
  hint.style.transform=`translate(${(tx-23.5).toFixed(1)}px,${(ty-3.5).toFixed(1)}px)`;
  hint.classList.toggle('rt',tx<W*.5);
