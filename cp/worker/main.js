@@ -221,20 +221,55 @@ async function runTool(env, name, input, ctx) {
 
 async function notifyOwner(env, subject, body) { try { await sendMail(env, { to: env.OWNER_EMAIL, subject: '[Asistent PORA] ' + subject, htmlBody: body }); } catch (_) {} }
 
+// ── Strážca nákladov: odhad útraty (konzervatívne ceny v USD / 1M tokenov), denný strop, limit na IP, e-mail Tomovi ──
+const PRICE = { in: 5, out: 25, cw: 6.25, cr: 0.5 };
+const DAY_ALERT = 1;   // $ za deň → upozornenie e-mailom
+const DAY_STOP = 3;     // $ za deň → asistent sa na zvyšok dňa vypne
+const MONTH_ALERT = 8;                                 // $ za mesiac → upozornenie
+const IP_HOUR = 30, IP_DAY = 80;                       // max. správ z jednej IP
+const MAX_ATT_SENT = 2;                                // koľko príloh posielať modelu naraz
+const ckey = (k) => new Request('https://pora-asistent/meter/' + k);
+async function cget(k) { const r = await caches.default.match(ckey(k)); return r ? Number(await r.text()) || 0 : 0; }
+async function cset(k, v, ttl) { await caches.default.put(ckey(k), new Response(String(v), { headers: { 'cache-control': 'max-age=' + ttl } })); }
+const today = () => new Date().toISOString().slice(0, 10), month = () => today().slice(0, 7);
+async function meter(env, u) {
+  if (!u) return;
+  const usd = ((u.input_tokens || 0) * PRICE.in + (u.output_tokens || 0) * PRICE.out + (u.cache_creation_input_tokens || 0) * PRICE.cw + (u.cache_read_input_tokens || 0) * PRICE.cr) / 1e6;
+  const d = (await cget('d/' + today())) + usd, m = (await cget('m/' + month())) + usd;
+  await cset('d/' + today(), d.toFixed(5), 172800); await cset('m/' + month(), m.toFixed(5), 3456000);
+  const alert = async (flag, subj, txt) => { if (await cget('f/' + flag)) return; await cset('f/' + flag, 1, flag.startsWith('m') ? 3456000 : 172800);
+    await notifyOwner(env, subj, `<p style="font:15px sans-serif">${txt}</p><p style="font:15px sans-serif">Odhad útraty dnes: <b>$${d.toFixed(2)}</b>, tento mesiac: <b>$${m.toFixed(2)}</b> (konzervatívny odhad, skutočnosť je skôr nižšia).<br>Skutočný stav kreditu: <a href="https://platform.claude.com/settings/billing">platform.claude.com → Billing</a>.</p>`); };
+  if (d >= DAY_STOP) await alert('ds/' + today(), 'Denný strop dosiahnutý – asistent pozastavený do polnoci', `Asistent dnes minul viac ako $${DAY_STOP}. Do konca dňa (UTC) neodpovedá, web ukáže klientom náhradný formulár. Ak to nie je bežná návštevnosť, môže ísť o zneužitie.`);
+  else if (d >= DAY_ALERT) await alert('da/' + today(), 'Vyššia útrata dnes', `Asistent dnes minul viac ako $${DAY_ALERT} – viac ako bežne. Pri $${DAY_STOP} sa sám vypne do polnoci.`);
+  if (m >= MONTH_ALERT) await alert('ma/' + month(), 'Mesačná útrata prekročila $' + MONTH_ALERT, `Za mesiac ${month()} asistent minul viac ako $${MONTH_ALERT}. Skontrolujte kredit.`);
+}
+async function guard(req) {
+  if (await cget('d/' + today()) >= DAY_STOP) return 'day';
+  const ip = req.headers.get('CF-Connecting-IP') || 'x', h = new Date().toISOString().slice(0, 13);
+  const a = (await cget('ih/' + ip + '/' + h)) + 1, b = (await cget('id/' + ip + '/' + today())) + 1;
+  await cset('ih/' + ip + '/' + h, a, 3700); await cset('id/' + ip + '/' + today(), b, 90000);
+  return a > IP_HOUR || b > IP_DAY ? 'ip' : null;
+}
+
 async function anthropic(env, payload) {
   const r = await fetch('https://api.anthropic.com/v1/messages', { method: 'POST', headers: { 'x-api-key': env.ANTHROPIC_API_KEY, 'anthropic-version': '2023-06-01', 'content-type': 'application/json' }, body: JSON.stringify(payload) });
-  const j = await r.json(); if (!r.ok) { const e = new Error(j?.error?.message || ('HTTP ' + r.status)); e.status = r.status; throw e; } return j;
+  const j = await r.json(); if (!r.ok) { const e = new Error(j?.error?.message || ('HTTP ' + r.status)); e.status = r.status; throw e; }
+  try { await meter(env, j.usage); } catch (_) {}
+  return j;
 }
 
 async function chat(req, env, url, ectx) {
   const c = cors(req); if (!c['Access-Control-Allow-Origin']) return json({ error: 'origin' }, 403);
   let body; try { body = await req.json(); } catch (_) { return json({ error: 'bad json' }, 400, c); }
+  const g = await guard(req); if (g) return json({ error: g === 'day' ? 'unavailable' : 'rate' }, g === 'day' ? 503 : 429, c);
   const hist = (Array.isArray(body.messages) ? body.messages : []).slice(-MAX_TURNS)
     .filter((m) => (m.role === 'user' || m.role === 'assistant') && typeof m.content === 'string' && m.content.trim())
     .map((m) => { const o = { role: m.role, content: m.content.slice(0, 3000) }; const a = m.att;
       if (m.role === 'user' && a && a.data && /^(application\/pdf|image\/(png|jpeg|webp))$/.test(a.type) && a.data.length * 0.75 <= MAX_ATTACH)
         o.content = [a.type === 'application/pdf' ? { type: 'document', source: { type: 'base64', media_type: 'application/pdf', data: a.data } } : { type: 'image', source: { type: 'base64', media_type: a.type, data: a.data } }, { type: 'text', text: o.content + `\n[Klient priložil súbor: ${String(a.name || '').slice(0, 80)}]` }];
       return o; });
+  // posielaj modelu len posledné MAX_ATT_SENT prílohy, staršie nahraď textovou poznámkou
+  let nAtt = 0; for (let i = hist.length - 1; i >= 0; i--) if (Array.isArray(hist[i].content) && ++nAtt > MAX_ATT_SENT) hist[i].content = hist[i].content[1].text;
   if (!hist.length || hist[hist.length - 1].role !== 'user') return json({ error: 'empty' }, 400, c);
   while (hist[0] && hist[0].role !== 'user') hist.shift();
   // cache: posledný blok so súborom (aby sa pôdorys neplatil v každom kroku naplno)
@@ -290,7 +325,7 @@ export default {
     try {
       if (url.pathname === '/chat' && req.method === 'POST') return await chat(req, env, url, ectx);
       if (url.pathname === '/approve') return await approve(req, env, url);
-      if (url.pathname === '/health') return json({ ok: true, build: '2026-10-22b', model: MODEL, config: { anthropic: !!env.ANTHROPIC_API_KEY, brevo: !!env.BREVO_API_KEY, pdf: !!(env.CF_API_TOKEN && env.CF_ACCOUNT_ID), signing: !!env.SIGNING_SECRET, owner: env.OWNER_EMAIL || null, auto: env.AUTO_SEND || 'false' } });
+      if (url.pathname === '/health') return json({ ok: true, build: '2026-10-28', model: MODEL, spend: { today: Number((await cget('d/' + today())).toFixed(2)), month: Number((await cget('m/' + month())).toFixed(2)), stop: DAY_STOP }, config: { anthropic: !!env.ANTHROPIC_API_KEY, brevo: !!env.BREVO_API_KEY, pdf: !!(env.CF_API_TOKEN && env.CF_ACCOUNT_ID), signing: !!env.SIGNING_SECRET, owner: env.OWNER_EMAIL || null, auto: env.AUTO_SEND || 'false' } });
       return json({ ok: true, service: 'PORA asistent' });
     } catch (e) { return json({ error: 'server', detail: String(e).slice(0, 300) }, 500, cors(req)); }
   },
