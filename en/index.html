@@ -668,14 +668,13 @@ html:not(.light) .h3hint .hand path{fill:#F0EEE9;stroke:#111113}
 html:not(.light) .h3hint .hand .k{stroke:#111113}
 .h3hint .rip{position:absolute;left:23.5px;top:3.5px;width:56px;height:56px;margin:-28px 0 0 -28px;border-radius:50%;border:2.5px solid #D1FF05;background:rgba(209,255,5,.22);opacity:0;animation:h3rip 1.8s ease-out infinite}
 .h3hint .rip.r2{animation-delay:.18s;background:none}
-.h3hint .clkw{display:none}
-@media (min-width:1100px){
 .h3hint .clkw{display:block;position:absolute;top:40px;right:40px;filter:drop-shadow(0 2px 2.5px rgba(0,0,0,.32));pointer-events:none}
 .h3hint.rt .clkw{right:auto;left:44px}
 .h3hint.nolab .clkw{display:none}
 .h3hint .clk{display:block;font:900 26px/1 var(--display);letter-spacing:.06em;color:#111113;background:#FAF9F6;padding:9px 14px 7px 15px;transform:rotate(-4deg)}
 .h3hint.rt .clk{transform:rotate(3deg)}
-html:not(.light) .h3hint .clk{color:#F0EEE9;background:#121214}}
+html:not(.light) .h3hint .clk{color:#F0EEE9;background:#121214}
+@media (max-width:900px){.h3hint .clk{font-size:20px;padding:7px 11px 5px 12px}}
 @keyframes h3tap{0%,100%{transform:translate(9px,14px) rotate(-8deg)}38%{transform:translate(0,2px) rotate(-8deg)}46%{transform:translate(0,4px) rotate(-8deg) scale(.92)}58%{transform:translate(0,1px) rotate(-8deg)}}
 @keyframes h3rip{0%,40%{opacity:0;transform:scale(.25)}46%{opacity:1}100%{opacity:0;transform:scale(1.45)}}
 @keyframes h3ping{0%{box-shadow:0 0 0 0 rgba(209,255,5,.7)}70%{box-shadow:0 0 0 9px rgba(209,255,5,0)}100%{box-shadow:0 0 0 0 rgba(209,255,5,0)}}
@@ -1860,7 +1859,7 @@ function frame(now){
  // nápoveda (ruka + CLICK) nesmie zakryť ani jeden riadok nápisu – kontrola po riadkoch, nie celý blok
  const lines=hero._txl&&hero._txl.length?hero._txl:[[TBR.x*W,TBR.y*Hh,(TBR.x+TBR.w)*W,(TBR.y+TBR.h)*Hh]];
  const hit=(x0,y0,x1,y1)=>lines.some(r=>x1>r[0]-6&&x0<r[2]+6&&y1>r[1]-6&&y0<r[3]+6);
- const lab=W>=1100, hand=[tx-24,ty-4,tx+28,ty+62];
+ const lab=true, hand=[tx-24,ty-4,tx+28,ty+62];
  const labL=[tx-124,ty+34,tx-10,ty+80], labR=[tx+18,ty+34,tx+134,ty+80];
  const txc=lines.reduce((a,r)=>a+(r[0]+r[2])/2,0)/lines.length;
  let side=txc<tx?'r':'l';const fits=b=>b[0]>6&&b[2]<W-6&&!hit(...b);
