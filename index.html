@@ -671,6 +671,7 @@ html:not(.light) .h3hint .hand .k{stroke:#111113}
 @media (min-width:1100px){
 .h3hint .clkw{display:block;position:absolute;top:40px;right:40px;filter:drop-shadow(0 2px 2.5px rgba(0,0,0,.32));pointer-events:none}
 .h3hint.rt .clkw{right:auto;left:44px}
+.h3hint.nolab .clkw{display:none}
 .h3hint .clk{display:block;font:900 26px/1 var(--display);letter-spacing:.06em;color:#111113;background:#FAF9F6;padding:9px 14px 7px 15px;transform:rotate(-4deg)}
 .h3hint.rt .clk{transform:rotate(3deg)}
 html:not(.light) .h3hint .clk{color:#F0EEE9;background:#121214}}
@@ -1617,7 +1618,7 @@ function tornMask(w,h,draw,s){
  const A1=sk*.05,A2=sk*.018;
  for(let y=0;y<Hh;y++)for(let x=0;x<W;x++){const dx=n1(x,y)*A1+n2(x,y)*A2,dy=n3(x,y)*A1+n4(x,y)*A2;let X=(x+dx)|0,Y=(y+dy)|0;if(X<0||Y<0||X>=W||Y>=Hh)continue;const v=a[(Y*W+X)*4+3];if(v>110){const j=(y*W+x)*4;o[j]=o[j+1]=o[j+2]=255;o[j+3]=255;}}
  g.setTransform(1,0,0,1,0,0);g.clearRect(0,0,W,Hh);g.putImageData(out,0,0);return m;}
-let TB={u:.7,v:.4},TBR={x:.5,y:.3,w:.4,h:.3},TXR={x0:.5,x1:.9,y0:.3,y1:.6};
+let TB={u:.7,v:.4},TBR={x:.5,y:.3,w:.4,h:.3},TXR={x0:.5,x1:.9,y0:.3,y1:.6},TXL=[];
 function drawText(win,set,portrait,pw,ph){
  const F='"Big Shoulders Display","Arial Narrow",Impact,sans-serif';
  const sc=Math.min(1,4096/Math.max(pw,ph)/DPR/1.2),CW=Math.round(pw*DPR*1.2*sc),CH=Math.round(ph*DPR*1.2*sc);
@@ -1640,6 +1641,8 @@ function drawText(win,set,portrait,pw,ph){
   const ox=cx-s*.09;ctx.save();ctx.translate(ox+wO*.7,y);ctx.rotate(22*Math.PI/180);put('O',-wO*.7,0);ctx.restore();
   cx=ox+wO+s*.155;put('L',cx,y);cx+=ctx.measureText('L').width;ctx.shadowBlur=0;return cx-x;}
  function words(ctx,fill,stroke){ctx.font=`900 ${s}px ${F}`;ctx.fillStyle=fill;for(const [t,i] of [['F***ING',0],['INTERIORS.',2]]){if(stroke)ctx.strokeText(t,bx,ys[i]);ctx.fillText(t,bx,ys[i]);}}
+ {g0.font=`900 ${s}px ${F}`;const wl=[g0.measureText('F***ING').width,cool(g0,-99999,0,'#000'),g0.measureText('INTERIORS.').width];
+  TXL=wl.map((w,i)=>({x0:(bx-s*.12)/CW,x1:(bx+w+s*.14)/CW,y0:(ys[i]-s*.86)/CH,y1:(ys[i]+s*.16)/CH}));}
  const shape=g=>{g.textBaseline='alphabetic';g.lineJoin='round';g.lineCap='round';g.lineWidth=s*.2;g.strokeStyle='#000';words(g,'#000',true);cool(g,bx,ys[1],'#000',null,0,true);};
  const torn=tornMask(CW,CH,shape,s);
  function paper(ctx,col,sh){ // the torn sticker under the letters
@@ -1832,7 +1835,8 @@ function frame(now){
   if(top<navH){txt.position.y-=.01;const t2=Math.min(txScr(TXR.x0,TXR.y0)[1],txScr(TXR.x1,TXR.y0)[1]);txt.position.y+=.01;const k=(t2-top)/.01;
    if(k>0){const d=(navH-top)/k;txt.position.y-=d;glow.position.y-=d;}}
   for(const u of [bgU,fgU])u.uTC.value.set(txt.position.x,txt.position.y);
-  const a=txScr(TXR.x0,TXR.y0),b2=txScr(TXR.x1,TXR.y1);hero._txr=[Math.min(a[0],b2[0]),Math.min(a[1],b2[1]),Math.max(a[0],b2[0]),Math.max(a[1],b2[1])];}
+  const a=txScr(TXR.x0,TXR.y0),b2=txScr(TXR.x1,TXR.y1);hero._txr=[Math.min(a[0],b2[0]),Math.min(a[1],b2[1]),Math.max(a[0],b2[0]),Math.max(a[1],b2[1])];
+  hero._txl=TXL.map(L=>{const p=txScr(L.x0,L.y0),q=txScr(L.x1,L.y1);return [Math.min(p[0],q[0]),Math.min(p[1],q[1]),Math.max(p[0],q[0]),Math.max(p[1],q[1])];});}
  for(const u of [bgU,fgU]){u.uNight.value=nightV;u.uFlick.value=flick;u.uEye.value.copy(cam.position);}
  txU.uNight.value=nightV;glU.uK.value=nightV*flick*1.1;
  clr.copy(DAY).lerp(NIGHT,nightV);R.setClearColor(clr,1);
@@ -1852,11 +1856,19 @@ function frame(now){
  // tapping finger on the visible part of the lamp: never under the header, never on the headline
  const eb=topEl&&+topEl.style.opacity>0.05?topEl.querySelector('.eyebrow').getBoundingClientRect().bottom+14:0;
  let ty=Math.max(sy+rr*.3,navB+8,eb), tx=sx+rr*.1;
- const tr=hero._txr||[TBR.x*W,TBR.y*Hh,(TBR.x+TBR.w)*W,(TBR.y+TBR.h)*Hh],tTop=tr[1]-14,tL=tr[0]-30,tR=tr[2]+10,tBot=tr[3];
- const onLamp=ty<sy+rr*.82&&tx>12&&tx<W-50, clearText=!(tx+30>tL&&tx-25<tR&&ty+55>tTop&&ty<tBot);
+ // nápoveda (ruka + CLICK) nesmie zakryť ani jeden riadok nápisu – kontrola po riadkoch, nie celý blok
+ const lines=hero._txl&&hero._txl.length?hero._txl:[[TBR.x*W,TBR.y*Hh,(TBR.x+TBR.w)*W,(TBR.y+TBR.h)*Hh]];
+ const hit=(x0,y0,x1,y1)=>lines.some(r=>x1>r[0]-6&&x0<r[2]+6&&y1>r[1]-6&&y0<r[3]+6);
+ const lab=W>=1100, hand=[tx-24,ty-4,tx+28,ty+62];
+ const labL=[tx-124,ty+34,tx-10,ty+80], labR=[tx+18,ty+34,tx+134,ty+80];
+ const txc=lines.reduce((a,r)=>a+(r[0]+r[2])/2,0)/lines.length;
+ let side=txc<tx?'r':'l';const fits=b=>b[0]>6&&b[2]<W-6&&!hit(...b);
+ if(lab&&!fits(side==='r'?labR:labL)&&fits(side==='r'?labL:labR))side=side==='r'?'l':'r';
+ const onLamp=ty<sy+rr*.82&&tx>12&&tx<W-50, clearText=!hit(...hand);
  hint.style.opacity=onLamp&&clearText?1:0;
  hint.style.transform=`translate(${(tx-23.5).toFixed(1)}px,${(ty-3.5).toFixed(1)}px)`;
- hint.classList.toggle('rt',tx<W*.5);
+ hint.classList.toggle('rt',side==='r');
+ hint.classList.toggle('nolab',lab&&!fits(side==='r'?labR:labL));
  if(progB)progB.style.transform='scaleY('+p.toFixed(3)+')';
  if(topEl)topEl.style.opacity=Math.max(0,1-p*12).toFixed(3);}
 let rt,lw=innerWidth;addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(()=>{layout();},150);});
