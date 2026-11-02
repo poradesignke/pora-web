@@ -112,3 +112,33 @@ if ADS:
             if 'gtag/js' in _s or 'PORA_ADS' in _s or 'name="viewport"' not in _s or 'http-equiv="refresh"' in _s: continue
             open(_p,'w').write(_s.replace('</head>',_T,1)); _n+=1
     print('gtag pridaný na', _n, 'podstránok')
+# Výrazný pás na všetkých podstránkach: odkaz na hlavný web + cenová ponuka za pár sekúnd
+_BAR = {
+ 'sk': ('/', 'Toto je len výňatok. Na hlavnom webe nájdete všetky realizácie, ceny a cenovú ponuku do pár sekúnd.', 'Celý web PORA →', 'Cenová ponuka za pár sekúnd →'),
+ 'en': ('/en/', 'This is just an excerpt. The main site has all our projects, prices and a price quote in seconds.', 'Full PORA website →', 'Price quote in seconds →'),
+ 'cs': ('/en/', 'Toto je jen výňatek. Na hlavním webu najdete všechny realizace, ceny a cenovou nabídku za pár sekund.', 'Celý web PORA →', 'Cenová nabídka za pár sekund →'),
+ 'hu': ('/en/', 'Ez csak egy részlet. A fő oldalon minden projektünk, áraink és árajánlat másodpercek alatt.', 'A teljes PORA oldal →', 'Árajánlat másodpercek alatt →'),
+ 'pl': ('/en/', 'To tylko fragment. Na głównej stronie znajdziesz wszystkie realizacje, ceny i wycenę w kilka sekund.', 'Pełna strona PORA →', 'Wycena w kilka sekund →'),
+ 'de': ('/en/', 'Das ist nur ein Auszug. Auf der Hauptseite finden Sie alle Projekte, Preise und ein Angebot in Sekunden.', 'Ganze PORA-Website →', 'Angebot in Sekunden →'),
+}
+_BCSS = ('<style>.porabar{background:#D1FF05;color:#111113;border-bottom:3px solid #111113}'
+ '.porabar .in{max-width:1200px;margin:0 auto;padding:18px clamp(16px,4vw,40px);display:flex;flex-wrap:wrap;align-items:center;gap:14px 22px}'
+ '.porabar p{margin:0;flex:1 1 320px;font:600 16px/1.4 "DM Sans",system-ui,sans-serif}'
+ '.porabar a{display:inline-flex;align-items:center;min-height:48px;padding:12px 22px;border-radius:999px;text-decoration:none;font:900 19px/1 "Big Shoulders Display","Arial Narrow",sans-serif;letter-spacing:.03em;text-transform:uppercase}'
+ '.porabar a.full{background:#111113;color:#D1FF05}.porabar a.cp{background:#FAF9F6;color:#111113;border:2px solid #111113}'
+ '.porabar a:hover{transform:translateY(-1px)}'
+ '.porasticky{position:fixed;left:12px;right:12px;bottom:12px;z-index:90;display:none;justify-content:center;padding:15px 18px;border-radius:999px;background:#111113;color:#D1FF05;text-decoration:none;text-align:center;font:900 18px/1 "Big Shoulders Display","Arial Narrow",sans-serif;letter-spacing:.03em;text-transform:uppercase;box-shadow:0 10px 30px rgba(0,0,0,.35)}'
+ '@media (max-width:760px){.porasticky{display:flex}body{padding-bottom:78px}.porabar a{flex:1 1 100%;justify-content:center}}</style>')
+_bn = 0
+for _r, _d, _fs in os.walk(OUT):
+    for _f in _fs:
+        if not _f.endswith('.html'): continue
+        _p = os.path.join(_r, _f); _s = open(_p).read()
+        if '</header>' not in _s or 'id="hero3d"' in _s or 'class="porabar"' in _s or 'http-equiv="refresh"' in _s: continue
+        _m = re.search(r'<html lang="([a-z]{2})', _s); _lg = _m.group(1) if _m and _m.group(1) in _BAR else 'sk'
+        _home, _txt, _b1, _b2 = _BAR[_lg]
+        _html = (f'</header>\n{_BCSS}<div class="porabar"><div class="in"><p>{_txt}</p>'
+                 f'<a class="full" href="{_home}">{_b1}</a><a class="cp" href="{_home}#ponuka">{_b2}</a></div></div>'
+                 f'<a class="porasticky" href="{_home}#ponuka">{_b2}</a>')
+        open(_p, 'w').write(_s.replace('</header>', _html, 1)); _bn += 1
+print('pás na hlavný web pridaný na', _bn, 'podstránok')
