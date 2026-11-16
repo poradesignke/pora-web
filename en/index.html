@@ -117,6 +117,7 @@ footer .big img{height:auto}
 .menu small{margin-top:28px;font:400 15px/1.7 var(--body,inherit);color:rgba(255,255,255,.9);text-transform:none;letter-spacing:0}.menu small a{font:inherit;padding:0;border:0;display:inline;text-transform:none;letter-spacing:0;white-space:nowrap}.menu small a:hover{color:var(--lime)}
 body.menu-open .badge,body.chat-open .badge,body.ov-open .badge,.badge.off{opacity:0;pointer-events:none}
 .badge{transition:opacity .3s,box-shadow .3s}
+.badge.dodge{opacity:0!important;pointer-events:none}
 body.menu-open .burger span:nth-child(1){transform:translateY(7px) rotate(45deg)}
 body.menu-open .burger span:nth-child(2){opacity:0}
 body.menu-open .burger span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
@@ -1521,6 +1522,13 @@ $$('.neon').forEach(e=>e.dataset.txt=e.textContent);
   return [innerWidth-sz-24,Math.max(90,innerHeight*.26)];}
  function tick(){const y=scrollY;vel=vel*.85+(y-lastY)*.15;lastY=y;const [x,yy]=target();tx=x;ty=yy+vel*-.35;
   {const r=anchor.getBoundingClientRect(),st=document.getElementById('h3stage'),inStage=st&&st.getBoundingClientRect().bottom>innerHeight*.75;bd.classList.toggle('off',inStage||(innerWidth<=900&&r.bottom<40));}
+  // koliesko nikdy nezakrýva text: keď je pod ním písmo, tlačidlo alebo cena, na chvíľu zmizne
+  tick.n=(tick.n||0)+1;if(tick.n%6===0){const sz=bd.offsetWidth,cx=bx+sz/2,cy=by+sz/2,q=sz*.36;let hit=false;const ar=anchor.getBoundingClientRect(),inHero=ar.bottom>sz+40&&ar.top<innerHeight;
+   if(!inHero)
+   for(const [px,py] of [[cx,cy],[cx-q,cy],[cx+q,cy],[cx,cy-q],[cx,cy+q],[cx-q*.7,cy-q*.7],[cx+q*.7,cy+q*.7],[cx-q*.7,cy+q*.7],[cx+q*.7,cy-q*.7]]){
+    const el=(document.elementsFromPoint(px,py)||[]).find(e=>!bd.contains(e)&&e.id!=='cur'&&!e.closest('#cur'));
+    if(el&&el.closest('p,li,h1,h2,h3,h4,small,a,button,input,textarea,select,label,summary,.pr,.rowp,.it,.eyebrow,.xstrip,.cpc,form')){hit=true;break;}}
+   bd.classList.toggle('dodge',hit);}
   if(first){bx=tx;by=ty;first=false;}
   bx+=(tx-bx)*.05;by+=(ty-by)*.05;rot+=.35+Math.min(6,Math.abs(vel)*.08);
   bd.style.transform=`translate3d(${bx.toFixed(1)}px,${by.toFixed(1)}px,0)`;svg.style.transform=`rotate(${rot.toFixed(1)}deg)`;requestAnimationFrame(tick);}
