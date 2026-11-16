@@ -1898,7 +1898,7 @@ function frame(now){
  hint.classList.toggle('rt',side==='r');
  hint.classList.toggle('nolab',lab&&!fits(side==='r'?labR:labL));
  // vianočný neónový stromček pri skrini (do 6. 1.) – nikdy cez nápis ani pod menu
- if(xmasEl){const b=proj({u:set.toU(.505),v:.635,r:.034,d:.04}),w=2*b[2],h=w*2.3,x0=b[0]-w/2,y0=b[1]-h;
+ if(xmasEl){const b=proj({u:set.toU(.448),v:.6,r:.028,d:.04}),w=2*b[2],h=w*2.3,x0=b[0]-w/2,y0=b[1]-h;
   xmasEl.style.width=w.toFixed(1)+'px';xmasEl.style.height=h.toFixed(1)+'px';xmasEl.style.transform=`translate(${x0.toFixed(1)}px,${y0.toFixed(1)}px)`;
   xmasEl.style.opacity=(w>26&&y0>navB&&x0>4&&x0+w<W-4&&!hit(x0,y0,x0+w,y0+h))?1:0;}
  if(progB)progB.style.transform='scaleY('+p.toFixed(3)+')';
