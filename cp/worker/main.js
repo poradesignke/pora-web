@@ -9,7 +9,7 @@ const ORIGINS = ['https://www.pora.sk', 'https://pora.sk'];
 const MAX_TURNS = 40;
 const MAX_ATTACH = 8 * 1024 * 1024;
 
-const XMAS = `VIANOČNÁ PONUKA (platí len do 31. 12. 2026): Od 1. 1. 2027 sa ceny zvyšujú – Balík Mini z 2 490 € na 2 990 € bez DPH a Variant 1 Design zo 4 990 € na 5 590 € bez DPH (príplatky za m² a Variant 2 Realizácia sa nemenia). Vianočný voucher PORA: kto urobí záväznú objednávku návrhu interiéru do 31. 12. 2026, má garantované ceny roku 2026, aj keď práce na návrhu začnú až v roku 2027. Voucher je vhodný aj ako darček, štúdio ho pošle e-mailom v PDF. Ak sa klient pýta na voucher alebo vianočnú ponuku, stručne to vysvetli, priprav mu bežnú cenovú ponuku za ceny roku 2026 a povedz, že záväznú objednávku potvrdí odpoveďou na e-mail s ponukou alebo na info@pora.sk a štúdio sa mu ozve s voucherom. Nesľubuj zľavu – nejde o zľavu, ale o zachovanie súčasných cien. Konzultácie v tejto ponuke nepropaguj. V cenových ponukách počítaj naďalej s cenami roku 2026.`;
+const XMAS = `VIANOČNÁ PONUKA (platí len do 31. 12. 2026): Od 1. 1. 2027 sa ceny zvyšujú – Balík Mini z 2 490 € na 2 990 € bez DPH a Variant 1 Design zo 4 990 € na 5 590 € bez DPH (príplatky za m² a Variant 2 Realizácia sa nemenia). Vianočný voucher PORA: kto urobí záväznú objednávku návrhu interiéru do 31. 12. 2026, má garantované ceny roku 2026, aj keď práce na návrhu začnú až v roku 2027. Voucher je vhodný aj ako darček, štúdio ho pošle e-mailom v PDF. Ak sa klient pýta na voucher alebo vianočnú ponuku, stručne to vysvetli, priprav mu bežnú cenovú ponuku za ceny roku 2026 a povedz, že o voucher požiada tlačidlom „Vianočný voucher“ na webe pora.sk (krátky formulár) alebo e-mailom na info@pora.sk; štúdio mu po potvrdení objednávky pošle voucher v PDF s jedinečným kódom, platný do 31. 3. 2027. Nesľubuj zľavu – nejde o zľavu, ale o zachovanie súčasných cien. Konzultácie v tejto ponuke nepropaguj. V cenových ponukách počítaj naďalej s cenami roku 2026.`;
 const SYSTEM_SK = `Si asistent interiérového štúdia PORA (PORA s.r.o., Košice; web pora.sk; info@pora.sk; +421 903 494 977).
 Tvoja úloha: odpovedať na otázky o štúdiu a hlavne rýchlo a zrozumiteľne previesť záujemcu k indikatívnej cenovej ponuke, ktorú dostane e-mailom.
 
@@ -93,8 +93,9 @@ function buildOffer(o) {
   return { number: o.number, date: o.date, projectName: `Návrh ${what} ${area} m² – ${who}`, quote: quote({ need: o.need, m2: area }), flags: { structural: !!o.structural_change || !!o.new_build, heritage: !!o.heritage, newBuild: !!o.new_build } };
 }
 
-async function renderPdf(env, offer) {
-  const body = JSON.stringify({ html: offerHTML(offer, ASSETS), pdfOptions: { format: 'a4', printBackground: true, preferCSSPageSize: true }, gotoOptions: { waitUntil: 'networkidle0', timeout: 20000 } });
+async function renderPdf(env, offer) { return renderHtmlPdf(env, offerHTML(offer, ASSETS), { format: 'a4', printBackground: true, preferCSSPageSize: true }); }
+async function renderHtmlPdf(env, pageHtml, pdfOptions) {
+  const body = JSON.stringify({ html: pageHtml, pdfOptions, gotoOptions: { waitUntil: 'networkidle0', timeout: 20000 } });
   const errs = [];
   for (let attempt = 0; attempt < 2; attempt++) {
     for (const path of ['browser-rendering', 'browser-run']) {
@@ -259,6 +260,85 @@ async function anthropic(env, payload) {
   return j;
 }
 
+
+// ── Vianočný voucher 2026: dopyt z webu → e-mail štúdiu s tlačidlom → po potvrdení PDF voucher klientovi → QR overenie ──
+const V_UNTIL = '2027-03-31', V_UNTIL_SK = '31. 3. 2027', V_END = Date.parse('2027-04-01T00:00:00+02:00');
+const V_PACKS = { design: { name: 'Design', desc: 'Návrh interiéru do 100 m²', price: '4 990 €' }, mini: { name: 'Mini', desc: 'Návrh interiéru do 20 m²', price: '2 490 €' } };
+const vPage = (title, inner) => html(`<!doctype html><html lang="sk"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>${escH(title)}</title><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@900&family=DM+Sans:wght@400;500;700&display=swap"><body style="margin:0;background:#EFEDE8;color:#111113;font:16px/1.5 'DM Sans',system-ui,sans-serif"><div style="max-width:560px;margin:0 auto;padding:28px 18px 48px"><a href="https://www.pora.sk/"><img src="https://www.pora.sk/img/logo-coral.png" alt="PORA" style="height:34px"></a>${inner}</div></body></html>`);
+const vH = (t) => `<h1 style="font:900 44px/.95 'Big Shoulders Display','Arial Narrow',sans-serif;text-transform:uppercase;margin:22px 0 12px">${t}</h1>`;
+const vBtn = 'display:inline-block;font:900 20px/1 \'Big Shoulders Display\',\'Arial Narrow\',sans-serif;letter-spacing:.04em;text-transform:uppercase;background:#D1FF05;color:#111113;border:2px solid #111113;border-radius:999px;padding:15px 24px;text-decoration:none;cursor:pointer';
+const vRow = (k, v) => `<tr><td style="padding:7px 16px 7px 0;color:#5A575F;vertical-align:top">${escH(k)}</td><td style="padding:7px 0"><b>${escH(v)}</b></td></tr>`;
+async function vVerify(env, t) { const [p, sg] = String(t || '').split('.'); if (!p || !sg || sg !== await hmac(env.SIGNING_SECRET, p)) return null; try { const o = JSON.parse(unb64url(p)); return o && o.k === 'pv27' ? { o, sg } : null; } catch (_) { return null; } }
+const vCode = (sg) => { const c = sg.toUpperCase().replace(/[^A-Z0-9]/g, 'X'); return 'PV27-' + c.slice(0, 4) + '-' + c.slice(4, 8); };
+
+// 1) dopyt z formulára na webe
+async function voucherRequest(req, env, url) {
+  const c = cors(req); if (!c['Access-Control-Allow-Origin']) return json({ error: 'origin' }, 403);
+  let b; try { b = await req.json(); } catch (_) { return json({ error: 'bad json' }, 400, c); }
+  const ip = req.headers.get('CF-Connecting-IP') || 'x', k = 'lead/' + ip + '/' + today(), n = (await cget(k)) + 1;
+  await cset(k, n, 90000); if (n > 10) return json({ error: 'rate' }, 429, c);
+  const f = (b && typeof b.fields === 'object' && b.fields) || {}, S = (x, m) => String(x ?? '').trim().slice(0, m);
+  const r = { name: S(f.meno, 80), email: S(f.email, 200), phone: S(f.telefon, 40), pack: /mini/i.test(S(f.balik, 60)) ? 'mini' : /design/i.test(S(f.balik, 60)) ? 'design' : '', gift: /^(áno|ano|yes|true)$/i.test(S(f.darcek, 10)), note: S(f.poznamka, 1500), lang: S(f.jazyk, 2) === 'en' ? 'en' : 'sk' };
+  if (!r.name || !isEmail(r.email)) return json({ error: 'email' }, 400, c);
+  const t = await sign(env, { exp: Date.now() + 45 * 864e5, vr: r });
+  const link = url.origin + '/voucher/issue?t=' + encodeURIComponent(t);
+  try {
+    await sendMail(env, { to: env.OWNER_EMAIL, replyTo: r.email, subject: 'VIANOČNÝ VOUCHER – dopyt z webu (' + r.name + ')',
+      htmlBody: `<div style="font:15px/1.5 Arial,sans-serif"><p>Nový záujem o vianočný voucher. Odpoveďou na tento e-mail píšete priamo klientovi.</p><table style="border-collapse:collapse">${vRow('Meno', r.name)}${vRow('E-mail', r.email)}${vRow('Telefón', r.phone || '–')}${vRow('Balík', r.pack ? V_PACKS[r.pack].name + ' – ' + V_PACKS[r.pack].price + ' bez DPH' : 'ešte nevie, poradiť')}${vRow('Darček', r.gift ? 'áno, voucher na meno obdarovaného' : 'nie')}${vRow('Poznámka', r.note || '–')}</table><p style="margin:22px 0"><a href="${escH(link)}" style="${vBtn}">Vystaviť a poslať voucher →</a></p><p style="color:#666">Tlačidlo otvorí stránku, kde skontrolujete meno a balík. Voucher v PDF potom odíde klientovi a kópia vám. Odkaz platí 45 dní.</p></div>` });
+  } catch (e) { return json({ error: 'mail' }, 502, c); }
+  return json({ success: true }, 200, c);
+}
+
+// 2) potvrdenie štúdiom → vystavenie a odoslanie PDF
+async function voucherIssue(req, env, url) {
+  let fd = null; if (req.method === 'POST') fd = await req.formData();
+  const t = url.searchParams.get('t') || (fd ? fd.get('t') : '');
+  const p = await verify(env, t);
+  if (!p || !p.vr) return vPage('PORA – voucher', vH('Odkaz je neplatný alebo vypršal') + '<p>Požiadajte klienta o nový dopyt cez web.</p>');
+  const r = p.vr, inp = 'width:100%;box-sizing:border-box;font:16px sans-serif;padding:11px 12px;border:1.5px solid #111113;border-radius:10px;margin:4px 0 14px;background:#fff';
+  const key = new Request('https://pora-asistent/voucher/' + (await hmac(env.SIGNING_SECRET, String(t))).slice(0, 24)), cache = caches.default;
+  if (req.method !== 'POST') {
+    const done = await cache.match(key);
+    return vPage('PORA – vystaviť voucher', vH('Vystaviť voucher') + (done ? '<p style="background:#fff;border:1.5px solid #111;border-radius:10px;padding:10px 12px"><b>Pozor:</b> z tohto dopytu už bol voucher odoslaný (' + escH(await done.text()) + '). Ďalším odoslaním vznikne nový voucher s iným kódom.</p>' : '') +
+      `<table style="border-collapse:collapse;margin-bottom:16px">${vRow('Objednávateľ', r.name)}${vRow('E-mail', r.email)}${vRow('Telefón', r.phone || '–')}${vRow('Darček', r.gift ? 'áno' : 'nie')}${vRow('Poznámka', r.note || '–')}</table>
+      <form method="post"><input type="hidden" name="t" value="${escH(t)}">
+      <label>Meno na voucheri<input name="name" required maxlength="40" value="${escH(r.gift ? '' : r.name)}" placeholder="${r.gift ? 'meno obdarovaného' : ''}" style="${inp}"></label>
+      <label>Darček od (nepovinné)<input name="from" maxlength="40" value="${escH(r.gift ? r.name : '')}" style="${inp}"></label>
+      <label>Balík<select name="pack" style="${inp}"><option value="design"${r.pack !== 'mini' ? ' selected' : ''}>Design – 4 990 € bez DPH (do 100 m²)</option><option value="mini"${r.pack === 'mini' ? ' selected' : ''}>Mini – 2 490 € bez DPH (do 20 m²)</option></select></label>
+      <p>Voucher v PDF odíde na <b>${escH(r.email)}</b>, kópia na ${escH(env.OWNER_EMAIL)}. Platnosť: do ${V_UNTIL_SK}.</p>
+      <button style="${vBtn}">Vystaviť a poslať voucher →</button></form>`);
+  }
+  const name = String(fd.get('name') || '').trim().slice(0, 40), from = String(fd.get('from') || '').trim().slice(0, 40), pack = fd.get('pack') === 'mini' ? 'mini' : 'design';
+  if (!name) return vPage('PORA – voucher', vH('Chýba meno na voucheri') + '<p>Vráťte sa späť a doplňte ho.</p>');
+  const d = new Date(Date.now() + 3600e3), z = (x) => String(x).padStart(2, '0'), number = String(d.getUTCFullYear()).slice(2) + z(d.getUTCMonth() + 1) + z(d.getUTCDate()) + '-' + z(d.getUTCHours()) + z(d.getUTCMinutes());
+  const vt = await sign(env, { k: 'pv27', n: name, g: from, p: pack, c: number, u: V_UNTIL }), sg = vt.split('.')[1], code = vCode(sg), vurl = url.origin + '/v?t=' + vt, P = V_PACKS[pack];
+  let pdf;
+  try { pdf = b64(await renderHtmlPdf(env, voucherHTML({ name, gift: from ? 'Darček od: ' + from : '', pack: P.name, packdesc: P.desc, price: P.price, code, number, url: vurl }), { printBackground: true, preferCSSPageSize: true, width: '200mm', height: '100mm' })); }
+  catch (e) { return vPage('PORA – voucher', vH('PDF sa nepodarilo vytvoriť') + '<p>Skúste to prosím o minútu znova (tlačidlo Späť a odoslať ešte raz). Nič nebolo odoslané.</p><p style="color:#666;font-size:13px">' + escH(String(e.message || e).slice(0, 300)) + '</p>'); }
+  const en = r.lang === 'en';
+  await sendMail(env, { to: r.email, cc: env.OWNER_EMAIL, subject: (en ? 'Your PORA Christmas voucher ' : 'Váš vianočný voucher PORA ') + code,
+    htmlBody: `<div style="font:15px/1.6 Arial,sans-serif;color:#111">${en
+      ? `<p>Hello,</p><p>thank you for your order. Your PORA Christmas voucher is attached as a PDF. It guarantees the 2026 price of the ${P.name} package (${P.price} excl. VAT).</p><p><b>Voucher code:</b> ${code}<br><b>Valid until:</b> 31 March 2027</p><p>To use it, contact us by that date at info@pora.sk or +421 903 494 977 and send us the voucher code. You can check the voucher any time here: <a href="${escH(vurl)}">verify voucher</a>.</p><p>PORA s.r.o.</p>`
+      : `<p>Dobrý deň,</p><p>ďakujeme za objednávku. V prílohe posielame vianočný voucher PORA v PDF. Garantuje cenu balíka ${P.name} z cenníka 2026 (${P.price} bez DPH).</p><p><b>Kód vouchera:</b> ${code}<br><b>Platnosť:</b> do ${V_UNTIL_SK}</p><p>Pri uplatnení sa nám do tohto dátumu ozvite na info@pora.sk alebo +421 903 494 977 a pošlite kód vouchera. Pravosť a platnosť si kedykoľvek overíte tu: <a href="${escH(vurl)}">overiť voucher</a>.</p><p>PORA s.r.o.</p>`}</div>`,
+    attachments: [{ name: `PORA_vianocny_voucher_${code}.pdf`, content: pdf }] });
+  await cache.put(key, new Response(code + ', ' + name, { headers: { 'cache-control': 'max-age=4000000' } }));
+  return vPage('PORA – voucher odoslaný', vH('Voucher odoslaný ✓') + `<table style="border-collapse:collapse">${vRow('Kód', code)}${vRow('Číslo', number)}${vRow('Meno na voucheri', name)}${vRow('Balík', P.name + ' – ' + P.price + ' bez DPH')}${vRow('Odoslané na', r.email)}${vRow('Platí do', V_UNTIL_SK)}</table><p>Kópia s PDF prišla aj na ${escH(env.OWNER_EMAIL)}. Ten e-mail si uschovajte, slúži ako evidencia vystavených voucherov.</p>`);
+}
+
+// 3) QR overenie pravosti a platnosti
+async function voucherCheck(req, env, url) {
+  const v = await vVerify(env, url.searchParams.get('t'));
+  if (!v) return vPage('PORA – overenie vouchera', vH('Tento voucher nepoznáme') + '<p style="background:#EF5A45;color:#fff;border-radius:12px;padding:12px 14px;font-weight:700">Kód nie je platný. Voucher nebol vystavený štúdiom PORA alebo bol upravený.</p><p>Ak si myslíte, že ide o omyl, napíšte nám na info@pora.sk.</p>');
+  const o = v.o, code = vCode(v.sg), P = V_PACKS[o.p] || V_PACKS.design, ok = Date.now() < V_END;
+  const parts = String(o.n || '').trim().split(/\s+/), shown = parts.length > 1 ? parts[0] + ' ' + parts[parts.length - 1].charAt(0) + '.' : parts[0] || '';
+  const mail = 'mailto:info@pora.sk?subject=' + encodeURIComponent('Uplatnenie vianočného vouchera ' + code) + '&body=' + encodeURIComponent('Dobrý deň,\nchcem uplatniť vianočný voucher ' + code + '.\n\nMeno:\nTelefón:\nPriestor a mesto:\n');
+  return vPage('PORA – overenie vouchera', vH(ok ? 'Pravý a platný' : 'Platnosť vypršala') +
+    `<p style="background:${ok ? '#D1FF05' : '#EF5A45'};color:${ok ? '#111113' : '#fff'};border:2px solid #111113;border-radius:14px;padding:13px 15px;font-weight:700;margin:0 0 18px">${ok ? 'Voucher vystavilo štúdio PORA a je platný do ' + V_UNTIL_SK + '.' : 'Voucher je pravý, ale jeho platnosť skončila ' + V_UNTIL_SK + '. Platí aktuálny cenník.'}</p>
+    <table style="border-collapse:collapse;margin-bottom:20px">${vRow('Kód vouchera', code)}${vRow('Číslo', o.c)}${vRow('Vystavený pre', shown)}${vRow('Balík', P.name + ' – ' + P.desc.toLowerCase())}${vRow('Garantovaná cena', P.price + ' bez DPH (cenník 2026)')}${vRow('Platí do', V_UNTIL_SK)}</table>
+    ${ok ? `<p><a href="${escH(mail)}" style="${vBtn}">Chcem voucher uplatniť →</a></p><p style="color:#5A575F">Tlačidlo otvorí e-mail s vyplneným kódom. Môžete aj zavolať na +421 903 494 977 alebo napísať na info@pora.sk a poslať kód vouchera.</p>` : '<p>Radi vám pripravíme novú cenovú ponuku: <a href="https://www.pora.sk/#ponuka">pora.sk</a>.</p>'}
+    <p style="color:#5A575F;font-size:14px;border-top:1px solid #CFCBC3;padding-top:14px;margin-top:22px">Voucher je na meno, dá sa uplatniť raz a nie je platobným prostriedkom. Úplné podmienky sú na zadnej strane vouchera. PORA s.r.o., IČO 53834691, Košice.</p>`);
+}
+
 // Dopyty z formulárov na webe (kontakt, vianočný voucher) → e-mail štúdiu cez Brevo
 async function lead(req, env) {
   const c = cors(req); if (!c['Access-Control-Allow-Origin']) return json({ error: 'origin' }, 403);
@@ -342,8 +422,11 @@ export default {
     try {
       if (url.pathname === '/chat' && req.method === 'POST') return await chat(req, env, url, ectx);
       if (url.pathname === '/lead' && req.method === 'POST') return await lead(req, env);
+      if (url.pathname === '/voucher' && req.method === 'POST') return await voucherRequest(req, env, url);
+      if (url.pathname === '/voucher/issue') return await voucherIssue(req, env, url);
+      if (url.pathname === '/v') return await voucherCheck(req, env, url);
       if (url.pathname === '/approve') return await approve(req, env, url);
-      if (url.pathname === '/health') return json({ ok: true, build: '2026-11-16b', model: MODEL, spend: { today: Number((await cget('d/' + today())).toFixed(2)), month: Number((await cget('m/' + month())).toFixed(2)), stop: DAY_STOP }, config: { anthropic: !!env.ANTHROPIC_API_KEY, brevo: !!env.BREVO_API_KEY, pdf: !!(env.CF_API_TOKEN && env.CF_ACCOUNT_ID), signing: !!env.SIGNING_SECRET, owner: env.OWNER_EMAIL || null, auto: env.AUTO_SEND || 'false' } });
+      if (url.pathname === '/health') return json({ ok: true, build: '2026-11-16c', model: MODEL, spend: { today: Number((await cget('d/' + today())).toFixed(2)), month: Number((await cget('m/' + month())).toFixed(2)), stop: DAY_STOP }, config: { anthropic: !!env.ANTHROPIC_API_KEY, brevo: !!env.BREVO_API_KEY, pdf: !!(env.CF_API_TOKEN && env.CF_ACCOUNT_ID), signing: !!env.SIGNING_SECRET, owner: env.OWNER_EMAIL || null, auto: env.AUTO_SEND || 'false' } });
       return json({ ok: true, service: 'PORA asistent' });
     } catch (e) { return json({ error: 'server', detail: String(e).slice(0, 300) }, 500, cors(req)); }
   },
