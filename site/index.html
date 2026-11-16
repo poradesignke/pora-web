@@ -739,6 +739,21 @@ html:not(.light) .h3hint .clk{color:#F0EEE9;background:#121214}
     </div>
   </div>
 </section>
+<div class="xmod" id="xMod" hidden role="dialog" aria-modal="true" aria-labelledby="xModT"><div class="xbox">
+<button type="button" class="xx" id="xModX" aria-label="Zavrieť">×</button>
+<h3 id="xModT"><span class="l-sk">Vianočný voucher PORA</span><span class="l-en" hidden>PORA Christmas voucher</span></h3>
+<p class="xl"><span class="l-sk">Záväznou objednávkou do 31. 12. si zafixujete ceny roku 2026 (Mini 2 490 €, Design 4 990 € bez DPH). Navrhovať môžeme začať aj na jar. Nechajte nám kontakt, ozveme sa do jedného pracovného dňa.</span><span class="l-en" hidden>A binding order by 31 December locks in 2026 prices (Mini €2,490, Design €4,990 excl. VAT). The design work can start in spring. Leave your contact and we will get back within one business day.</span></p>
+<form id="xForm" novalidate>
+<input name="name" required autocomplete="name" placeholder="Meno a priezvisko" data-en="Full name">
+<input name="email" type="email" required autocomplete="email" placeholder="E-mail" data-en="E-mail">
+<input name="phone" type="tel" autocomplete="tel" placeholder="Telefón (nepovinné)" data-en="Phone (optional)">
+<select name="pack" aria-label="Balík"><option value="Design (do 100 m²)">Design – 4 990 € (do 100 m²)</option><option value="Mini (do 20 m²)">Mini – 2 490 € (do 20 m²)</option><option value="Ešte neviem">Ešte neviem, poraďte mi</option></select>
+<label class="xc"><input type="checkbox" name="gift"> <span class="l-sk">Je to darček, chcem voucher na meno obdarovaného</span><span class="l-en" hidden>It is a gift, I want the voucher in the recipient's name</span></label>
+<textarea name="msg" rows="2" placeholder="Poznámka: priestor, mesto, m² (nepovinné)" data-en="Note: space, city, m² (optional)"></textarea>
+<button type="submit" class="btn lime"><span class="l-sk">Odoslať záujem o voucher →</span><span class="l-en" hidden>Send voucher request →</span></button>
+<p class="xs" id="xMsg" role="status"></p>
+<p class="xs"><span class="l-sk">Odoslaním súhlasíte so spracovaním údajov na účel vybavenia dopytu.</span><span class="l-en" hidden>By sending you agree to the processing of your data to handle the enquiry.</span></p>
+</form></div></div>
 <div class="wrap"><div class="xstrip" id="xStrip" hidden>
 <svg class="xi" viewBox="0 0 40 46" aria-hidden="true"><path d="M20 9 12 20h5L8 31h8v6h8v-6h8l-9-11h5z" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linejoin="round"/><path d="M20 1v6M17 4h6" stroke="#EF5A45" stroke-width="2.8" stroke-linecap="round"/></svg>
 <p><span class="l-sk"><b>Vianoce po našom.</b> Od januára zdražujeme: Mini na 2 990 €, Design na 5 590 € bez DPH. S vianočným voucherom si záväznou objednávkou do 31. 12. zafixujete ceny roku 2026. Navrhovať môžeme začať aj na jar.</span><span class="l-en" hidden><b>Christmas, our way.</b> Prices go up in January: Mini to €2,990, Design to €5,590 excl. VAT. With the Christmas voucher, a binding order by 31 December locks in 2026 prices. The design work can start in spring.</span></p>
@@ -1525,22 +1540,7 @@ setTimeout(done,3500);
  t.addEventListener('click',e=>{if(e.target.id==='teaserX'){e.stopPropagation();hideT(true);return;}startCP();});
  t.addEventListener('keydown',e=>{if(e.key==='Enter')startCP();});
 })();
-</script><div class="xmod" id="xMod" hidden role="dialog" aria-modal="true" aria-labelledby="xModT"><div class="xbox">
-<button type="button" class="xx" id="xModX" aria-label="Zavrieť">×</button>
-<h3 id="xModT"><span class="l-sk">Vianočný voucher PORA</span><span class="l-en" hidden>PORA Christmas voucher</span></h3>
-<p class="xl"><span class="l-sk">Záväznou objednávkou do 31. 12. si zafixujete ceny roku 2026 (Mini 2 490 €, Design 4 990 € bez DPH). Navrhovať môžeme začať aj na jar. Nechajte nám kontakt, ozveme sa do jedného pracovného dňa.</span><span class="l-en" hidden>A binding order by 31 December locks in 2026 prices (Mini €2,490, Design €4,990 excl. VAT). The design work can start in spring. Leave your contact and we will get back within one business day.</span></p>
-<form id="xForm" novalidate>
-<input name="name" required autocomplete="name" placeholder="Meno a priezvisko" data-en="Full name">
-<input name="email" type="email" required autocomplete="email" placeholder="E-mail" data-en="E-mail">
-<input name="phone" type="tel" autocomplete="tel" placeholder="Telefón (nepovinné)" data-en="Phone (optional)">
-<select name="pack" aria-label="Balík"><option value="Design (do 100 m²)">Design – 4 990 € (do 100 m²)</option><option value="Mini (do 20 m²)">Mini – 2 490 € (do 20 m²)</option><option value="Ešte neviem">Ešte neviem, poraďte mi</option></select>
-<label class="xc"><input type="checkbox" name="gift"> <span class="l-sk">Je to darček, chcem voucher na meno obdarovaného</span><span class="l-en" hidden>It is a gift, I want the voucher in the recipient's name</span></label>
-<textarea name="msg" rows="2" placeholder="Poznámka: priestor, mesto, m² (nepovinné)" data-en="Note: space, city, m² (optional)"></textarea>
-<button type="submit" class="btn lime"><span class="l-sk">Odoslať záujem o voucher →</span><span class="l-en" hidden>Send voucher request →</span></button>
-<p class="xs" id="xMsg" role="status"></p>
-<p class="xs"><span class="l-sk">Odoslaním súhlasíte so spracovaním údajov na účel vybavenia dopytu.</span><span class="l-en" hidden>By sending you agree to the processing of your data to handle the enquiry.</span></p>
-</form></div></div>
-<style id="cool-anim">
+</script><style id="cool-anim">
 /* COOL – O sa trasie, zakolíše a dopadne na L; sezónne lístky/sneh na písmenách */
 html.js .hero h1 .l span.tilt{transform:rotate(0)}
 html.js .hero h1 .neon.fall .tilt{animation:coolFall 2.9s cubic-bezier(.3,0,.3,1) forwards}
