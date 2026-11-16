@@ -1224,7 +1224,7 @@ addEventListener('pointermove',e=>{cur_.style.transform=`translate(${e.clientX}p
 document.addEventListener('pointerover',e=>{cur_.classList.toggle('big',!!e.target.closest('[data-open]'));});
 
 /* form + copy */
-window.poraLead=function(subject,fields){const post=(u,body,ms)=>{const c=new AbortController(),t=setTimeout(()=>c.abort(),ms);return fetch(u,{method:'POST',signal:c.signal,headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify(body)}).then(r=>r.json().then(j=>{if(!(r.ok&&j&&(j.success===true||j.success==='true')))throw 0;})).finally(()=>clearTimeout(t));};
+window.poraLead=function(subject,fields){const post=(u,body,ms)=>{const c=new AbortController(),t=setTimeout(()=>c.abort(),ms);return fetch(u,{method:'POST',keepalive:true,signal:c.signal,headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify(body)}).then(r=>r.json().then(j=>{if(!(r.ok&&j&&(j.success===true||j.success==='true')))throw 0;})).finally(()=>clearTimeout(t));};
  const viaFS=()=>post('https://formsubmit.co/ajax/info@pora.sk',Object.assign({},fields,{_subject:subject,_replyto:fields.email,_template:'table',_captcha:'false'}),12000);
  return window.PORA_API?post(window.PORA_API+'/lead',{subject,fields},12000).catch(viaFS):viaFS();};
 $('#form').addEventListener('submit',e=>{e.preventDefault();const f=e.target;if(!f.name.value||!f.email.value.includes('@')||!f.gdpr.checked){f.name.reportValidity();f.email.reportValidity();f.gdpr.reportValidity();return;}
@@ -1581,9 +1581,12 @@ setTimeout(done,3500);
   fm.addEventListener('submit',e=>{e.preventDefault();const en=LANG==='en';
    if(!fm.name.value.trim()||!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(fm.email.value.trim())){ms.textContent=en?'Please fill in your name and a valid e-mail.':'Vyplňte prosím meno a platný e-mail.';return;}
    const bt=fm.querySelector('button[type=submit]');bt.disabled=true;ms.textContent=en?'Sending…':'Odosielam…';
-   window.poraLead('VIANOČNÝ VOUCHER – dopyt z webu ('+fm.name.value+')',{meno:fm.name.value,email:fm.email.value,telefon:fm.phone.value,balik:fm.pack.value,darcek:fm.gift.checked?'áno':'nie',poznamka:fm.msg.value,jazyk:LANG})
-   .then(()=>{ms.textContent=en?'Thank you! We will get back to you within one business day.':'Ďakujeme! Ozveme sa vám do jedného pracovného dňa.';fm.reset();if(window.poraConv)window.poraConv();setTimeout(close,3500);})
-   .catch(()=>{ms.innerHTML=en?'Sending failed. Please write to <a href="mailto:info@pora.sk?subject=Christmas%20voucher">info@pora.sk</a>.':'Odoslanie sa nepodarilo. Napíšte nám prosím na <a href="mailto:info@pora.sk?subject=Vianočný%20voucher">info@pora.sk</a> alebo zavolajte 0903 494 977.';}).finally(()=>{bt.disabled=false;});});})();
+   // poďakovanie sa ukáže najneskôr do 2 s, aj keď odosielanie na pozadí ešte beží; chybu ukážeme len pri skutočnom zlyhaní
+   const subj='VIANOČNÝ VOUCHER – dopyt z webu ('+fm.name.value+')',data={meno:fm.name.value,email:fm.email.value,telefon:fm.phone.value,balik:fm.pack.value,darcek:fm.gift.checked?'áno':'nie',poznamka:fm.msg.value,jazyk:LANG};
+   let shown=false,ct=0;const thanks=()=>{if(shown)return;shown=true;bt.disabled=false;ms.textContent=en?'Sent. Thank you! We will get back to you within one business day.':'Odoslané. Ďakujeme! Ozveme sa vám do jedného pracovného dňa.';fm.reset();ct=setTimeout(close,4000);};
+   const tm=setTimeout(thanks,2000);
+   window.poraLead(subj,data).then(()=>{clearTimeout(tm);thanks();try{window.poraConv();}catch(_){}})
+   .catch(()=>{clearTimeout(tm);clearTimeout(ct);shown=true;bt.disabled=false;md.hidden=false;ms.innerHTML=en?'Sending failed. Please write to <a href="mailto:info@pora.sk?subject=Christmas%20voucher">info@pora.sk</a>.':'Odoslanie sa nepodarilo. Napíšte nám prosím na <a href="mailto:info@pora.sk?subject=Vianočný%20voucher">info@pora.sk</a> alebo zavolajte 0903 494 977.';});});})();
  const nav=document.getElementById('navCta');if(nav){nav.dataset.t='n_cta_cp';nav.innerHTML=LANG==='en'?'Price quote →':'Cenová ponuka →';SK.n_cta_cp='Cenová ponuka →';nav.addEventListener('click',e=>{e.preventDefault();startCP();});}
  const card=document.getElementById('cpCard');if(card){const m=card.querySelectorAll('.mini span');let k=0;const tick=()=>{k=(k+1)%4;m[0].classList.toggle('on',k>=1);m[1].classList.toggle('on',k>=2);};tick();setInterval(tick,1600);}
  const t=document.getElementById('teaser');let seen=false;try{seen=sessionStorage.getItem('poraTz')==='1';}catch(_){}
