@@ -1230,6 +1230,7 @@ window.poraConv=function(){};
  gtag('js',new Date());gtag('config',id,{allow_enhanced_conversions:true});
  const sc=document.createElement('script');sc.async=1;sc.src='https://www.googletagmanager.com/gtag/js?id='+encodeURIComponent(id);document.head.appendChild(sc);
  window.poraConv=function(){if(window.PORA_ADS_LABEL)gtag('event','conversion',{send_to:id+'/'+window.PORA_ADS_LABEL});};
+ document.addEventListener('click',function(e){var l=e.target.closest&&e.target.closest('a[href^="tel:"],a[href^="mailto:"]');if(l)gtag('event','conversion',{send_to:id+'/JWQhCJq72bkdEMLmqNoC'});},true);
  window.poraConsent=function(on){const v=on?'granted':'denied';gtag('consent','update',{ad_storage:v,ad_user_data:v,ad_personalization:v,analytics_storage:v});};})();
 $$('[data-ck]').forEach(b=>b.addEventListener('click',()=>{try{localStorage.setItem('pora_cookies',b.dataset.ck);}catch(_){}ck.classList.remove('show');if(window.poraConsent)poraConsent(b.dataset.ck==='all');}));
 $('#ckReset').addEventListener('click',()=>{try{localStorage.removeItem('pora_cookies');}catch(_){}closeDocs();ck.classList.add('show');});
