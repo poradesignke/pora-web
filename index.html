@@ -635,6 +635,19 @@ html.light .lbtn .g{fill:rgba(255,200,110,.45)}
 .xpill:hover{transform:rotate(0) scale(1.04)}
 .xpill[hidden]{display:none}.xpill i{font-style:normal}
 @media (max-width:900px){.xpill{margin-left:auto;font-size:13px;padding:8px 13px}.xpill i{display:none}}
+.xmod{position:fixed;inset:0;z-index:300;background:rgba(10,10,12,.62);display:flex;align-items:center;justify-content:center;padding:16px;overflow:auto}
+.xmod[hidden]{display:none}
+.xbox{position:relative;width:min(480px,100%);background:#FAF9F6;color:#111113;border-radius:22px;padding:26px 24px 20px;border:2px solid #111113;box-shadow:8px 8px 0 #D1FF05}
+.xbox h3{font-size:34px;margin:0 30px 10px 0;color:#111113}
+.xbox .xl{font-size:14.5px;line-height:1.5;margin:0 0 14px;color:#3A383E}
+.xbox form{display:grid;gap:9px}
+.xbox input:not([type=checkbox]),.xbox select,.xbox textarea{width:100%;font:16px/1.3 var(--body);padding:12px 13px;border:1.5px solid #111113;border-radius:12px;background:#fff;color:#111113}
+.xbox .xc{display:flex;gap:9px;align-items:flex-start;font-size:14px;color:#111113}
+.xbox .xc input{width:18px;height:18px;margin-top:1px;accent-color:#7548A8}
+.xbox .btn{justify-content:center;border:2px solid #111113}
+.xbox .xs{font-size:12px;color:#55535A;margin:0}
+.xbox #xMsg{font-size:14px;font-weight:600;color:#111113}
+.xbox .xx{position:absolute;right:12px;top:10px;width:38px;height:38px;border-radius:50%;border:1.5px solid #111113;background:none;color:#111113;font-size:22px;line-height:1;cursor:pointer}
 .xstrip{display:flex;gap:16px 20px;align-items:center;flex-wrap:wrap;border:1.5px dashed var(--fg);border-radius:20px;padding:14px 20px;margin:22px 0 4px}
 .xstrip[hidden],.h3xmas[hidden]{display:none}
 .xstrip .xi{width:34px;height:40px;flex:none;color:var(--fg)}
@@ -1535,7 +1548,16 @@ setTimeout(done,3500);
  if(location.hash==='#ponuka'){setTimeout(startCP,700);}
  (function(){const st=document.getElementById('xStrip');if(!st)return;if(Date.now()<new Date('2027-01-01T00:00:00+01:00').getTime()||/[?&]vianoce/.test(location.search))st.hidden=false;
   const pl=document.getElementById('xPill');if(pl&&!st.hidden)pl.hidden=false;
-  document.querySelectorAll('[data-xv]').forEach(b=>b.addEventListener('click',()=>{openChat();setTimeout(()=>ask(LANG==='en'?'I am interested in the Christmas voucher':'Mám záujem o vianočný voucher'),350);hideT(true);}));})();
+  const md=document.getElementById('xMod'),fm=document.getElementById('xForm'),ms=document.getElementById('xMsg');
+  const close=()=>{md.hidden=true;document.documentElement.style.overflow='';};
+  document.querySelectorAll('[data-xv]').forEach(b=>b.addEventListener('click',()=>{hideT(true);fm.querySelectorAll('[data-en]').forEach(i=>{if(!i.dataset.sk)i.dataset.sk=i.placeholder;i.placeholder=LANG==='en'?i.dataset.en:i.dataset.sk;});md.hidden=false;document.documentElement.style.overflow='hidden';setTimeout(()=>fm.name.focus(),50);}));
+  document.getElementById('xModX').addEventListener('click',close);md.addEventListener('click',e=>{if(e.target===md)close();});addEventListener('keydown',e=>{if(e.key==='Escape'&&!md.hidden)close();});
+  fm.addEventListener('submit',e=>{e.preventDefault();const en=LANG==='en';
+   if(!fm.name.value.trim()||!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(fm.email.value.trim())){ms.textContent=en?'Please fill in your name and a valid e-mail.':'Vyplňte prosím meno a platný e-mail.';return;}
+   const bt=fm.querySelector('button[type=submit]');bt.disabled=true;ms.textContent=en?'Sending…':'Odosielam…';
+   fetch('https://formsubmit.co/ajax/info@pora.sk',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify({meno:fm.name.value,email:fm.email.value,telefon:fm.phone.value,balik:fm.pack.value,darcek:fm.gift.checked?'áno':'nie',poznamka:fm.msg.value,jazyk:LANG,_subject:'VIANOČNÝ VOUCHER – dopyt z webu ('+fm.name.value+')',_replyto:fm.email.value,_template:'table',_captcha:'false'})})
+   .then(r=>r.json()).then(j=>{if(!(j.success===true||j.success==='true'))throw 0;ms.textContent=en?'Thank you! We will get back to you within one business day.':'Ďakujeme! Ozveme sa vám do jedného pracovného dňa.';fm.reset();if(window.poraConv)window.poraConv();setTimeout(close,3500);})
+   .catch(()=>{ms.textContent=en?'Sending failed. Please write to info@pora.sk.':'Odoslanie zlyhalo. Napíšte nám prosím na info@pora.sk.';}).finally(()=>{bt.disabled=false;});});})();
  const nav=document.getElementById('navCta');if(nav){nav.dataset.t='n_cta_cp';nav.innerHTML=LANG==='en'?'Price quote →':'Cenová ponuka →';SK.n_cta_cp='Cenová ponuka →';nav.addEventListener('click',e=>{e.preventDefault();startCP();});}
  const card=document.getElementById('cpCard');if(card){const m=card.querySelectorAll('.mini span');let k=0;const tick=()=>{k=(k+1)%4;m[0].classList.toggle('on',k>=1);m[1].classList.toggle('on',k>=2);};tick();setInterval(tick,1600);}
  const t=document.getElementById('teaser');let seen=false;try{seen=sessionStorage.getItem('poraTz')==='1';}catch(_){}
@@ -1546,7 +1568,22 @@ setTimeout(done,3500);
  t.addEventListener('click',e=>{if(e.target.id==='teaserX'){e.stopPropagation();hideT(true);return;}startCP();});
  t.addEventListener('keydown',e=>{if(e.key==='Enter')startCP();});
 })();
-</script><style id="cool-anim">
+</script><div class="xmod" id="xMod" hidden role="dialog" aria-modal="true" aria-labelledby="xModT"><div class="xbox">
+<button type="button" class="xx" id="xModX" aria-label="Zavrieť">×</button>
+<h3 id="xModT"><span class="l-sk">Vianočný voucher PORA</span><span class="l-en" hidden>PORA Christmas voucher</span></h3>
+<p class="xl"><span class="l-sk">Záväznou objednávkou do 31. 12. si zafixujete ceny roku 2026 (Mini 2 490 €, Design 4 990 € bez DPH). Navrhovať môžeme začať aj na jar. Nechajte nám kontakt, ozveme sa do jedného pracovného dňa.</span><span class="l-en" hidden>A binding order by 31 December locks in 2026 prices (Mini €2,490, Design €4,990 excl. VAT). The design work can start in spring. Leave your contact and we will get back within one business day.</span></p>
+<form id="xForm" novalidate>
+<input name="name" required autocomplete="name" placeholder="Meno a priezvisko" data-en="Full name">
+<input name="email" type="email" required autocomplete="email" placeholder="E-mail" data-en="E-mail">
+<input name="phone" type="tel" autocomplete="tel" placeholder="Telefón (nepovinné)" data-en="Phone (optional)">
+<select name="pack" aria-label="Balík"><option value="Design (do 100 m²)">Design – 4 990 € (do 100 m²)</option><option value="Mini (do 20 m²)">Mini – 2 490 € (do 20 m²)</option><option value="Ešte neviem">Ešte neviem, poraďte mi</option></select>
+<label class="xc"><input type="checkbox" name="gift"> <span class="l-sk">Je to darček, chcem voucher na meno obdarovaného</span><span class="l-en" hidden>It is a gift, I want the voucher in the recipient's name</span></label>
+<textarea name="msg" rows="2" placeholder="Poznámka: priestor, mesto, m² (nepovinné)" data-en="Note: space, city, m² (optional)"></textarea>
+<button type="submit" class="btn lime"><span class="l-sk">Odoslať záujem o voucher →</span><span class="l-en" hidden>Send voucher request →</span></button>
+<p class="xs" id="xMsg" role="status"></p>
+<p class="xs"><span class="l-sk">Odoslaním súhlasíte so spracovaním údajov na účel vybavenia dopytu.</span><span class="l-en" hidden>By sending you agree to the processing of your data to handle the enquiry.</span></p>
+</form></div></div>
+<style id="cool-anim">
 /* COOL – O sa trasie, zakolíše a dopadne na L; sezónne lístky/sneh na písmenách */
 html.js .hero h1 .l span.tilt{transform:rotate(0)}
 html.js .hero h1 .neon.fall .tilt{animation:coolFall 2.9s cubic-bezier(.3,0,.3,1) forwards}
