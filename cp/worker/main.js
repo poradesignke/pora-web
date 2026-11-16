@@ -9,6 +9,7 @@ const ORIGINS = ['https://www.pora.sk', 'https://pora.sk'];
 const MAX_TURNS = 40;
 const MAX_ATTACH = 8 * 1024 * 1024;
 
+const XMAS = `VIANOČNÁ PONUKA (platí len do 31. 12. 2026): Od 1. 1. 2027 sa ceny zvyšujú – Balík Mini z 2 490 € na 2 990 € bez DPH a Variant 1 Design zo 4 990 € na 5 590 € bez DPH (príplatky za m² a Variant 2 Realizácia sa nemenia). Vianočný voucher PORA: kto urobí záväznú objednávku návrhu interiéru do 31. 12. 2026, má garantované ceny roku 2026, aj keď práce na návrhu začnú až v roku 2027. Voucher je vhodný aj ako darček, štúdio ho pošle e-mailom v PDF. Ak sa klient pýta na voucher alebo vianočnú ponuku, stručne to vysvetli, priprav mu bežnú cenovú ponuku za ceny roku 2026 a povedz, že záväznú objednávku potvrdí odpoveďou na e-mail s ponukou alebo na info@pora.sk a štúdio sa mu ozve s voucherom. Nesľubuj zľavu – nejde o zľavu, ale o zachovanie súčasných cien. Konzultácie v tejto ponuke nepropaguj. V cenových ponukách počítaj naďalej s cenami roku 2026.`;
 const SYSTEM_SK = `Si asistent interiérového štúdia PORA (PORA s.r.o., Košice; web pora.sk; info@pora.sk; +421 903 494 977).
 Tvoja úloha: odpovedať na otázky o štúdiu a hlavne rýchlo a zrozumiteľne previesť záujemcu k indikatívnej cenovej ponuke, ktorú dostane e-mailom.
 
@@ -278,7 +279,7 @@ async function chat(req, env, url, ectx) {
   const messages = hist; let text = '';
   try {
     for (let i = 0; i < 5; i++) {
-      const res = await anthropic(env, { model: MODEL, max_tokens: 3000, thinking: { type: 'between_tools' }, output_config: { effort: 'medium' }, system: [{ type: 'text', text: SYSTEM_SK, cache_control: { type: 'ephemeral' } }, { type: 'text', text: body.lang === 'en' ? 'JAZYK: klient je na ANGLICKEJ verzii webu. Odpovedaj výhradne po anglicky – aj na krátke alebo nejednoznačné správy (ok, yes, thanks). Prepni na iný jazyk iba vtedy, keď klient napíše celú vetu v tom jazyku.' : 'JAZYK: klient je na SLOVENSKEJ verzii webu. Odpovedaj po slovensky – aj na krátke alebo nejednoznačné správy (ok, áno). Prepni na iný jazyk iba vtedy, keď klient napíše celú vetu v tom jazyku.' }], tools: TOOLS, messages });
+      const res = await anthropic(env, { model: MODEL, max_tokens: 3000, thinking: { type: 'between_tools' }, output_config: { effort: 'medium' }, system: [{ type: 'text', text: SYSTEM_SK, cache_control: { type: 'ephemeral' } }, ...(Date.now() < Date.parse('2027-01-01T00:00:00+01:00') ? [{ type: 'text', text: XMAS }] : []), { type: 'text', text: body.lang === 'en' ? 'JAZYK: klient je na ANGLICKEJ verzii webu. Odpovedaj výhradne po anglicky – aj na krátke alebo nejednoznačné správy (ok, yes, thanks). Prepni na iný jazyk iba vtedy, keď klient napíše celú vetu v tom jazyku.' : 'JAZYK: klient je na SLOVENSKEJ verzii webu. Odpovedaj po slovensky – aj na krátke alebo nejednoznačné správy (ok, áno). Prepni na iný jazyk iba vtedy, keď klient napíše celú vetu v tom jazyku.' }], tools: TOOLS, messages });
       text = res.content.filter((b) => b.type === 'text').map((b) => b.text).join('\n').trim();
       if (res.stop_reason === 'tool_use') text = '';
       if (res.stop_reason !== 'tool_use') break;
@@ -325,7 +326,7 @@ export default {
     try {
       if (url.pathname === '/chat' && req.method === 'POST') return await chat(req, env, url, ectx);
       if (url.pathname === '/approve') return await approve(req, env, url);
-      if (url.pathname === '/health') return json({ ok: true, build: '2026-10-28', model: MODEL, spend: { today: Number((await cget('d/' + today())).toFixed(2)), month: Number((await cget('m/' + month())).toFixed(2)), stop: DAY_STOP }, config: { anthropic: !!env.ANTHROPIC_API_KEY, brevo: !!env.BREVO_API_KEY, pdf: !!(env.CF_API_TOKEN && env.CF_ACCOUNT_ID), signing: !!env.SIGNING_SECRET, owner: env.OWNER_EMAIL || null, auto: env.AUTO_SEND || 'false' } });
+      if (url.pathname === '/health') return json({ ok: true, build: '2026-11-16', model: MODEL, spend: { today: Number((await cget('d/' + today())).toFixed(2)), month: Number((await cget('m/' + month())).toFixed(2)), stop: DAY_STOP }, config: { anthropic: !!env.ANTHROPIC_API_KEY, brevo: !!env.BREVO_API_KEY, pdf: !!(env.CF_API_TOKEN && env.CF_ACCOUNT_ID), signing: !!env.SIGNING_SECRET, owner: env.OWNER_EMAIL || null, auto: env.AUTO_SEND || 'false' } });
       return json({ ok: true, service: 'PORA asistent' });
     } catch (e) { return json({ error: 'server', detail: String(e).slice(0, 300) }, 500, cors(req)); }
   },
