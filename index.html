@@ -630,6 +630,23 @@ html.light .lbtn .g{fill:rgba(255,200,110,.45)}
 .cpc .mini .a{align-self:flex-start;background:#26262A;border-bottom-left-radius:4px}
 .cpc .go{display:flex;justify-content:space-between;align-items:center;margin-top:12px;font:800 12px/1 var(--display);letter-spacing:.08em;text-transform:uppercase}
 .cpc .go>span{white-space:nowrap;margin-left:12px}.cpc .go em{font-style:normal;color:#9A98A0;font:500 12px/1.3 var(--body,inherit);letter-spacing:0;text-transform:none}
+.xstrip{display:flex;gap:16px 20px;align-items:center;flex-wrap:wrap;border:1.5px dashed var(--fg);border-radius:20px;padding:14px 20px;margin:22px 0 4px}
+.xstrip[hidden],.h3xmas[hidden]{display:none}
+.xstrip .xi{width:34px;height:40px;flex:none;color:var(--fg)}
+.xstrip p{margin:0;flex:1 1 420px;font-size:15px;line-height:1.5}
+.xstrip p b{font-family:var(--display);font-size:20px;letter-spacing:.03em;text-transform:uppercase;margin-right:6px}
+.h3xmas{position:absolute;left:0;top:0;z-index:4;pointer-events:none;transform-origin:50% 100%;transition:opacity .35s;opacity:0}
+.h3xmas svg{display:block;width:100%;height:100%;overflow:visible;transform:rotate(-5deg);transform-origin:50% 100%}
+.h3xmas .tube path{fill:none;stroke:#D1FF05;stroke-width:5.5;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 0 3px rgba(209,255,5,.9)) drop-shadow(0 0 10px rgba(209,255,5,.55))}
+.h3xmas .top path{fill:none;stroke:#EF5A45;stroke-width:7;stroke-linecap:round;filter:drop-shadow(0 0 5px rgba(239,90,69,.9))}
+.h3xmas .b{animation:xblink 2.4s ease-in-out infinite}
+.h3xmas .b1{fill:#EF5A45}.h3xmas .b2{fill:#B58CFF;animation-delay:.8s}.h3xmas .b3{fill:#FAF9F6;animation-delay:1.6s}
+.h3xmas .pot{fill:#FAF9F6}
+.h3xmas .gift rect{fill:#7548A8}.h3xmas .gift path{stroke:#D1FF05;stroke-width:3;fill:none}
+html:not(.light) .h3xmas .tube path{filter:drop-shadow(0 0 4px #D1FF05) drop-shadow(0 0 18px rgba(209,255,5,.8))}
+@keyframes xblink{0%,100%{opacity:1}50%{opacity:.25}}
+@media (prefers-reduced-motion:reduce){.h3xmas .b{animation:none}}
+.h3d.nogl .h3xmas{display:none}
 .cpstrip{display:flex;gap:16px;align-items:center;justify-content:space-between;flex-wrap:wrap;border:1.5px solid var(--lime);border-radius:20px;padding:16px 20px;margin:26px 0 6px}
 .cpstrip p{margin:0;max-width:560px}
 .cpstrip p b{color:var(--lime)}
@@ -725,6 +742,7 @@ html:not(.light) .h3hint .clk{color:#F0EEE9;background:#121214}
       <div class="wrap h3top"><span class="eyebrow" data-t="hero_eyebrow">Interiérové štúdio · Košice → worldwide</span></div>
       <h1 id="h1" class="h3h1"><span class="l"><span>F***ing</span></span><span class="l"><span class="lime neon">co<span class="tilt">o</span>l</span></span><span class="l"><span>interiors<span class="dot">.</span></span></span></h1>
       <button class="h3lamp" id="h3lamp" type="button" aria-pressed="true" aria-label="Zhasnúť lampu – tmavá verzia webu"></button>
+      <div class="h3xmas" id="h3xmas" aria-hidden="true" hidden><svg viewBox="0 0 100 230"><g class="tube"><path d="M50 34 33 66h30L24 108h50L14 156h72"/><path d="M50 156v24"/></g><g class="top"><path d="M50 6v24M38 18h24"/></g><circle class="b b1" cx="40" cy="62" r="5"/><circle class="b b2" cx="66" cy="100" r="5.5"/><circle class="b b3" cx="30" cy="104" r="5"/><circle class="b b1" cx="78" cy="150" r="6"/><circle class="b b2" cx="22" cy="152" r="5.5"/><circle class="b b3" cx="52" cy="128" r="5"/><path class="pot" d="M36 180h28l-4 22H40z"/><g class="gift"><rect x="66" y="184" width="24" height="18" rx="2"/><path d="M78 184v18M66 193h24"/></g></svg></div>
       <div class="h3hint" id="h3hint" aria-hidden="true"><span class="rip"></span><span class="rip r2"></span><svg class="hand" viewBox="0 0 32 40"><path d="M11 21V5.5a3.5 3.5 0 0 1 7 0V16l6.5 1.2a4 4 0 0 1 3.3 4.6l-1.3 8.2a8 8 0 0 1-7.9 6.8h-3.2a8 8 0 0 1-6.6-3.5L4 26.5a2.6 2.6 0 0 1 3.9-3.4Z"/><path class="k" d="M18 16.2v4.3M22.3 17v3.8"/></svg><span id="h3hintT" hidden></span><span class="clkw"><b class="clk">CLICK</b></span></div>
       <div class="h3prog" aria-hidden="true"><b id="h3progB"></b></div>
     </div>
@@ -744,6 +762,11 @@ html:not(.light) .h3hint .clk{color:#F0EEE9;background:#121214}
     </div>
   </div>
 </section>
+<div class="wrap"><div class="xstrip" id="xStrip" hidden>
+<svg class="xi" viewBox="0 0 40 46" aria-hidden="true"><path d="M20 9 12 20h5L8 31h8v6h8v-6h8l-9-11h5z" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linejoin="round"/><path d="M20 1v6M17 4h6" stroke="#EF5A45" stroke-width="2.8" stroke-linecap="round"/></svg>
+<p><span class="l-sk"><b>Vianoce po našom.</b> Od januára zdražujeme: Mini na 2 990 €, Design na 5 590 € bez DPH. S vianočným voucherom si záväznou objednávkou do 31. 12. zafixujete ceny roku 2026. Navrhovať môžeme začať aj na jar.</span><span class="l-en" hidden><b>Christmas, our way.</b> Prices go up in January: Mini to €2,990, Design to €5,590 excl. VAT. With the Christmas voucher, a binding order by 31 December locks in 2026 prices. The design work can start in spring.</span></p>
+<button type="button" class="btn lime" data-xv><span class="l-sk">Chcem vianočný voucher →</span><span class="l-en" hidden>Get the Christmas voucher →</span></button>
+</div></div>
 <div class="wrap"><div class="hmeta"><span data-t="hm1">Byty · Domy · Gastro · Kancelárie · Salóny</span><span data-t="hm2">Košice · Slovensko · online kdekoľvek na svete</span><span data-t="hm3">Scroll ↓</span></div></div>
 
 <div class="mq lime" aria-hidden="true"><div class="t"><span data-t="mq1">Sme odvážni <i>✦</i> Hráme sa <i>✦</i> Tvoríme atmosféru <i>✦</i> Sme osobití <i>✦</i> Sme extravagantní <i>✦</i></span><span data-t="mq1">Sme odvážni <i>✦</i> Hráme sa <i>✦</i> Tvoríme atmosféru <i>✦</i> Sme osobití <i>✦</i> Sme extravagantní <i>✦</i></span></div></div>
@@ -1504,6 +1527,8 @@ setTimeout(done,3500);
  document.querySelectorAll('[data-cp]').forEach(b=>{b.hidden=false;b.addEventListener('click',e=>{e.preventDefault();startCP();});});
  const strip=document.getElementById('cpStrip');if(strip)strip.hidden=false;
  if(location.hash==='#ponuka'){setTimeout(startCP,700);}
+ (function(){const st=document.getElementById('xStrip');if(!st)return;if(Date.now()<new Date('2027-01-01T00:00:00+01:00').getTime()||/[?&]vianoce/.test(location.search))st.hidden=false;
+  st.querySelector('[data-xv]').addEventListener('click',()=>{openChat();setTimeout(()=>ask(LANG==='en'?'I am interested in the Christmas voucher':'Mám záujem o vianočný voucher'),350);hideT(true);});})();
  const nav=document.getElementById('navCta');if(nav){nav.dataset.t='n_cta_cp';nav.innerHTML=LANG==='en'?'Price quote →':'Cenová ponuka →';SK.n_cta_cp='Cenová ponuka →';nav.addEventListener('click',e=>{e.preventDefault();startCP();});}
  const card=document.getElementById('cpCard');if(card){const m=card.querySelectorAll('.mini span');let k=0;const tick=()=>{k=(k+1)%4;m[0].classList.toggle('on',k>=1);m[1].classList.toggle('on',k>=2);};tick();setInterval(tick,1600);}
  const t=document.getElementById('teaser');let seen=false;try{seen=sessionStorage.getItem('poraTz')==='1';}catch(_){}
@@ -1586,6 +1611,7 @@ const topEl=hero.querySelector('.h3top'),lampBtn=document.getElementById('h3lamp
  for(let x=0;x<=100;x+=4+Math.random()*4)pts.push(`${x.toFixed(1)}% ${j()}px`);for(let y=0;y<=100;y+=14+Math.random()*10)pts.push(`calc(100% - ${j()}px) ${y.toFixed(1)}%`);
  for(let x=100;x>=0;x-=4+Math.random()*4)pts.push(`${x.toFixed(1)}% calc(100% - ${j()}px)`);for(let y=100;y>=0;y-=14+Math.random()*10)pts.push(`${j()}px ${y.toFixed(1)}%`);
  c.style.clipPath='polygon('+pts.join(',')+')';})();
+const XMAS_ON=Date.now()<new Date('2027-01-07T00:00:00+01:00').getTime()||/[?&]vianoce/.test(location.search);const xmasEl=XMAS_ON?document.getElementById('h3xmas'):null;if(xmasEl)xmasEl.hidden=false;
 const fail=()=>{hero.classList.add('nogl');lampBtn&&(lampBtn.hidden=true);hint&&(hint.hidden=true);};
 if(typeof THREE==='undefined'){fail();return;}
 const A={
@@ -1871,6 +1897,10 @@ function frame(now){
  hint.style.transform=`translate(${(tx-23.5).toFixed(1)}px,${(ty-3.5).toFixed(1)}px)`;
  hint.classList.toggle('rt',side==='r');
  hint.classList.toggle('nolab',lab&&!fits(side==='r'?labR:labL));
+ // vianočný neónový stromček pri skrini (do 6. 1.) – nikdy cez nápis ani pod menu
+ if(xmasEl){const b=proj({u:set.toU(.505),v:.635,r:.034,d:.04}),w=2*b[2],h=w*2.3,x0=b[0]-w/2,y0=b[1]-h;
+  xmasEl.style.width=w.toFixed(1)+'px';xmasEl.style.height=h.toFixed(1)+'px';xmasEl.style.transform=`translate(${x0.toFixed(1)}px,${y0.toFixed(1)}px)`;
+  xmasEl.style.opacity=(w>26&&y0>navB&&x0>4&&x0+w<W-4&&!hit(x0,y0,x0+w,y0+h))?1:0;}
  if(progB)progB.style.transform='scaleY('+p.toFixed(3)+')';
  if(topEl)topEl.style.opacity=Math.max(0,1-p*12).toFixed(3);}
 let rt,lw=innerWidth;addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(()=>{layout();},150);});
