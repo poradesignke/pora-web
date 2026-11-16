@@ -259,6 +259,22 @@ async function anthropic(env, payload) {
   return j;
 }
 
+// Dopyty z formulárov na webe (kontakt, vianočný voucher) → e-mail štúdiu cez Brevo
+async function lead(req, env) {
+  const c = cors(req); if (!c['Access-Control-Allow-Origin']) return json({ error: 'origin' }, 403);
+  let b; try { b = await req.json(); } catch (_) { return json({ error: 'bad json' }, 400, c); }
+  const ip = req.headers.get('CF-Connecting-IP') || 'x', k = 'lead/' + ip + '/' + today(), n = (await cget(k)) + 1;
+  await cset(k, n, 90000); if (n > 10) return json({ error: 'rate' }, 429, c);
+  const f = (b && typeof b.fields === 'object' && b.fields) || {}, email = String(f.email || '').trim().slice(0, 200);
+  if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return json({ error: 'email' }, 400, c);
+  const rows = Object.keys(f).slice(0, 12).map((x) => `<tr><td style="padding:6px 14px 6px 0;color:#666;vertical-align:top">${escH(String(x).slice(0, 40))}</td><td style="padding:6px 0"><b>${escH(String(f[x] ?? '').slice(0, 3000)).replace(/\n/g, '<br>')}</b></td></tr>`).join('');
+  try {
+    await sendMail(env, { to: env.OWNER_EMAIL, replyTo: email, subject: String(b.subject || 'Dopyt z webu pora.sk').slice(0, 150),
+      htmlBody: `<div style="font:15px/1.5 Arial,sans-serif"><p>Nový dopyt z webu pora.sk. Odpovedzte priamo na tento e-mail, odpoveď pôjde klientovi.</p><table style="border-collapse:collapse">${rows}</table></div>` });
+  } catch (e) { return json({ error: 'mail' }, 502, c); }
+  return json({ success: true }, 200, c);
+}
+
 async function chat(req, env, url, ectx) {
   const c = cors(req); if (!c['Access-Control-Allow-Origin']) return json({ error: 'origin' }, 403);
   let body; try { body = await req.json(); } catch (_) { return json({ error: 'bad json' }, 400, c); }
@@ -325,8 +341,9 @@ export default {
     if (req.method === 'OPTIONS') return new Response(null, { status: 204, headers: cors(req) });
     try {
       if (url.pathname === '/chat' && req.method === 'POST') return await chat(req, env, url, ectx);
+      if (url.pathname === '/lead' && req.method === 'POST') return await lead(req, env);
       if (url.pathname === '/approve') return await approve(req, env, url);
-      if (url.pathname === '/health') return json({ ok: true, build: '2026-11-16', model: MODEL, spend: { today: Number((await cget('d/' + today())).toFixed(2)), month: Number((await cget('m/' + month())).toFixed(2)), stop: DAY_STOP }, config: { anthropic: !!env.ANTHROPIC_API_KEY, brevo: !!env.BREVO_API_KEY, pdf: !!(env.CF_API_TOKEN && env.CF_ACCOUNT_ID), signing: !!env.SIGNING_SECRET, owner: env.OWNER_EMAIL || null, auto: env.AUTO_SEND || 'false' } });
+      if (url.pathname === '/health') return json({ ok: true, build: '2026-11-16b', model: MODEL, spend: { today: Number((await cget('d/' + today())).toFixed(2)), month: Number((await cget('m/' + month())).toFixed(2)), stop: DAY_STOP }, config: { anthropic: !!env.ANTHROPIC_API_KEY, brevo: !!env.BREVO_API_KEY, pdf: !!(env.CF_API_TOKEN && env.CF_ACCOUNT_ID), signing: !!env.SIGNING_SECRET, owner: env.OWNER_EMAIL || null, auto: env.AUTO_SEND || 'false' } });
       return json({ ok: true, service: 'PORA asistent' });
     } catch (e) { return json({ error: 'server', detail: String(e).slice(0, 300) }, 500, cors(req)); }
   },
