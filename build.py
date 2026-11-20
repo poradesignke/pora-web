@@ -100,8 +100,9 @@ exec(open('gen_local.py').read())
 # Google tag (consent mode v2) na všetky podstránky – landing /interierovy-dizajn/, mestá, projekty
 if ADS:
     _T=('<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}'
-        '(function(){var c;try{c=localStorage.getItem("pora_cookies")}catch(e){}var g=c==="all"?"granted":"denied";'
-        'gtag("consent","default",{ad_storage:g,ad_user_data:g,ad_personalization:g,analytics_storage:g,wait_for_update:500});})();'
+        '(function(){var c;try{c=localStorage.getItem("pora_cookies")}catch(e){}var g=c==="all"?"granted":"denied",o=c&&c!=="all"?"denied":"granted";'
+        'gtag("consent","default",{ad_storage:o,ad_user_data:o,ad_personalization:o,analytics_storage:o,wait_for_update:500});'
+        'gtag("consent","default",{ad_storage:g,ad_user_data:g,ad_personalization:g,analytics_storage:g,region:[\"AT\",\"BE\",\"BG\",\"HR\",\"CY\",\"CZ\",\"DK\",\"EE\",\"FI\",\"FR\",\"DE\",\"GR\",\"HU\",\"IS\",\"IE\",\"IT\",\"LV\",\"LI\",\"LT\",\"LU\",\"MT\",\"NL\",\"NO\",\"PL\",\"PT\",\"RO\",\"SK\",\"SI\",\"ES\",\"SE\",\"GB\",\"CH\"]});})();'
         'gtag("js",new Date());gtag("config","'+ADS[0]+'");document.addEventListener("click",function(e){var l=e.target.closest&&e.target.closest(\'a[href^="tel:"],a[href^="mailto:"]\');if(l)gtag("event","conversion",{send_to:"'+ADS[0]+'/JWQhCJq72bkdEMLmqNoC"});},true);</script>\n'
         '<script async src="https://www.googletagmanager.com/gtag/js?id='+ADS[0]+'"></script>\n</head>')
     _n=0
