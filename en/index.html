@@ -1291,7 +1291,7 @@ if(!ckv)ck.classList.add('show');
 /* Google Ads – consent mode v2: značka beží vždy, bez súhlasu iba anonymne (bez cookies), so súhlasom naplno */
 window.poraConv=function(){};
 (function(){const id=window.PORA_ADS;if(!id)return;window.dataLayer=window.dataLayer||[];window.gtag=function(){dataLayer.push(arguments);};
- const g=ckv==='all';gtag('consent','default',{ad_storage:g?'granted':'denied',ad_user_data:g?'granted':'denied',ad_personalization:g?'granted':'denied',analytics_storage:g?'granted':'denied',wait_for_update:500});
+ const g=ckv==='all'?'granted':'denied',o=ckv&&ckv!=='all'?'denied':'granted';/* mimo EHP/UK/CH meriame bez lišty (kým návštevník neodmietne); v EHP len so súhlasom */gtag('consent','default',{ad_storage:o,ad_user_data:o,ad_personalization:o,analytics_storage:o,wait_for_update:500});gtag('consent','default',{ad_storage:g,ad_user_data:g,ad_personalization:g,analytics_storage:g,region:["AT","BE","BG","HR","CY","CZ","DK","EE","FI","FR","DE","GR","HU","IS","IE","IT","LV","LI","LT","LU","MT","NL","NO","PL","PT","RO","SK","SI","ES","SE","GB","CH"]});
  gtag('js',new Date());gtag('config',id,{allow_enhanced_conversions:true});
  const sc=document.createElement('script');sc.async=1;sc.src='https://www.googletagmanager.com/gtag/js?id='+encodeURIComponent(id);document.head.appendChild(sc);
  window.poraConv=function(){if(window.PORA_ADS_LABEL)gtag('event','conversion',{send_to:id+'/'+window.PORA_ADS_LABEL});};
